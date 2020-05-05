@@ -1,0 +1,23 @@
+.newsletter { 
+  background-color: $boatblue; 
+  color: #fff; 
+}
+.newsletter__input { 
+  font-family: $fonts; 
+  color: #737776; 
+}
+.newsletter__img {  
+  background-image: inline-svg('mail-icon', #fff);
+}
+.newsletter ::-webkit-input-placeholder { 
+  color: #737776; 
+}
+.newsletter :-moz-placeholder { 
+  color: #737776; 
+}
+.newsletter ::-moz-placeholder { 
+  color: #737776; 
+}
+.newsletter :-ms-input-placeholder { 
+  color: #737776; 
+}

@@ -1,0 +1,10 @@
+.paginatedproperties__arrow {
+  background-image: inline-svg('side-chevron',$lightgreen);
+}
+.paginatedproperties__dotinner {
+  background: $lightgreen;
+  border: 2px solid $lightgreen;
+}
+.paginatedproperties__price {
+  background: $lightgreen;
+}

@@ -1,0 +1,251 @@
+.scrollproperties {
+  padding: 100px 0 49px;
+}
+.scrollproperties--noresults {
+  padding: 30px 0 19px;
+}
+.scrollproperties__scroll {
+  margin: 0 -25.5px;
+  .slick-slide {
+    background: #fff;
+  }
+  .slick-arrow {
+    background-image: inline-svg('side-chevron',$lightgreen);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 31px;
+    position: absolute;
+    top: 50%; 
+    margin-top: -44.5px;
+    cursor: pointer;
+  }
+  .slick-prev {
+    left: -62px;
+    transform: rotate(180deg);
+  }
+  .slick-next {
+    right: -69px;
+  }
+  .slick-dots {
+    padding: 46px 0 0;
+    margin: 0;
+    line-height: 0;
+    text-align: center;
+    cursor: pointer;
+    li {
+      display: inline-block;
+      padding: 0;
+      width: 8px;
+      height: 8px;
+      position: relative;
+      transition: all 0.2s linear;
+      vertical-align: middle;
+      margin: 0 3.5px;
+      &:before {
+        transition: all 0.2s linear;
+        content: "";
+        display: inline-block;
+        border-radius: 100%;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: absolute;
+        background: $lightgreen;
+        box-sizing: border-box;
+        border: 2px solid $lightgreen;
+      }
+      button {
+        opacity: 0;
+        visibility: hidden;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        line-height: 0;  
+      }
+      &.slick-active {
+        width: 12px;
+        height: 12px;
+        margin: 0 1.5px;
+        &:before {
+          background: #fff; 
+        }
+      }
+    }
+  }
+}
+.scrollproperties__scrollitem {
+  box-sizing: border-box;
+  padding: 0 25.5px;
+}
+.scrollproperties__itemtitle {
+  font-size: 1.495em;
+  padding-bottom: 15px;
+  h3 {
+    text-transform: none;
+    line-height: 1.25em;
+  }
+}
+.scrollproperties__contentarea {
+  background: #f9fbfc;
+  border-radius: 0 0 5px 5px;
+  overflow: hidden;
+  padding: 38px 45px 46px 35px; 
+  box-sizing: border-box;
+}
+.scrollproperties__imgarea {
+  position: relative;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+}
+.scrollproperties__img {
+  width: 100%;
+}
+.scrollproperties__price {
+  position: absolute; 
+  bottom: 0; 
+  right: 0;
+  background: $lightgreen;
+  color: #fff;
+  font-weight: bold;
+  font-size: 129%;
+  border-radius: 5px 0 0 0;
+  padding: 13.5px 20px 13.5px 22px;
+}
+.section .scrollproperties__itemsummary {
+  p {
+    line-height: 1.37em;
+    padding-bottom: 25px;
+  }
+}
+.scrollproperties__itembtn {
+  padding-top: 15px;
+  padding-bottom: 12px;
+  margin: 0;
+}
+
+@media(max-width:1550px){
+  .scrollproperties__scroll {
+    .slick-prev {
+      left: -32px;
+    }
+    .slick-next {
+      right: -30px;
+    }
+  }
+  .scrollproperties {
+    padding: 85px 0 49px;
+  }
+  .scrollproperties--noresults {
+    padding: 30px 0 19px;
+  }
+}
+@media(max-width:1415px){
+  .scrollproperties {
+    padding: 85px 60px 49px;
+  }
+  .scrollproperties__scroll {
+    .slick-arrow {
+      margin-top: -25.5px;
+    }
+    .slick-next {
+      right: -18px;
+    }
+    .slick-prev {
+      left: -18px;
+    }
+    .slick-dots {
+      padding: 30px 0 0;
+    }
+  } 
+  .scrollproperties--noresults {
+    padding: 30px 0 19px;
+  }
+}
+@media(max-width:1300px){
+  .scrollproperties {
+    padding: 62px 60px 43px;
+  }
+  .scrollproperties--noresults {
+    padding: 30px 0 19px;
+  }
+}
+@media(max-width:1120px){
+  .scrollproperties__scroll {
+    margin: 0;
+    .slick-next {
+      right: -21px;
+    }
+    .slick-prev {
+      left: -21px;
+    }
+  }
+  .scrollproperties {
+    padding: 52px 15px 41px;
+  }
+  .scrollproperties__scrollitem {
+    padding: 0 13px; 
+  }
+  .scrollproperties__contentarea {
+    padding: 22px 20px 28px 22px;
+  }
+  .scrollproperties--noresults {
+    padding: 30px 0 19px;
+  }
+}
+@media(max-width:990px){
+  .scrollproperties__itemtitle {
+    font-size: 1.25em;
+    padding-bottom: 12px;
+  }
+  .section .scrollproperties__itemsummary p {
+    padding-bottom: 20px; 
+  }
+  .scrollproperties__contentarea {
+    padding: 19px 18px 30px 20px;
+  }
+  .scrollproperties__price {
+    padding: 10.5px 12px 10.5px 14px;
+  }
+}
+@media(max-width:700px){
+  .scrollproperties {
+    padding: 42px 15px 36px;
+  }
+  .scrollproperties__itemtitle {
+    font-size: 1.1em;
+    padding-bottom: 9px;
+  }
+  .scrollproperties--noresults {
+    padding: 25px 0 8px;
+  }
+}
+@media(max-width:650px){
+  .scrollproperties {
+    padding: 32px 11px 38px;
+  }
+  .scrollproperties--noresults {
+    padding: 25px 0 8px;
+  }
+}
+@media(max-width:400px){
+  .scrollproperties__contentarea {
+    padding: 14px 18px 21px 18px;
+  }
+  .scrollproperties {
+    padding: 28px 10px 24px;
+  }
+  .scrollproperties__scroll {
+    .slick-arrow {
+      margin-top: -15.5px;
+    }
+    .slick-dots {
+      padding: 15px 0 0;
+    }
+  }
+  .scrollproperties--noresults {
+    padding: 22px 0 8px;
+  }
+}

@@ -1,0 +1,46 @@
+body { 
+	color:#000; 
+	font-family: $fonts; 
+	background:#fff; 
+}
+h1, .h1 { 
+	color: $teal;
+	&:before {
+		background: $teal; 	
+	}
+}
+h2, .h2 { 
+	color: $teal; 
+}
+h3, .h3 { 
+	color: $teal;
+}
+h4, .h4 { 
+	color: $teal; 
+}
+h6 {
+	color: $teal;
+}
+
+a {  
+	color: $teal; 
+	&:hover {
+		color: $teal; 
+	}
+}
+em { 
+	color: $teal; 
+}
+
+.leftButton, .rightButton { 
+	background: $teal; 
+}
+.leftButton span { 
+	background-image: inline-svg('arrow-gallery-scroll-left',#fff);
+	background-size: contain;
+}
+.rightButton span { 
+	background-image: inline-svg('arrow-gallery-scroll-right',#fff);
+	background-size: contain;
+}
+

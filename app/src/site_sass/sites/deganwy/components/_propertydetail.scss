@@ -1,0 +1,86 @@
+.propertydetail__header { 
+  border-bottom-color: $turquoise; 
+}
+.propertydetail__price { 
+  color: $turquoise; 
+}
+.propertydetail__link { 
+  border-color: $turquoise; 
+}
+.propertydetail__contactitem  {  
+  border-bottom-color: $darkturquoise; 
+  color: $turquoise; 
+}
+.propertydetail__linkicon { 
+  background: $turquoise; 
+}
+.propertydetail__detailsheading { 
+  border-bottom-color: $darkturquoise; 
+}
+.propertydetail__detailsheadingtext { 
+  color: $turquoise; 
+  border-bottom-color: $turquoise;
+}
+.propertydetail__icontext { 
+  color: $turquoise; 
+}
+.propertydetail__galleryviewphotosiconimg {
+  background-image: url(/assets/presentation/viewphotos-icon-turquoise.png);
+}
+.propertydetail__detailitem  { 
+  border-bottom-color: $darkturquoise; 
+}
+.propertydetail__itemname { 
+  color: $turquoise; 
+}
+.propertydetail__disclaimer  p { 
+  color: $darkgrey; 
+}
+.propertydetail__galleryviewphotos { 
+  background: #fff; 
+  color: $turquoise; 
+}
+.propertydetail__contacticon--call { 
+  background-image: url(/assets/presentation/property-callicon-turquoise.png);
+}
+.propertydetail__contacticon--email {
+  background-image: url(/assets/presentation/property-emailicon-turquoise.png);
+}
+.propertydetail__img--bedrooms {
+  background-image: inline-svg('bed-icon',$turquoise);
+}
+.propertydetail__img--bathrooms {
+  background-image: url(/assets/presentation/bathrooms-icon-turquoise.png);
+}
+.propertydetail__linkiconimg--viewing {
+  background-image: url(/assets/presentation/viewing-icon.png);
+}
+.propertydetail__linkiconimg--brochure {
+  background-image: url(/assets/presentation/brochure-icon.png);
+}
+.propertydetail__linkiconimg--floorplans {
+  background-image: url(/assets/presentation/floorplan-icon.png);
+}
+.propertydetail__linkiconimg--calc {
+  background-image: url(/assets/presentation/calculator-icon.png);
+}
+.propertydetail__linkiconimg--finance {
+  background-image: url(/assets/presentation/finance-icon.png);
+}
+.propertydetail__linkiconimg--friend {
+  background-image: url(/assets/presentation/sendtofriend-icon.png);
+}
+.propertydetail__linkiconimg--star {
+  background-image: url(/assets/presentation/amenities-icon.png);
+}
+.propertydetail__linkiconimg--guide {
+  background-image: url(/assets/presentation/buyersguide-icon.png);
+}
+.propertydetail__linkiconimg--question {
+  background-image: url(/assets/presentation/faqs-icon.png);
+}
+@media (max-width: 500px) {
+	.propertydetail__detailsheadingtextouter { 
+    border-bottom-color: $darkturquoise; 
+  }
+}

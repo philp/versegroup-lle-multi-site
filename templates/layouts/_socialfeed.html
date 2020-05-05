@@ -1,0 +1,63 @@
+<div class="socialfeeds">
+
+  <div class="socialfeeds__info">
+    <div class="tb">
+      <div class="tb__c">
+        <div class="container container--homesocial">
+          <div class="socialfeeds__padding">
+            {% if currentGlobals.socialPanelTitle|length %}
+              <div class="socialfeeds__title">
+                {{ currentGlobals.socialPanelTitle }}
+              </div>
+            {% endif %}
+            {% if currentGlobals.socialPanelContent|length %}
+            <div class="socialfeeds__content {% if currentSite.handle == 'gamekeepersInn' %}socialfeeds__content--nonbold{% endif %}">
+              {{ currentGlobals.socialPanelContent }}
+            </div>
+            {% endif %}
+            <div class="socialfeeds__links">
+              {% if currentGlobals.facebookLink|length %}
+              <a href="{{ currentGlobals.facebookLink }}" target="_blank" class="socialfeeds__link"><span class="socialfeeds__linkimg socialfeeds__linkimg--facebook">&nbsp;</span></a>
+              {% endif %}
+              {% if currentGlobals.twitterLink|length %}
+              <a href="{{ currentGlobals.twitterLink }}" target="_blank" class="socialfeeds__link"><span class="socialfeeds__linkimg socialfeeds__linkimg--twitter">&nbsp;</span></a>
+              {% endif %}
+              {% if currentGlobals.instagramLink|length %}
+              <a href="{{ currentGlobals.instagramLink }}" target="_blank" class="socialfeeds__link"><span class="socialfeeds__linkimg socialfeeds__linkimg--instagram">&nbsp;</span></a>
+              {% endif %}
+              {% if currentGlobals.googlePlusLink|length %}
+              <a href="{{ currentGlobals.googlePlusLink }}" target="_blank" class="socialfeeds__link"><span class="socialfeeds__linkimg socialfeeds__linkimg--googleplus">&nbsp;</span></a>
+              {% endif %}
+              {% if currentGlobals.tripadvisorLink|length %}
+              <a href="{{ currentGlobals.tripadvisorLink }}" target="_blank" class="socialfeeds__link"><span class="socialfeeds__linkimg socialfeeds__linkimg--tripadvisor">&nbsp;</span></a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {% verbatim %}
+  <script type="html/template" id="socialfeedtemplate">
+    <a href="{{link}}" target="_blank" class="socialfeeds__item" style="background:url({{url}}) center no-repeat; background-size:cover;">
+      <span class="socialfeeds__itemback">&nbsp;</span>
+      <span class="socialfeeds__itemcontent">
+        <span class="socialfeeds__itemcaption">
+          <span class="socialfeeds__itemcaptioninner">
+            {{text}}
+          </span>
+        </span>				
+      </span>
+      <span class="socialfeeds__itemtype">
+        <img src="assets/presentation/{{type}}-posticon.png" alt="{{type}}" />
+      </span>
+      <span class="socialfeeds__username">
+        @{{user_id}}
+      </span>
+    </a>
+  </script>
+  {% endverbatim %}
+  <div id="socialfeed" class="cs" data-site="{{ currentSite.handle }}"></div>
+
+</div>

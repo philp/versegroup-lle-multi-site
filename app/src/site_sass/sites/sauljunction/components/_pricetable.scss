@@ -1,0 +1,14 @@
+.pricetable__mainheading {
+  background: $saulblue;
+}
+.pricetable__secondaryheading {
+  color: $saulblue;
+}
+.pricetable__undertable {
+  color: $saulblue;
+}
+.pricetable__cell--right {
+  &:before {
+    border-color: transparent transparent transparent $saulblue;
+  }
+}

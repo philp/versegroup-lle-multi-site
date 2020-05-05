@@ -1,0 +1,195 @@
+{% extends "layouts/_layout" %}
+
+{% block headextra %}
+	{% if entry.displayContactForm is defined and entry.displayContactForm %}
+		<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+		<script>
+			function onSubmit(token) {
+				document.getElementById("contactform").submit();
+			}
+		</script>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	
+		{% include "layouts/_firstsection" %}
+
+		<div id="section3">
+		
+			<div class="section section--white">
+			
+				{% if entry.listingsHeading|length or entry.listingsTopButtons|length %}
+					<div class="section__listingstop {% if boatSalesTemplate %}section__listingstop--wbackground{% endif %}">
+						<div class="container cs {% if boatSalesTemplate %}container--widepanelareas{% endif %}">
+							<div class="section__listingstopinner">
+								{% if entry.listingsHeading|length %}
+									<div class="section__listingstopleft">
+										{{ entry.listingsHeading }}
+									</div>
+								{% endif %}
+								{% if entry.listingsTopButtons|length and boatSalesTemplate == false %}
+									<div class="section__listingstopright">
+										{% for item in entry.listingsTopButtons.all() %}
+											{% if item.type == "button" %}
+												{% if item.text|length and (item.entry|length or item.linkUrl|length or item.download|length) %}
+													
+													{% set isPopup = false %}
+													{% if item.entry|length %}
+														{% if item.entry.one().section.handle == 'popups' %}
+															{% set isPopup = true %}
+														{% endif %}
+													{% endif %}
+												
+													<a href="{% if item.entry|length %} {{ item.entry.one().url }} {% elseif item.linkUrl|length %} {{ item.linkUrl }} {% elseif item.download|length %} {{ item.download.one().url }} {% endif %}" class="btn section__listingstopbutton 
+													{% if isPopup == true %}popuplink{% endif %}
+													" {% if isPopup == true %}data-popup="{{ item.entry.one().slug }}"{% endif %} {% if item.openInNewTab %}target="_blank"{% endif %}>{{ item.text }}</a>
+																										
+												{% endif %}
+											{% endif %}
+										{% endfor %}
+									</div>
+								{% endif %}
+							</div>
+						</div>	
+					</div>
+				{% endif %}
+				
+				{% if boatSalesTemplate %}
+					{% set paginateProperties = craft.entries.section('properties').relatedTo(category).limit(12) %}
+				
+					{% paginate paginateProperties as pageInfo, listingsProperties %}
+					
+					<div class="paginatedproperties {% if properties|length < 1 %}paginatedproperties--noresults{% endif %}">
+						<div class="container cs container--widepanelareas">
+							{% if listingsProperties|length > 0 %}
+								<div class="paginatedproperties__holder">
+									<div class="paginatedproperties__items">
+										{% for property in listingsProperties %}
+											<div class="paginatedproperties__item">
+												{% if property.listingPropertyImage|length %}
+													<div class="paginatedproperties__imgarea">
+														<a href="{{ property.url }}"><img src="{{ property.listingPropertyImage.one().getUrl('propertyListingScrollImage') }}" alt="{{ property.listingPropertyImage.one().title }}" class="paginatedproperties__img" /></a>
+														{% if property.price|length %}
+															<div class="paginatedproperties__price">&pound;{{ property.price|number_format(2, '.', ',')|replace({".00" : ""}) }}</div>
+														{% endif %}
+													</div>
+												{% endif %}
+												<div class="paginatedproperties__contentarea">
+													{% if property.listingPropertyTitle|length %}
+														<div class="paginatedproperties__itemtitle">{{ property.listingPropertyTitle }}</div>
+													{% endif %}
+													{% if property.listingPropertyContent|length %}
+														<div class="paginatedproperties__itemsummary">
+															{{ property.listingPropertyContent }}
+														</div>
+													{% endif %}
+													<a href="{{ property.url }}" class="btn paginatedproperties__itembtn">View This Boat</a>
+												</div>
+											</div>
+										{% endfor %}
+									</div>
+									{% if pageInfo.nextUrl %}<a href="{{ pageInfo.nextUrl }}" class="paginatedproperties__arrow paginatedproperties__arrow--next">&nbsp;</a>{% endif %}
+									{% if pageInfo.prevUrl %}<a href="{{ pageInfo.prevUrl }}" class="paginatedproperties__arrow paginatedproperties__arrow--prev">&nbsp;</a>{% endif %}
+								
+									{#
+									{% if paginateProperties|length > 12 %}
+										<div class="paginatedproperties__dots">{% spaceless %}
+											{% for page, url in pageInfo.getPrevUrls() %}
+												<a href="{{ url }}" class="paginatedproperties__dot"><span class="paginatedproperties__dotinner">&nbsp;</span></a>
+											{% endfor %}
+											<span class="paginatedproperties__dot paginatedproperties__dot--active"><span class="paginatedproperties__dotinner">&nbsp;</span></span>
+											{% for page, url in pageInfo.getNextUrls() %}
+											   <a href="{{ url }}" class="paginatedproperties__dot"><span class="paginatedproperties__dotinner">&nbsp;</span></a>
+											{% endfor %}
+										{% endspaceless %}</div>
+									{% endif %}
+									#}
+									
+									<div class="paginatedproperties__pagination">
+										{% if pageInfo.firstUrl != craft.app.request.absoluteUrl and pageInfo.prevUrl != pageInfo.firstUrl %}
+										<a href="{{ pageInfo.firstUrl }}" class="paginatedproperties__paginationlink"><<</a>
+										{% endif %}
+										{% if pageInfo.prevUrl %}<a href="{{ pageInfo.prevUrl }}" class="paginatedproperties__paginationlink"><</a>{% endif %}
+
+										{% for page, url in pageInfo.getPrevUrls(5) %}
+										    <a href="{{ url }}" class="paginatedproperties__paginationlink">{{ page }}</a>
+										{% endfor %}
+
+										<span class="paginatedproperties__paginationcurrent">{{ pageInfo.currentPage }}</span>
+
+										{% for page, url in pageInfo.getNextUrls(5) %}
+										    <a href="{{ url }}" class="paginatedproperties__paginationlink">{{ page }}</a>
+										{% endfor %}
+
+										{% if pageInfo.nextUrl %}<a href="{{ pageInfo.nextUrl }}" class="paginatedproperties__paginationlink">></a>{% endif %}
+										{% if pageInfo.lastUrl != craft.app.request.absoluteUrl and pageInfo.nextUrl != pageInfo.lastUrl %}
+										<a href="{{ pageInfo.lastUrl }}" class="paginatedproperties__paginationlink">>></a>
+										{% endif %}
+									</div>
+									
+								</div>
+							{% else %}
+								<p>No {% if boatSalesTemplate %}boats{% else %}properties{% endif %} are currently available.</p>	
+							{% endif %}
+						</div>
+					</div>
+					
+					
+				
+				
+					
+					
+					
+				{% else %}
+					{% if entry.listingsHeading|length == 0 and entry.listingsTopButtons|length == 0 and properties|length == 0 %}{% else %}
+					<div class="properties">
+						{% if properties|length > 0 %}
+							<div class="container">
+								{% for property in properties %}
+									{% if property.listingPropertyTitle|length %}
+										<div class="properties__item cs">
+											{% if property.listingPropertyImage|length %}
+												<div class="properties__itemimgside {% if loop.index is odd %}properties__itemimgside--left{% else %}properties__itemimgside--right{% endif %}">
+													<div class="properties__itemimgsideinner">
+														<a href="{{ property.url }}"><img src="{{ property.listingPropertyImage.one().getUrl('propertyListingImage') }}" alt="{{ property.listingPropertyImage.one().title }}" class="properties__itemimg" /></a>
+													</div>
+												</div>
+											{% endif %}
+											<div class="properties__itemcontentside {% if loop.index is odd %}properties__itemcontentside--left{% else %}properties__itemcontentside--right{% endif %}">
+												{% if property.listingPropertyTitle|length %}
+												<div class="properties__itemtitle">{{ property.listingPropertyTitle }}</div>
+												{% endif %}
+												{% if property.listingPropertyContent|length %}
+												<div class="properties__itemsummary">
+													{{ property.listingPropertyContent }}
+												</div>
+												{% endif %}
+												<a href="{{ property.url }}" class="btn properties__itembtn">View Property</a>
+											</div>
+										</div>
+									{% endif %}
+								{% endfor %}
+							</div>
+						{% else %}
+							<div class="container section__noproperties">
+								<p>No properties are currently available.</p>
+							</div>
+						{% endif %}
+					</div>
+					{% endif %}
+				{% endif %}
+			
+			</div>
+		
+		</div>
+
+		{% if entry.displayContactForm is defined and entry.displayContactForm %}
+			<div class="section section--white" id="section{{ finalSectionNum - 1 }}">
+				{% include 'layouts/_contactform' %}
+			</div>
+		{% endif %}
+
+
+{% endblock %}
+

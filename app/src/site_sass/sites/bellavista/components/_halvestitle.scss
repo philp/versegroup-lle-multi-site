@@ -1,0 +1,23 @@
+.halvestitle__introside { 
+  border-left-color: $brandbeige; 
+  color: $darkgrey; 
+  padding-top: 17px;
+  padding-bottom: 36px;
+}
+
+@media(max-width:1140px){
+  .halvestitle__introside {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+@media(max-width:1020px){
+  .halvestitle {
+    padding-bottom: 40px;
+  }
+}
+@media(max-width:400px){
+  .halvestitle {
+    padding-bottom: 32px;
+  }
+}

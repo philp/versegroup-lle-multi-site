@@ -1,0 +1,11 @@
+.announcement {
+  color: #fff;
+}
+.announcement__back {
+  background: $lightgreen;
+}
+
+.announcement__content {
+  background: $darkgreen;
+  border-bottom-color: darken($darkgreen, 8%);
+}

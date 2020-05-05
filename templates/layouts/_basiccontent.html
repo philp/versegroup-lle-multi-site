@@ -1,0 +1,433 @@
+{% if entry.basicContent|length %}
+  {% for item in entry.basicContent.all() %}
+    {% set loopIndex = loop.index %}
+    {% switch item.type %}
+      {% case 'fullWidthContent' %}
+        {% if item.heading|length %}
+          {{ item.heading }}
+        {% endif %}
+        {% if item.displayPostedDate %}
+          <div class="blog__postedbar">
+            <strong>Posted: </strong> {{ entry.dateCreated|date('jS F Y') }}
+          </div>
+        {% endif %}
+        
+        {% if item.introduction|length %}
+          <div class="section__intro">
+            {{ item.introduction }}
+          </div>
+        {% endif %}
+        {% if item.mainContent|length %}
+          {{ item.mainContent }}
+        {% endif %}
+        
+        {% if (item.button1Entry|length or item.button1Link|length or item.button1Download|length) and item.button1Text|length %}{% set isPopup = false %}{% if item.button1Entry|length %}
+          {% if item.button1Entry.one().section.handle == 'popups' %}
+            {% set isPopup = true %}
+          {% endif %}
+        {% endif %}<a href="{% if item.button1Entry|length %}{{ item.button1Entry.one().url }}{% elseif item.button1Download|length %}{{ item.button1Download.one().url }}{% else %}{{ item.button1Link }}{% endif %}" class="btn {% if isPopup == true %}popuplink{% endif %}" {% if isPopup == true %}data-popup="{{ item.button1Entry.one().slug }}"{% endif %} {% if item.button1OpenInNewTab %}target="_blank"{% endif %}>{{ item.button1Text }}</a>{% endif %}{% if (item.button2Entry|length or item.button2Link|length or item.button2Download|length) and item.button2Text|length %}{% set isPopup = false %}{% if item.button2Entry|length %}
+          {% if item.button2Entry.one().section.handle == 'popups' %}
+            {% set isPopup = true %}
+          {% endif %}
+        {% endif %}<a href="{% if item.button2Entry|length %}{{ item.button2Entry.one().url }}{% elseif item.button2Download|length %}{{ item.button2Download.one().url }}{% else %}{{ item.button2Link }}{% endif %}" class="btn {% if isPopup == true %}popuplink{% endif %}"  {% if isPopup == true %}data-popup="{{ item.button2Entry.one().slug }}"{% endif %} {% if item.button2OpenInNewTab %}target="_blank"{% endif %}>{{ item.button2Text }}</a>{% endif %}
+        
+      {% case 'fullWidthImage' %}
+        {% if item.image|length %}
+          <div class="section__fullimg">
+             <img src="{{ item.image.one().url }}" alt="{{ item.image.one().title }}" />
+          </div>
+        {% endif %}
+      {% case 'halvesText' %}
+        <div class="cs">
+          {% if item.leftText|length %}
+            <div class="section__evenhalf section__evenhalf--left">
+              {{ item.leftText }}
+            </div>
+          {% endif %}
+          {% if item.rightText|length %}
+            <div class="section__evenhalf section__evenhalf--right">
+              {{ item.rightText }}
+            </div>
+          {% endif %}
+        </div>
+      {% case 'halvesImages' %}
+        <div class="section__evenhalves cs">
+          {% if item.leftImage|length %}
+            <div class="section__evenhalf section__evenhalf--left">
+              <img src="{{ item.leftImage.one().url }}" alt="{{ item.leftImage.one().title }}" class="section__halfonlyimgs section__halfonlyimgs--toprow" />
+            </div>
+          {% endif %}
+          {% if item.rightImage|length %}
+            <div class="section__evenhalf section__evenhalf--right">
+              <img src="{{ item.rightImage.one().url }}" alt="{{ item.rightImage.one().title }}" class="section__halfonlyimgs" />
+            </div>
+          {% endif %}
+        </div>
+      {% case 'halvesImageText' %}
+        <div class="section__evenhalves cs">
+          {% if item.image|length %}
+            <div class="section__evenhalf {% if item.layout == 'imageLeftTextRight' %}section__evenhalf--left{% else %}section__evenhalf--right{% endif %}">
+              <img src="{{ item.image.one().url }}" alt="{{ item.image.one().title }}" class="section__evenhalfimgwtext" />
+            </div>
+          {% endif %}
+        
+          {% if item.text|length %}
+            <div class="section__evenhalf {% if item.layout == 'imageLeftTextRight' %}section__evenhalf--right{% else %}section__evenhalf--left{% endif %}">
+              {{ item.text }}
+            </div>
+          {% endif %}
+        </div>
+      {% case 'quartersImages' %}
+        {% if item.images|length %}
+          <div class="section__qtrs cs">
+            {% for img in item.images.all() %}
+              <div class="section__qtr">
+                <img src="{{ img.url }}" alt="{{ img.title }}" class="section__qtronlyimgs {% if loop.index == 1 or loop.index == 2 %}section__qtronlyimgs--toprow{% endif %}" />
+              </div>
+              {% if loop.index == 2 %}
+                <div class="clear section__qtrswitchclear">&nbsp;</div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% case 'quartersText' %}
+        <div class="cs">
+          {% if item.text1|length %}
+            <div class="section__qtr section__qtr--txtonly">
+              {{ item.text1 }}
+            </div>
+          {% endif %}
+          {% if item.text2|length %}
+            <div class="section__qtr section__qtr--txtonly">
+              {{ item.text2 }}
+            </div>
+          {% endif %}
+          {% if item.text3|length %}
+            <div class="section__qtr">
+              {{ item.text3 }}
+            </div>
+          {% endif %}
+          {% if item.text4|length %}
+            <div class="section__qtr">
+              {{ item.text4 }}
+            </div>
+          {% endif %}
+        </div>
+      {% case 'quartersImagesText' %}
+        <div class="section__qtrs cs">
+          <div class="section__qtr">
+            {% if item.layout == "imagesBelowText" %}
+              {% if item.text1|length %}
+                {{ item.text1 }}
+              {% endif %}
+              {% if item.image1|length %}
+                <img src="{{ item.image1.one().url }}" alt="{{ item.image1.one().title }}" class="section__imgbelow section__imgbelow--toprow" />
+              {% endif %}
+            {% else %}
+              {% if item.image1|length %}
+                <img src="{{ item.image1.one().url }}" alt="{{ item.image1.one().title }}" class="section__qtrovertxt" />
+              {% endif %}
+              {% if item.text1|length %}
+                {{ item.text1 }}
+              {% endif %}
+            {% endif %}
+          </div>
+          <div class="section__qtr">
+            {% if item.layout == "imagesBelowText" %}
+              {% if item.text2|length %}
+                {{ item.text2 }}
+              {% endif %}
+              {% if item.image2|length %}
+                <img src="{{ item.image2.one().url }}" alt="{{ item.image2.one().title }}" class="section__imgbelow section__imgbelow--toprow" />
+              {% endif %}
+            {% else %}
+              {% if item.image2|length %}
+                <img src="{{ item.image2.one().url }}" alt="{{ item.image2.one().title }}" class="section__qtrovertxt" />
+              {% endif %}
+              {% if item.text2|length %}
+                {{ item.text2 }}
+              {% endif %}
+            {% endif %}
+          </div>
+          <div class="section__qtr">
+            {% if item.layout == "imagesBelowText" %}
+              {% if item.text3|length %}
+                {{ item.text3 }}
+              {% endif %}
+              {% if item.image3|length %}
+                <img src="{{ item.image3.one().url }}" alt="{{ item.image3.one().title }}" class="section__imgbelow" />
+              {% endif %}
+            {% else %}
+              {% if item.image3|length %}
+                <img src="{{ item.image3.one().url }}" alt="{{ item.image3.one().title }}" class="section__qtrovertxt" />
+              {% endif %}
+              {% if item.text3|length %}
+                {{ item.text3 }}
+              {% endif %}
+            {% endif %}
+          </div>
+          <div class="section__qtr">
+            {% if item.layout == "imagesBelowText" %}
+              {% if item.text4|length %}
+                {{ item.text4 }}
+              {% endif %}
+              {% if item.image4|length %}
+                <img src="{{ item.image4.one().url }}" alt="{{ item.image4.one().title }}" class="section__imgbelow" />
+              {% endif %}
+            {% else %}
+              {% if item.image4|length %}
+                <img src="{{ item.image4.one().url }}" alt="{{ item.image4.one().title }}" class="section__qtrovertxt" />
+              {% endif %}
+              {% if item.text4|length %}
+                {{ item.text4 }}
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      {% case 'twoQuartersOneHalfImages' %}
+        <div class="section__qtrs cs">
+          {% if item.layout == "halfImageLeft" %}
+            <div class="section__evenhalf section__evenhalf--left section__evenhalf--wmargin">
+              {% if item.halfImage|length %}
+                <img src="{{ item.halfImage.one().url }}" alt="{{ item.halfImage.one().title }}" class="section__halfwqtrsimg" />
+              {% endif %}
+            </div>
+            {% if item.quarterImages|length %}
+              {% for img in item.quarterImages.all() %}
+                <div class="section__qtr section__qtr--belowhalf">
+                  <img src="{{ img.url }}" alt="{{ img.title }}" class="section__qtrwhalfimg section__qtrwhalfimg--belowhalf" />
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% else %}
+            {% if item.quarterImages|length %}
+              {% for img in item.quarterImages.all() %}
+                <div class="section__qtr">
+                  <img src="{{ img.url }}" alt="{{ img.title }}" class="section__qtrwhalfimg  section__qtrwhalfimg--abovehalf" />
+                </div>
+              {% endfor %}
+            {% endif %}
+            <div class="section__evenhalf section__evenhalf--right">
+              {% if item.halfImage|length %}
+                <img src="{{ item.halfImage.one().url }}" alt="{{ item.halfImage.one().title }}" class="section__halfwqtrsimg" />
+              {% endif %}
+            </div>  
+          {% endif %}
+        </div>  
+      {% case 'twoQuartersOneHalfText' %}
+        <div class="cs">
+          {% if item.layout == "halfTextLeft" %}
+            <div class="section__evenhalf section__evenhalf--left section__evenhalf--wmargin section__evenhalf--txtonly">
+              {% if item.halfText|length %}
+                {{ item.halfText }}
+              {% endif %}           
+            </div>
+            <div class="section__qtr">
+              {% if item.quarterText1|length %}
+                {{ item.quarterText1 }}
+              {% endif %}
+            </div>
+            <div class="section__qtr">
+              {% if item.quarterText2|length %}
+                {{ item.quarterText2 }}
+              {% endif %}
+            </div>
+          {% else %}
+            <div class="section__qtr section__qtr--txtonly">
+              {% if item.quarterText1|length %}
+                {{ item.quarterText1 }}
+              {% endif %}
+            </div>
+            <div class="section__qtr section__qtr--txtonly">  
+              {% if item.quarterText2|length %}
+                {{ item.quarterText2 }}
+              {% endif %}
+            </div>
+            <div class="section__evenhalf section__evenhalf--right">
+              {% if item.halfText|length %}
+                {{ item.halfText }}
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      {% case 'twoQuartersOneHalfImagesText' %}
+        <div class="section__qtrs cs">
+          {% if item.layout == "halfPortionLeft" %}
+            <div class="section__evenhalf section__evenhalf--left section__evenhalf--wmargin">
+              {% if item.imagePositioning == "imagesBelowText" %}
+                {% if item.halfText|length %}
+                  {{ item.halfText }}
+                {% endif %}
+                {% if item.halfImage|length %}
+                  <img src="{{ item.halfImage.one().url }}" alt="{{ item.halfImage.one().title }}" class="section__imgbelow" />
+                {% endif %}
+              {% else %}
+                {% if item.halfImage|length %}
+                  <img src="{{ item.halfImage.one().url }}" alt="{{ item.halfImage.one().title }}" class="section__qtrovertxt" />
+                {% endif %}
+                {% if item.halfText|length %}
+                  {{ item.halfText }}
+                {% endif %}
+              {% endif %}                    
+            </div>
+            <div class="section__qtr">
+              {% if item.imagePositioning == "imagesBelowText" %}
+                {% if item.quarterText1|length %}
+                  {{ item.quarterText1 }}
+                {% endif %}
+                {% if item.quarterImage1|length %}
+                  <img src="{{ item.quarterImage1.one().url }}" alt="{{ item.quarterImage1.one().title }}" class="section__imgbelow" />
+                {% endif %}
+              {% else %}
+                {% if item.quarterImage1|length %}
+                  <img src="{{ item.quarterImage1.one().url }}" alt="{{ item.quarterImage1.one().title }}" class="section__qtrovertxt" />
+                {% endif %}
+                {% if item.quarterText1|length %}
+                  {{ item.quarterText1 }}
+                {% endif %}
+              {% endif %}
+            </div>
+            <div class="section__qtr">
+              {% if item.imagePositioning == "imagesBelowText" %}
+                {% if item.quarterText2|length %}
+                  {{ item.quarterText2 }}
+                {% endif %}
+                {% if item.quarterImage2|length %}
+                  <img src="{{ item.quarterImage2.one().url }}" alt="{{ item.quarterImage2.one().title }}" class="section__imgbelow" />
+                {% endif %}
+              {% else %}
+                {% if item.quarterImage2|length %}
+                  <img src="{{ item.quarterImage2.one().url }}" alt="{{ item.quarterImage2.one().title }}" class="section__qtrovertxt" />
+                {% endif %}
+                {% if item.quarterText2|length %}
+                  {{ item.quarterText2 }}
+                {% endif %}
+              {% endif %}
+            </div>
+          {% else %}
+            <div class="section__qtr">
+              {% if item.imagePositioning == "imagesBelowText" %}
+                {% if item.quarterText1|length %}
+                  {{ item.quarterText1 }}
+                {% endif %}
+                {% if item.quarterImage1|length %}
+                  <img src="{{ item.quarterImage1.one().url }}" alt="{{ item.quarterImage1.one().title }}" class="section__imgbelow section__imgbelow--toprow" />
+                {% endif %}
+              {% else %}
+                {% if item.quarterImage1|length %}
+                  <img src="{{ item.quarterImage1.one().url }}" alt="{{ item.quarterImage1.one().title }}" class="section__qtrovertxt" />
+                {% endif %}
+                {% if item.quarterText1|length %}
+                  {{ item.quarterText1 }}
+                {% endif %}
+              {% endif %}
+            </div>
+            <div class="section__qtr">
+              {% if item.imagePositioning == "imagesBelowText" %}
+                {% if item.quarterText2|length %}
+                  {{ item.quarterText2 }}
+                {% endif %}
+                {% if item.quarterImage2|length %}
+                  <img src="{{ item.quarterImage2.one().url }}" alt="{{ item.quarterImage2.one().title }}" class="section__imgbelow section__imgbelow--toprow" />
+                {% endif %}
+              {% else %}
+                {% if item.quarterImage2|length %}
+                  <img src="{{ item.quarterImage2.one().url }}" alt="{{ item.quarterImage2.one().title }}" class="section__qtrovertxt" />
+                {% endif %}
+                {% if item.quarterText2|length %}
+                  {{ item.quarterText2 }}
+                {% endif %}
+              {% endif %}
+            </div>
+            <div class="section__evenhalf section__evenhalf--right">
+              {% if item.imagePositioning == "imagesBelowText" %}
+                {% if item.halfText|length %}
+                  {{ item.halfText }}
+                {% endif %}
+                {% if item.halfImage|length %}
+                  <img src="{{ item.halfImage.one().url }}" alt="{{ item.halfImage.one().title }}" class="section__imgbelow" />
+                {% endif %}
+              {% else %}
+                {% if item.halfImage|length %}
+                  <img src="{{ item.halfImage.one().url }}" alt="{{ item.halfImage.one().title }}" class="section__qtrovertxt" />
+                {% endif %}
+                {% if item.halfText|length %}
+                  {{ item.halfText }}
+                {% endif %}
+              {% endif %}                    
+            </div>
+          {% endif %}
+        </div>
+      {% case 'oneThirdsTwoThirdsImages' %}  
+        <div class="section__qtrs cs">
+          {% if item.oneThirdImage|length %}
+            <div class="section__trd {% if item.layout == 'twoThirdsImageLeft' %}section__trd--right{% else %}section__trd--left{% endif %}">
+              <img src="{{ item.oneThirdImage.one().url }}" alt="{{ item.oneThirdImage.one().url }}" class="section__trdimg" />
+            </div>
+          {% endif %}
+          {% if item.twoThirdsImage|length %}
+            <div class="section__twotrd {% if item.layout == 'twoThirdsImageLeft' %}section__twotrd--left{% else %}section__twotrd--right{% endif %}">
+              <img src="{{ item.twoThirdsImage.one().url }}" alt="{{ item.twoThirdsImage.one().url }}" class="section__trdimg" />
+            </div>
+          {% endif %}
+        </div>  
+      {% case 'oneThirdTwoThirdsText' %}
+        <div class="cs">
+          {% if item.oneThirdText|length %}
+          <div class="section__trd section__trd--txtonly {% if item.layout == 'twoThirdsTextLeft' %}section__trd--right{% else %}section__trd--left{% endif %}">
+            {{ item.oneThirdText }}
+          </div>
+          {% endif %}
+          {% if item.twoThirdsText|length %}
+          <div class="section__twotrd section__twotrd--txtonly {% if item.layout == 'twoThirdsTextLeft' %}section__trd--left{% else %}section__trd--right{% endif %}">
+            {{ item.twoThirdsText }}
+          </div>
+          {% endif %}
+        </div>
+      {% case 'oneThirdTwoThirdsImagesText' %}
+        
+      <div class="section__qtrs cs">
+        
+        <div class="section__trd {% if item.layout == 'twoThirdsPortionLeft' %}section__trd--right{% else %}section__trd--left{% endif %} section__trd--txtonly">
+          {% if item.imagePositioning == "imagesBelowText" %}
+            {% if item.oneThirdText|length %}
+              {{ item.oneThirdText }}
+            {% endif %}
+            {% if item.oneThirdImage|length %}
+              <img src="{{ item.oneThirdImage.one().url }}" alt="{{ item.oneThirdImage.one().title }}" class="section__imgbelow" />
+            {% endif %}
+          {% else %}
+            {% if item.oneThirdImage|length %}
+              <img src="{{ item.oneThirdImage.one().url }}" alt="{{ item.oneThirdImage.one().title }}" class="section__qtrovertxt" />
+            {% endif %}
+            {% if item.oneThirdText|length %}
+              {{ item.oneThirdText }}
+            {% endif %}
+          {% endif %}
+        </div>
+        <div class="section__twotrd {% if item.layout == 'twoThirdsPortionLeft' %}section__twotrd--left{% else %}section__twotrd--right{% endif %} section__trd--txtonly">
+          {% if item.imagePositioning == "imagesBelowText" %}
+            {% if item.twoThirdsText|length %}
+              {{ item.twoThirdsText }}
+            {% endif %}
+            {% if item.twoThirdsImage|length %}
+              <img src="{{ item.twoThirdsImage.one().url }}" alt="{{ item.twoThirdsImage.one().title }}" class="section__imgbelow" />
+            {% endif %}
+          {% else %}
+            {% if item.twoThirdsImage|length %}
+              <img src="{{ item.twoThirdsImage.one().url }}" alt="{{ item.twoThirdsImage.one().title }}" class="section__qtrovertxt" />
+            {% endif %}
+            {% if item.twoThirdsText|length %}
+              {{ item.twoThirdsText }}
+            {% endif %}
+          {% endif %}
+        </div>
+        
+      </div>
+
+      {% case 'inlinehtml' %}
+        {{item.html|raw}}
+        
+    {% endswitch %}
+  {% endfor %}
+{% endif %}

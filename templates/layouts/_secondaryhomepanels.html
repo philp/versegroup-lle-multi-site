@@ -1,0 +1,76 @@
+{% if entry.secondaryHomePanels|length %}
+    {% for item in entry.secondaryHomePanels.all() %}
+      {% set panelNum = loop.index + panelsCountStart + entry.homePanels|length %}
+      {% if entry.optionBoxesBar is defined and entry.optionBoxesBar|length %}
+        {% set panelNum = panelNum + 1 %}
+      {% endif %}
+    
+      {% if item.type == "panel" %}
+        <div id="section{{ panelNum }}">
+          <div class="section section--white section--simplehalves {% if item.panelStyling == 'greyBoxes' %}section--boxes{% endif %}">
+            <div class="container cs">
+              {% if item.panelStyling == 'greyBoxes' %}
+                <div class="section__boxtextside">
+                  {% include "layouts/_sectioncontent" %}
+                </div>
+                {% if item.scrollingGallery|length %}
+                  <div class="section__boximgside">
+                    {% include "layouts/_sectiongallery" %}
+                  </div>
+                {% endif %}
+              {% else %}
+                <div class="section__half section__half--left">
+                  {% include "layouts/_sectioncontent" %}
+                </div>
+                {% if item.scrollingGallery|length %}
+                  <div class="section__half section__half--right">                
+                    {% include "layouts/_sectiongallery" %}
+                  </div>
+                {% endif %}
+              {% endif %}
+            </div>
+            
+                     
+            
+          </div>
+          
+          {% if item.panelStyling == 'greyBoxes' %}
+          <div class="section__endgrey">&nbsp;</div>
+          {% endif %}   
+          
+        </div>        
+      {% elseif item.type == "panelWithBanner" %}
+        <div id="section{{ panelNum }}">
+          <div class="section section--banner">
+            {% if item.topBanner|length %}
+              <img src="{{ item.topBanner.one().getUrl('sectionBanner') }}" alt="{{ item.topBanner.one().title }}" class="fullwidthimg {% if item.topBannerMobile|length %}fullwidthimg--nomobile{% endif %}" />
+            {% endif %}
+            {% if item.topBannerMobile|length %}
+              <img src="{{ item.topBannerMobile.one().getUrl('sectionBannerMobile') }}" alt="{{ item.topBannerMobile.one().title }}" class="fullwidthimg fullwidthimg--mobileonly" />
+            {% endif %}
+          </div>
+          <div class="section section--white section--banneroverlap section--bgcol">
+            <div class="container container--innercolour cs">
+              <div class="container__innerback cs">
+              
+                <div class="section__half section__half--contentside section__half--gallerytopoverlapmobile {% if item.panelLayout == 'imagesLeftTextRight' %}section__half--galleryoverlaptextsize section__half--gallerytopoverlap section__half--alignright{% elseif item.panelLayout == 'imagesRightTextLeft' %}section__half--gallerytopoverlap  section__half--galleryoverlaptextsize section__half--alignleft{% endif %}">
+                  {% include "layouts/_sectioncontent" %}
+                </div>
+                {% if item.scrollingGallery|length %}
+                  <div class="section__half section__half--imgside section__half--gallerytopoverlap section__half--galleryoverlapsize {% if item.panelLayout == 'imagesLeftTextRight' %}section__half--alignleft{% elseif item.panelLayout == 'imagesRightTextLeft' %}section__half--alignright{% endif %}">
+                    {% include "layouts/_sectiongallery" %}
+                  </div>
+                {% endif %}
+                {% if item.includeMobilePropertyForm %}
+                  {% if enablePropertySearch == true %}
+                    {% include "layouts/_mobilesectionform" %}
+                  {% endif %}
+                {% endif %} 
+                    
+              </div>             
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}

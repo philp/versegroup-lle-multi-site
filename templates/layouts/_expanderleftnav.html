@@ -1,0 +1,37 @@
+{% if currentGlobals.navigation|length %}
+  <div class="nav cs">
+    <div id="nav">
+      <div class="nav__inner nav__inner--nopad" {% if currentGlobals.navigationBackground|length %}style="background-image:url({{ currentGlobals.navigationBackground.one().url }})"{% endif %}>
+        <div class="nav__innerspacing nav__innerspacing--leftside">
+          <ul class="nav__ul cs">
+            
+              {% for item in currentGlobals.navigation.all() %}
+                {% if item.type == "navigationItem" %}
+                  {% if item.itemEntry|length or item.itemLink|length or item.itemCategory|length %}
+                    {% if item.itemEntry|length  %}
+                      {% set thisLink = item.itemEntry.one().url %}
+                    {% elseif item.itemCategory|length %}  
+                      {% set thisLink = item.itemCategory.one().url %}
+                    {% else %}
+                      {% set thisLink = item.itemLink %}
+                    {% endif %}                  
+                    <li class="nav__li {% if craft.app.request.absoluteUrl == currentSite.baseUrl %}
+                      {% if craft.app.request.absoluteUrl == thisLink %}
+                        active
+                      {% endif %}
+                    {% else %}
+                        {% if craft.app.request.absoluteUrl in thisLink %} 
+                          active
+                        {% endif %}
+                    {% endif %}"><a href="{{ thisLink }}" class="nav__a" {% if item.openLinkInNewTab %}target="_blank"{% endif %}>{{ item.itemText }}</a></li>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+          
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

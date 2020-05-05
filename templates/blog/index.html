@@ -1,0 +1,77 @@
+{% extends "layouts/_layout" %}
+
+
+{% block content %}
+
+<div id="section2">
+	<div class="section section--white">
+		<div class="container cs section__headingsarea">
+			
+			{% if entry.articlesIntroLeftHeading|length or catPage == true %}
+				{% if entry.articlesIntroLeftHeading|length and tagPage == false %}
+					<div class="section__leftheading">
+						{{ entry.articlesIntroLeftHeading }}
+					</div>
+				{% elseif catPage == true or tagPage == true %}
+					<div {% if entry.articlesIntroRightHeading|length and tagPage == false %}class="section__leftheading"{% endif %}>
+						<h1>{% if blogSection == true %}<strong>Blog:</strong> {% endif %}{% if tagPage == true %}{{ tag|capitalize }}{% else %}{{ entry.title }}{% endif %}</h1>
+					</div>
+				{% endif %}
+			
+				
+				{% if entry.articlesIntroRightHeading|length and tagPage == false %}
+					<div class="section__rightheading">
+						{{ entry.articlesIntroRightHeading }}
+					</div>
+				{% endif %}
+				<div class="clear">&nbsp;</div>
+			
+			{% endif %}
+			
+			{% if articles|length == 0 %}
+				<div class="section__noarticles cs">No articles found.</div>
+			{% endif %}
+			
+		</div>	
+	</div>	
+	
+
+	
+</div>	
+
+
+	{% if articles|length > 0 %}
+		<div id="section3">
+			<div class="blogslist cs section">
+				{% for item in articles %}
+					<a class="blogslist__item {% if loop.first %}blogslist__item--full cs{% endif %}" href="{{ item.url }}">
+						{% if item.articleImage|length %}
+							<img src="{% if loop.first %}{{ item.articleImage.one().getUrl('blogWideThumbnail') }}{% else %}{{ item.articleImage.one().getUrl('blogHalfThumbnail') }}{% endif %}" alt="{% if item.articleTitle|length %}{{ item.articleTitle }}{% else %}{{ item.articleImage.one().title }}{% endif %}" class="blogslist__itemimg" />
+						{% endif %}
+						<div class="blogslist__itemcontent {% if loop.first %}{% else %}blogslist__itemcontent--equals{% endif %}">						
+							<div class="blogslist__container {% if loop.first %}container
+							{% else %}
+								blogslist__halfcontainer
+								{% if loop.index is odd %}
+									blogslist__halfcontainerodd
+								{% else %}
+									blogslist__halfcontainereven
+								{% endif %}
+							{% endif %}">
+								{% if item.articleTitle|length %}
+									<div class="blogslist__itemtitle">{{ item.articleTitle }}</div>
+								{% endif %}
+								{% if item.articleSummary|length %}
+									<div class="blogslist__itemsummary">{{ item.articleSummary }}</div>
+								{% endif %}
+							</div>
+						</div>
+						
+					</a>
+				{% endfor %}
+			</div>
+		</div>
+	{% endif %}
+	
+	
+{% endblock %}

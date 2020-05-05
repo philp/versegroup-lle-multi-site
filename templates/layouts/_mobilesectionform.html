@@ -1,0 +1,41 @@
+<div class="section__mobileform {% if topform is defined %}{% if topform == true %}section__mobileform--top{% endif %}{% endif %}">
+  <form class="mobileonlyform" action="{{ url('properties/search/') }}">
+      <div class="mobileonlyform__selectholder mobileonlyform__selectholder--property">
+        <select class="mobileonlyform__select" name="category">
+          <option value="any">{% if currentSite.handle == 'boatSales' %}All{% else %}Any{% endif %}</option>
+          {% set typesAvailable = currentGlobals.propertyTypesAvailable.all() %}
+          {% if currentSite.handle == 'boatSales' %}
+            {% set typesAvailable = craft.categories().group('boatType').all() %}
+          {% endif %}
+          {% for category in typesAvailable %}
+          <option value="{{ category.slug }}" {% if categoryQuery|length > 0 %}{% if category.slug == categoryQuery %}selected{% endif %}{% endif %}>{{ category.title }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mobileonlyform__selectholder mobileonlyform__selectholder--bedrooms">
+        <select class="mobileonlyform__select" name="bedrooms">
+          <option value="no-min">{% if currentSite.handle == 'boatSales' %}All{% else %}No Min{% endif %}</option>
+          {% for category in currentGlobals.propertyBedroomsAvailable.orderBy('title asc').all() %}
+          <option value="{{ category.slug }}" {% if bedroomsQuery|length > 0 %}{% if category.slug == bedroomsQuery %}selected{% endif %}{% endif %}>{{ category.title }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mobileonlyform__selectholder mobileonlyform__selectholder--price">
+        <select class="mobileonlyform__select" name="minimum">
+          <option value="no-min">No Min</option>
+          {% for row in currentGlobals.propertyMinPrices %}
+            <option value="{{ row.fullNumber }}" {% if minQuery|length > 0 %}{% if row.fullNumber == minQuery %}selected{% endif %}{% endif %}>{{ row.displayedText }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mobileonlyform__selectholder mobileonlyform__selectholder--price">
+        <select class="mobileonlyform__select" name="maximum">
+          <option value="no-max">No Max</option>
+          {% for row in currentGlobals.propertyMaxPrices %}
+            <option value="{{ row.fullNumber }}" {% if maxQuery|length > 0 %}{% if row.fullNumber == maxQuery %}selected{% endif %}{% endif %}>{{ row.displayedText }}</option>
+          {% endfor %}
+        </select>
+      </div>    
+      <button type="submit" class="btn mobileonlyform__btn">Search {% if currentSite.handle == 'boatSales' %}Boats{% else %}Properties{% endif %} for Sale</button>
+  </form>
+</div>

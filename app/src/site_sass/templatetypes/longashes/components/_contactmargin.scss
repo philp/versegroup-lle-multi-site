@@ -1,0 +1,12 @@
+.contactmargin { 
+  margin-right: 10px; 
+  a {
+    color: $longashesbodytext;
+  }
+}
+@media (max-width: 400px) {
+	.contactmargin { 
+    margin-right: 0; 
+    display: block; 
+  }  
+}

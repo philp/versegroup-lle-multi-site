@@ -1,0 +1,28 @@
+.mappanel__heading {
+  padding: 39px 51px 40px 0;
+}
+.mappanel__heading--notcontained {
+  padding: 29px 95px 32px 0;
+}
+@media(max-width:990px){
+  .mappanel__heading {
+    padding: 34px 31px 34px 0;
+  }
+}
+@media(max-width:700px){
+  .mappanel__heading {
+    padding: 30px 28px 30px 0;
+  }
+}
+@media(max-width:650px){
+  .mappanel__heading {
+    padding: 27px 20px 27px;
+    width: 100%;
+    left: 0;
+  }
+}
+@media(max-width:450px){
+  .mappanel__heading {
+    padding: 22px 20px;
+  }
+}

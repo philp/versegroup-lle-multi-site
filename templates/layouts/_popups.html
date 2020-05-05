@@ -1,0 +1,1047 @@
+{# collate popups #}
+
+{% set popups = [] %}
+
+{% if entry.membershipsPanelButtons is defined and entry.membershipsPanelButtons|length %}
+  {% for item in entry.membershipsPanelButtons.all() %}
+    {% if item.type == "button" and item.entry|length and item.entry.one().section.handle == 'popups' %}
+      {% set popups = popups|merge([item.entry.one()]) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if currentGlobals.enquireLink is defined and currentGlobals.enquireLink|length and currentGlobals.enquireLink.one().section.handle == 'popups' %}
+  {% set popups = popups|merge([currentGlobals.enquireLink.one()]) %}  
+{% endif %}
+
+{% if entry.propertiesFacilities is defined and entry.propertiesFacilities|length and entry.propertiesFacilities.one().section.handle == 'popups' %}
+  {% set popups = popups|merge([entry.propertiesFacilities.one()]) %}  
+{% endif %}
+
+{% if entry.roomsFacilities is defined and entry.roomsFacilities|length and entry.roomsFacilities.one().section.handle == 'popups' %}
+  {% set popups = popups|merge([entry.roomsFacilities.one()]) %}  
+{% endif %}
+
+{% if entry.basicContent is defined and entry.basicContent|length %}
+  {% for item in entry.basicContent.all() %}
+    {% if item.type == 'fullWidthContent' and item.button1Entry|length and item.button1Entry.one().section.handle == 'popups' %}
+      {% set popups = popups|merge([item.button1Entry.one()]) %}      
+    {% endif %}
+    {% if item.type == 'fullWidthContent' and item.button2Entry|length and item.button2Entry.one().section.handle == 'popups' %}
+      {% set popups = popups|merge([item.button2Entry.one()]) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if entry.buttons is defined and entry.buttons|length %}
+  {% for item in entry.buttons.all() %}
+    {% if item.type == "button" and item.entry|length and item.entry.one().section.handle == 'popups' %}
+      {% set popups = popups|merge([item.entry.one()]) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if entry.sideMenuAdditionalLinks is defined and entry.sideMenuAdditionalLinks|length %}
+  {% for item in entry.sideMenuAdditionalLinks.all() %}
+    {% if item.type == "linkItem" and item.entry|length and item.entry.one().section.handle == 'popups' %}
+      {% set popups = popups|merge([item.entry.one()]) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if currentGlobals.navigation is defined and currentGlobals.navigation|length %}
+  {% for item in currentGlobals.navigation.all() %}
+    {% if item.type == "navigationItem" and item.itemEntry|length and item.itemEntry.one().section.handle == 'popups' %}
+      {% set popups = popups|merge([item.itemEntry.one()]) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if currentGlobals.footerEndLinks is defined and currentGlobals.footerEndLinks|length %}
+  {% for item in currentGlobals.footerEndLinks.all() %}
+    {% if item.type == "linkItem" and item.linkEntry|length and item.linkEntry.one().section.handle == 'popups' %}
+      {% set popups = popups|merge([item.linkEntry.one()]) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if currentGlobals.footerLakelandLeisureEstates is defined and currentGlobals.footerLakelandLeisureEstates|length %}
+  {% for item in currentGlobals.footerLakelandLeisureEstates.all() %}
+    {% if item.type == "linkItem" and item.itemEntry|length and item.itemEntry.one().section.handle == 'popups' %}
+      {% set popups = popups|merge([item.itemEntry.one()]) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if currentGlobals.footerTakeMeTo is defined and currentGlobals.footerTakeMeTo|length %}
+  {% for item in currentGlobals.footerTakeMeTo.all() %}
+    {% if item.type == "linkItem" and item.itemEntry|length and item.itemEntry.one().section.handle == 'popups' %}
+      {% set popups = popups|merge([item.itemEntry.one()]) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if entry.endButtons is defined and entry.endButtons|length %}
+  {% for item in entry.endButtons.all() %}
+    {% if item.type == "button" and item.entry|length and item.entry.one().section.handle == 'popups' %}
+      {% set popups = popups|merge([item.entry.one()]) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if entry.occasionButtons is defined and entry.occasionButtons|length %}
+  {% for item in entry.occasionButtons.all() %}
+    {% if item.type == "button" and item.entry|length and item.entry.one().section.handle == 'popups' %}
+      {% set popups = popups|merge([item.entry.one()]) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if entry.listingsTopButtons is defined and entry.listingsTopButtons|length %}
+  {% for item in entry.listingsTopButtons.all() %}
+    {% if item.type == "button" and item.entry|length and item.entry.one().section.handle == 'popups' %}
+      {% set popups = popups|merge([item.entry.one()]) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if entry.endPanelButtons is defined and entry.endPanelButtons|length %}
+  {% for item in entry.endPanelButtons.all() %}
+    {% if item.type == "button" and item.entry|length and item.entry.one().section.handle == 'popups' %}
+      {% set popups = popups|merge([item.entry.one()]) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if entry.homePanels is defined and entry.homePanels|length %}
+  {% for item in entry.homePanels.all() %}
+    {% if item.type == "panel" or item.type == "panelWithBanner" %}
+      {% if item.button1Entry is defined and item.button1Entry|length and item.button1Entry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.button1Entry.one()]) %}
+      {% endif %}
+      {% if item.button2Entry is defined and item.button2Entry|length and item.button2Entry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.button2Entry.one()]) %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if entry.secondaryHomePanels is defined and entry.secondaryHomePanels|length %}
+  {% for item in entry.secondaryHomePanels.all() %}
+    {% if item.type == "panel" or item.type == "panelWithBanner" %}
+      {% if item.button1Entry is defined and item.button1Entry|length and item.button1Entry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.button1Entry.one()]) %}
+      {% endif %}
+      {% if item.button2Entry is defined and item.button2Entry|length and item.button2Entry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.button2Entry.one()]) %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if entry.variedWidthPanels is defined and entry.variedWidthPanels|length %}
+  {% for item in entry.variedWidthPanels.all() %}
+    {% if item.type == "singlePanel" %}
+      {% if item.button1Entry is defined and item.button1Entry|length and item.button1Entry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.button1Entry.one()]) %}
+      {% endif %}
+      {% if item.button2Entry is defined and item.button2Entry|length and item.button2Entry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.button2Entry.one()]) %}
+      {% endif %}
+    {% elseif item.type == "threePanels" %}  
+      {% if item.panel1ButtonEntry is defined and item.panel1ButtonEntry|length and item.panel1ButtonEntry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.panel1ButtonEntry.one()]) %}
+      {% endif %}
+      {% if item.panel2ButtonEntry is defined and item.panel2ButtonEntry|length and item.panel2ButtonEntry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.panel2ButtonEntry.one()]) %}
+      {% endif %}
+      {% if item.panel3ButtonEntry is defined and item.panel3ButtonEntry|length and item.panel3ButtonEntry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.panel3ButtonEntry.one()]) %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if entry.bannerPanels is defined and entry.bannerPanels|length %}
+  {% for item in entry.bannerPanels.all() %}
+    {% if item.type == "panel" %}
+      {% if item.button1Entry is defined and item.button1Entry|length and item.button1Entry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.button1Entry.one()]) %}
+      {% endif %}
+      {% if item.button2Entry is defined and item.button2Entry|length and item.button2Entry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.button2Entry.one()]) %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if entry.occasionSecondaryPanels is defined and entry.occasionSecondaryPanels|length %}
+  {% for item in entry.occasionSecondaryPanels.all() %}
+    {% if item.type == "panel" %}
+      {% if item.button1Entry is defined and item.button1Entry|length and item.button1Entry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.button1Entry.one()]) %}
+      {% endif %}
+      {% if item.button2Entry is defined and item.button2Entry|length and item.button2Entry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.button2Entry.one()]) %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if entry.salesPanels is defined and entry.salesPanels|length %}
+  {% for item in entry.salesPanels.all() %}
+    {% if item.type == "salesPanel" %}
+      {% if item.button1Entry is defined and item.button1Entry|length and item.button1Entry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.button1Entry.one()]) %}
+      {% endif %}
+      {% if item.button2Entry is defined and item.button2Entry|length and item.button2Entry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.button2Entry.one()]) %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if entry.tariffInformation is defined and entry.tariffInformation|length %}
+  {% for item in entry.tariffInformation.all() %}
+    {% if item.type == "contentBesideButton" and item.buttonEntry is defined and item.buttonEntry|length and item.buttonEntry.one().section.handle == 'popups'%}
+      {% set popups = popups|merge([item.buttonEntry.one()]) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+
+{% if entry.alternatingPanels is defined and entry.alternatingPanels|length %}
+  {% for item in entry.alternatingPanels.all() %}
+    {% if item.type == "panel" %}
+      {% if item.button1Entry is defined and item.button1Entry|length and item.button1Entry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.button1Entry.one()]) %}
+      {% endif %}
+      {% if item.button2Entry is defined and item.button2Entry|length and item.button2Entry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.button2Entry.one()]) %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+
+{% if entry.secondaryAlternatingPanels is defined and entry.secondaryAlternatingPanels|length %}
+  {% for item in entry.secondaryAlternatingPanels.all() %}
+    {% if item.type == "panel" %}
+      {% if item.button1Entry is defined and item.button1Entry|length and item.button1Entry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.button1Entry.one()]) %}
+      {% endif %}
+      {% if item.button2Entry is defined and item.button2Entry|length and item.button2Entry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.button2Entry.one()]) %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if entry.alternatingBoxPanels is defined and entry.alternatingBoxPanels|length %}
+  {% for item in entry.alternatingBoxPanels.all() %}
+    {% if item.type == "panel" %}
+      {% if item.button1Entry is defined and item.button1Entry|length and item.button1Entry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.button1Entry.one()]) %}
+      {% endif %}
+      {% if item.button2Entry is defined and item.button2Entry|length and item.button2Entry.one().section.handle == 'popups' %}
+        {% set popups = popups|merge([item.button2Entry.one()]) %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if entry.propertyName is defined and entry.propertyName|length %}
+  {% if isRoomsPage %}
+    {% set popups = popups|merge([craft.entries.section('popups').slug('send-room-to-a-friend').one()]) %}
+  {% else %}
+    {% if currentSite.handle == 'roydonMarinaVillage' %}
+      {% set popups = popups|merge([craft.entries.section('popups').slug('roydon-marina-arrange-a-viewing').one()]) %}
+    {% elseif currentSite.handle == 'greatHaywoodMarina' %}
+      {% set popups = popups|merge([craft.entries.section('popups').slug('great-haywood-marina-arrange-a-viewing').one()]) %}
+    {% elseif currentSite.handle == 'boatSales' %}
+      {% set popups = popups|merge([craft.entries.section('popups').slug('boat-sales-arrange-a-viewing').one()]) %}
+    {% else %}
+      {% set popups = popups|merge([craft.entries.section('popups').slug('arrange-a-viewing').one()]) %}
+    {% endif %}
+    {% set popups = popups|merge([craft.entries.section('popups').slug('send-to-a-friend').one()]) %}
+  {% endif %} 
+{% endif %}
+
+{% if vacanciesList is defined and vacanciesList|length > 0 %}
+  {% for item in vacanciesList %}
+    {% if item.jobListingButtons is defined and item.jobListingButtons|length %}
+      {% for btn in item.jobListingButtons.all() %}	
+        {% if btn.type == "button" and btn.entry is defined and btn.entry|length and btn.entry.one().section.handle == 'popups' %}
+          {% set popups = popups|merge([btn.entry.one()]) %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if entry.displayNewsletterSignup is defined %}
+  {% if entry.displayNewsletterSignup %}
+    {% set popups = popups|merge([craft.entries.section('popups').slug('newsletter-signup').one()]) %}
+  {% endif %}
+{% endif %}
+
+{% if popups|length %}
+{% for pop in popups %}
+  
+  <div class="popup" data-popup="{{ pop.slug }}">
+    <div class="popup__back">&nbsp;</div>
+    <div class="popup__box">
+      <div class="popup__topbar">
+        <img src="/assets/presentation/{{ currentSite.handle }}.svg" alt="{{ currentSite.name }}" class="popup__topbarlogo {% if currentSite.handle == 'roydonMarinaVillage' %}popup__topbarlogo--narrowlogo{% endif %}">
+        <div class="popup__close">&nbsp;</div>
+      </div>
+      {% if pop.headerImage|length %}
+        <div class="popup__topbanner">
+          <img src="{{ pop.headerImage.one().getUrl('popupBanner') }}" alt="{{ pop.headerImage.one().title }}" class="popup__topbannerimg" />
+        </div>
+      {% endif %}
+      {% if pop.popupHeadingRegular|length or pop.popupHeadingBold|length %}
+        <div class="popup__heading">
+          {% if pop.popupHeadingRegular|length %}
+            <div class="popup__headingregular">{{ pop.popupHeadingRegular }}</div>
+          {% endif %}
+          {% if pop.popupHeadingBold|length %}
+            <div class="popup__headingbold">{{ pop.popupHeadingBold }}</div>
+          {% endif %}
+        </div>
+      {% endif %}
+      <div class="popup__content">
+        {% if pop.popupIntroduction|length or pop.contactAreaHeading|length or pop.contactAreaDetails|length or pop.contactAreaDetails|length %}
+          <div class="popup__topexpand">
+            {% if pop.popupIntroduction|length %}
+              <div class="popup__intro">
+                {{ pop.popupIntroduction }}
+              </div>
+            {% endif %}
+            {% if pop.contactAreaHeading|length or pop.contactAreaDetails|length %}
+              <div class="popup__contactarea">
+                {% if pop.contactAreaHeading|length %}
+                  <div class="popup__contactareaheading">
+                    {{ pop.contactAreaHeading }}
+                  </div>
+                {% endif %}
+                {% if pop.contactAreaDetails|length %}
+                  {% for item in pop.contactAreaDetails.all() %}
+                    {% if item.type == "basicDetail" %}
+                      <div class="popup__contactareaitem">
+                        <span class="popup__contactareaitemlabel">{{ item.label }}</span> 
+                        {{ item.detail }}
+                      </div>
+                    {% elseif item.type == "phoneNumber" %}
+                      <div class="popup__contactareaitem">
+                        <span class="popup__contactareaitemlabel">{{ item.label }}</span> 
+                        <a href="tel:{{ item.phoneNumber|replace({' ': ''}) }}" class="popup__contactareaitemlink">{{ item.phoneNumber }}</a>
+                      </div>
+                    {% elseif item.type == "emailAddress" %}
+                      <div class="popup__contactareaitem">
+                        <span class="popup__contactareaitemlabel">{{ item.label }}</span> 
+                        <a href="mailto:{{ item.emailAddress }}" class="popup__contactareaitemlink">{{ item.emailAddress }}</a>
+                      </div>
+                    {% endif %}										
+                  {% endfor %}
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+        
+        {% if pop.formHeadingRegular|length or pop.formHeadingBold|length %}
+          <div class="popup__aboveformheading">
+            <h3>{% if pop.formHeadingRegular|length %}{{ pop.formHeadingRegular }} {% endif %}{% if pop.formHeadingBold|length %}<strong>{{ pop.formHeadingBold }}</strong>{% endif %}</h3>
+          </div>
+        {% endif %}
+        {% if pop.formContent|length or pop.form|length or pop.slug == 'newsletter-signup' %}
+          <div class="popup__formexpandarea">
+            {% if pop.formContent|length %}
+              <div class="popup__aboveformcontent">
+                {{ pop.formContent }}
+              </div>
+            {% endif %}
+            {% if pop.form|length %}
+              <div class="popup__form">
+                {% if pop.form.handle == "arrangeAViewing" %}
+                  {% if entry.overrideDefaultEmailAddress|length %}
+                    {{ craft.freeform.form("arrangeAViewing", {
+                      overrideValues: {
+                          hidden: craft.app.request.absoluteUrl,
+                      },
+                      dynamicNotification: { recipients: [entry.overrideDefaultEmailAddress], template: "arrangeAPropertyViewingEmail" }
+                    }).render() }}
+                  {% else %}
+                    {{ craft.freeform.form("arrangeAViewing", {
+                      overrideValues: {
+                          hidden: craft.app.request.absoluteUrl,
+                      }
+                    }).render() }}
+                  {% endif %}
+                {% elseif pop.form.handle == 'roydonArrangeAViewing' %}  
+                  {% if entry.overrideDefaultEmailAddress|length %}
+                    {{ craft.freeform.form("roydonArrangeAViewing", {
+                      overrideValues: {
+                          hidden: craft.app.request.absoluteUrl,
+                      },
+                      dynamicNotification: { recipients: [entry.overrideDefaultEmailAddress], template: "arrangeAPropertyViewingEmail" }
+                    }).render() }}
+                  {% else %}
+                    {{ craft.freeform.form("roydonArrangeAViewing", {
+                      overrideValues: {
+                          hidden: craft.app.request.absoluteUrl,
+                      }
+                    }).render() }}
+                  {% endif %}
+                {% elseif pop.form.handle == 'greatHaywoodMarinaArrangeAViewing' %}  
+                  {% if entry.overrideDefaultEmailAddress|length %}
+                    {{ craft.freeform.form("greatHaywoodMarinaArrangeAViewing", {
+                      overrideValues: {
+                          hidden: craft.app.request.absoluteUrl,
+                      },
+                      dynamicNotification: { recipients: [entry.overrideDefaultEmailAddress], template: "arrangeAPropertyViewingEmail" }
+                    }).render() }}
+                  {% else %}
+                    {{ craft.freeform.form("greatHaywoodMarinaArrangeAViewing", {
+                      overrideValues: {
+                          hidden: craft.app.request.absoluteUrl,
+                      }
+                    }).render() }}
+                  {% endif %}
+                {% elseif pop.form.handle == 'boatSalesArrangeAViewing' %}  
+                  {% if entry.overrideDefaultEmailAddress|length %}
+                    {{ craft.freeform.form("boatSalesArrangeAViewing", {
+                      overrideValues: {
+                          hidden: craft.app.request.absoluteUrl,
+                      },
+                      dynamicNotification: { recipients: [entry.overrideDefaultEmailAddress], template: "arrangeAPropertyViewingEmail" }
+                    }).render() }}
+                  {% else %}
+                    {{ craft.freeform.form("boatSalesArrangeAViewing", {
+                      overrideValues: {
+                          hidden: craft.app.request.absoluteUrl,
+                      }
+                    }).render() }}
+                  {% endif %}
+                {% elseif pop.form.handle == 'sendToAFriend' %}
+                  {{ craft.freeform.form("sendToAFriend", {
+                    overrideValues: {
+                        hidden: entry.slug,
+                    }
+                  }).render() }}
+                {% else %}
+                  {{ pop.form.render() }}
+                {% endif %}
+              </div>
+            {% endif %}
+            
+            {% if pop.slug == 'newsletter-signup' %}
+            <div class="popup__form">
+            
+            <!-- Begin Mailchimp Signup Form -->
+
+<style type="text/css">
+  .freeform-pages{display:-ms-flexbox;display:flex;padding:0;margin:0 0 10px;list-style:none}.freeform-pages li{margin:0 10px 0 0}.freeform-row{display:-ms-flexbox;display:flex;-ms-flex-pack:justify;justify-content:space-between;margin:0 -15px}.freeform-row .freeform-column{-ms-flex:1 0;flex:1 0;padding:10px 0;margin:0 15px;box-sizing:border-box}.freeform-row .freeform-column>.freeform-row:first-child{margin-top:-10px}.freeform-row .freeform-column label{display:block}.freeform-row .freeform-column .input-group-one-line{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap}.freeform-row .freeform-column .input-group-one-line label{padding-right:10px}.freeform-row .freeform-column .freeform-label{font-weight:bold}.freeform-row .freeform-column .freeform-label.freeform-required:after{content:"*";margin-left:5px;color:red}.freeform-row .freeform-column .freeform-input{width:100%;display:block;box-sizing:border-box}.freeform-row .freeform-column .freeform-input[type=checkbox],.freeform-row .freeform-column .freeform-input[type=radio]{width:auto;display:inline;margin-right:5px}.freeform-row .freeform-column .freeform-input.StripeElement{-moz-appearance:textfield;-webkit-appearance:textfield;appearance:textfield;border:1px solid;padding-top:5px;height:26px}.freeform-row .freeform-column .freeform-input-only-label{font-weight:normal}.freeform-row .freeform-column .freeform-input-only-label>.freeform-input{display:inline-block;width:auto;margin-right:5px}.freeform-row .freeform-column .freeform-errors,.freeform-row .freeform-column .ff-errors{list-style:none;padding:0;margin:5px 0 0}.freeform-row .freeform-column .freeform-errors>li,.freeform-row .freeform-column .ff-errors>li{color:red}.freeform-row .freeform-column .freeform-instructions{margin:0 0 5px;font-size:13px;color:#ABA7A7}.freeform-row .freeform-column.freeform-column-content-align-left{display:-ms-flexbox;display:flex;-ms-flex-pack:start;justify-content:flex-start}.freeform-row .freeform-column.freeform-column-content-align-left>button:not(:first-of-type){margin-left:5px}.freeform-row .freeform-column.freeform-column-content-align-center{display:-ms-flexbox;display:flex;-ms-flex-pack:center;justify-content:center}.freeform-row .freeform-column.freeform-column-content-align-center>button:not(:first-of-type){margin-left:5px}.freeform-row .freeform-column.freeform-column-content-align-right{display:-ms-flexbox;display:flex;-ms-flex-pack:end;justify-content:flex-end}.freeform-row .freeform-column.freeform-column-content-align-right>button:not(:first-of-type){margin-left:5px}.freeform-row .freeform-column.freeform-column-content-align-spread{display:-ms-flexbox;display:flex;-ms-flex-pack:justify;justify-content:space-between}.freeform-row .freeform-column.freeform-column-content-align-spread>button:not(:first-of-type){margin-left:5px}.ff-form-errors{padding:15px;border:1px solid #f5c6cb;background:#f8d7da;border-radius:5px;color:#721c24}.ff-form-errors>p{margin:0}.freeform-form-has-errors{color:#721c24}  
+</style>
+
+{% if currentSite.handle == 'gamekeepersInn' %}
+<div id="mc_embed_signup">
+  <form action="https://lakelandleisuregroup.us9.list-manage.com/subscribe/post?u=de6bd3e6dd47677091374eef9&amp;id=58992d280a" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+
+    <div id="mc_embed_signup_scroll">
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-EMAIL" class="freeform-label freeform-required">Email Address</label>
+          <input type="email" value="" name="EMAIL" class="required email freeform-input" id="mce-EMAIL" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-FNAME" class="freeform-label">First Name</label>
+          <input type="text" value="" name="FNAME" class="freeform-input" id="mce-FNAME" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-LNAME" class="freeform-label">Last Name</label>
+          <input type="text" value="" name="LNAME" class="freeform-input" id="mce-LNAME" />            
+        </div>
+      </div>
+    
+    <input type="checkbox" value="1" name="group[34737][1]" id="mce-group[34737]-34737-0" checked="checked" class="freeform__hiddenfield" />
+    
+<div id="mergeRow-gdpr" class="mergeRow gdpr-mergeRow content__gdprBlock mc-field-group popup__formendinfo">
+    <div class="content__gdpr">
+        <h3>Marketing Permissions</h3>
+        <p>Please tick the box below to confirm that you’re happy for Lakeland Leisure Group [parent company of The Gamekeeper’s Inn] to contact you in future:</p>
+        <div class="popup__formcheckholder">
+		<label class="checkbox subfield" for="gdpr_18145"><input type="checkbox" id="gdpr_18145" name="gdpr[18145]" value="Y" class="av-checkbox popup__formcheck"><span class="popup__formchecklabel">Email</span> </label>
+    
+      </div>
+        <p>You can unsubscribe at any time by clicking the link in the footer of our emails. For information about our privacy practices, please visit our website.</p>
+    </div>
+    <div class="content__gdprLegal">
+        <p>We use Mailchimp as our marketing platform. By clicking below to subscribe, you acknowledge that your information will be transferred to Mailchimp for processing. <a href="https://mailchimp.com/legal/" target="_blank">Learn more about Mailchimp's privacy practices here.</a></p>
+    </div>
+</div>
+	<div id="mce-responses">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_de6bd3e6dd47677091374eef9_58992d280a" tabindex="-1" value=""></div>    
+    <div><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn" /></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='MMERGE3';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+
+
+{% elseif currentSite.handle == 'longAshesPureSpa' %}
+
+<div id="mc_embed_signup">
+<form action="https://lakelandleisuregroup.us9.list-manage.com/subscribe/post?u=de6bd3e6dd47677091374eef9&amp;id=4a4f52bb04" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-EMAIL" class="freeform-label freeform-required">Email Address</label>
+          <input type="email" value="" name="EMAIL" class="required email freeform-input" id="mce-EMAIL" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-FNAME" class="freeform-label">First Name</label>
+          <input type="text" value="" name="FNAME" class="freeform-input" id="mce-FNAME" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-LNAME" class="freeform-label">Last Name</label>
+          <input type="text" value="" name="LNAME" class="freeform-input" id="mce-LNAME" />            
+        </div>
+      </div>
+      
+      <input type="checkbox" value="1" name="group[34745][1]" id="mce-group[34745]-34745-0" checked="checked" class="freeform__hiddenfield" />
+      
+<div id="mergeRow-gdpr" class="mergeRow gdpr-mergeRow content__gdprBlock mc-field-group popup__formendinfo">
+    <div class="content__gdpr">
+        <h3>Marketing Permissions</h3>
+        <p>Please select all the ways you would like to hear from Lakeland Leisure Group:</p>
+        <div class="popup__formcheckholder">
+		<label class="checkbox subfield" for="gdpr_18185"><input type="checkbox" id="gdpr_18185" name="gdpr[18185]" value="Y" class="av-checkbox popup__formcheck"><span class="popup__formchecklabel">Email</span> </label>
+      </div>
+        <p>You can unsubscribe at any time by clicking the link in the footer of our emails. For information about our privacy practices, please visit our website.</p>
+    </div>
+    <div class="content__gdprLegal">
+        <p>We use Mailchimp as our marketing platform. By clicking below to subscribe, you acknowledge that your information will be transferred to Mailchimp for processing. <a href="https://mailchimp.com/legal/" target="_blank">Learn more about Mailchimp's privacy practices here.</a></p>
+    </div>
+</div>
+
+	<div id="mce-responses">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_de6bd3e6dd47677091374eef9_4a4f52bb04" tabindex="-1" value=""></div>
+    
+    
+    <div><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn" /></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+{% elseif currentSite.handle == 'boatSales' %}
+<div id="mc_embed_signup">
+<form action="https://lakelandleisuregroup.us9.list-manage.com/subscribe/post?u=de6bd3e6dd47677091374eef9&amp;id=d1d0e70c0f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-EMAIL" class="freeform-label freeform-required">Email Address</label>
+          <input type="email" value="" name="EMAIL" class="required email freeform-input" id="mce-EMAIL" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-FNAME" class="freeform-label">First Name</label>
+          <input type="text" value="" name="FNAME" class="freeform-input" id="mce-FNAME" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-LNAME" class="freeform-label">Last Name</label>
+          <input type="text" value="" name="LNAME" class="freeform-input" id="mce-LNAME" />            
+        </div>
+      </div>
+<div id="mergeRow-gdpr" class="mergeRow gdpr-mergeRow content__gdprBlock mc-field-group popup__formendinfo">
+    <div class="content__gdpr">
+        <h3>Marketing Permissions</h3>
+        <p>Please select all the ways you would like to hear from Lakeland Leisure Group:</p>
+        <div class="popup__formcheckholder">
+		<label class="checkbox subfield" for="gdpr_15509"><input type="checkbox" id="gdpr_15509" name="gdpr[15509]" value="Y" class="av-checkbox popup__formcheck"><span class="popup__formchecklabel">Email</span> </label>
+        
+      </div>
+        <p>You can unsubscribe at any time by clicking the link in the footer of our emails. For information about our privacy practices, please visit our website.</p>
+    </div>
+    <div class="content__gdprLegal">
+        <p>We use Mailchimp as our marketing platform. By clicking below to subscribe, you acknowledge that your information will be transferred to Mailchimp for processing. <a href="https://mailchimp.com/legal/" target="_blank">Learn more about Mailchimp's privacy practices here.</a></p>
+    </div>
+</div>
+	<div id="mce-responses">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_de6bd3e6dd47677091374eef9_d1d0e70c0f" tabindex="-1" value=""></div>
+    <div><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn" /></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+
+{% elseif currentSite.handle == 'tattenhallMarina' %}
+<div id="mc_embed_signup">
+<form action="https://lakelandleisuregroup.us9.list-manage.com/subscribe/post?u=de6bd3e6dd47677091374eef9&amp;id=77e8d5fb43" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-EMAIL" class="freeform-label freeform-required">Email Address</label>
+          <input type="email" value="" name="EMAIL" class="required email freeform-input" id="mce-EMAIL" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-FNAME" class="freeform-label">First Name</label>
+          <input type="text" value="" name="FNAME" class="freeform-input" id="mce-FNAME" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-LNAME" class="freeform-label">Last Name</label>
+          <input type="text" value="" name="LNAME" class="freeform-input" id="mce-LNAME" />            
+        </div>
+      </div>
+      <input type="checkbox" value="1" name="group[34753][1]" id="mce-group[34753]-34753-0" checked="checked" class="freeform__hiddenfield" />
+<div id="mergeRow-gdpr" class="mergeRow gdpr-mergeRow content__gdprBlock mc-field-group popup__formendinfo">
+    <div class="content__gdpr">
+        <h3>Marketing Permissions</h3>
+        <p>Please select from below all of the ways you would like to hear from Lakeland Leisure group, parent company of Tattenhall Marina. By opting in to communications you will receive special offers, promotions and news from our UK marinas including; Tattenhall Marina, Great Haywood Marina, Saul Junction Marina, Deganwy Marina and Roydon Marina Village.</p>
+        <div class="popup__formcheckholder">
+		<label class="checkbox subfield" for="gdpr_15281"><input type="checkbox" id="gdpr_15281" name="gdpr[15281]" value="Y" class="av-checkbox popup__formcheck"><span class="popup__formchecklabel">Email</span> </label>
+      
+      </div>
+        <p>Remember, you can unsubscribe at any time by clicking the link in the footer of our emails. For information about our privacy practices, please visit our website.</p>
+    </div>
+    <div class="content__gdprLegal">
+        <p>We use Mailchimp as our marketing platform. By clicking below to subscribe, you acknowledge that your information will be transferred to Mailchimp for processing. <a href="https://mailchimp.com/legal/" target="_blank">Learn more about Mailchimp's privacy practices here.</a></p>
+    </div>
+</div>
+	<div id="mce-responses">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_de6bd3e6dd47677091374eef9_77e8d5fb43" tabindex="-1" value=""></div>
+    
+    <div><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn" /></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+{% elseif currentSite.handle == 'deganwyMarina' %}
+<div id="mc_embed_signup">
+<form action="https://lakelandleisuregroup.us9.list-manage.com/subscribe/post?u=de6bd3e6dd47677091374eef9&amp;id=7cd13f4ee7" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-EMAIL" class="freeform-label freeform-required">Email Address</label>
+          <input type="email" value="" name="EMAIL" class="required email freeform-input" id="mce-EMAIL" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-FNAME" class="freeform-label">First Name</label>
+          <input type="text" value="" name="FNAME" class="freeform-input" id="mce-FNAME" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-LNAME" class="freeform-label">Last Name</label>
+          <input type="text" value="" name="LNAME" class="freeform-input" id="mce-LNAME" />            
+        </div>
+      </div>
+<div id="mergeRow-gdpr" class="mergeRow gdpr-mergeRow content__gdprBlock mc-field-group popup__formendinfo">
+    <div class="content__gdpr">
+        <h3>Marketing Permissions</h3>
+        <p>Please select all the ways you would like to hear from Lakeland Leisure Group:</p>
+        <div class="popup__formcheckholder">
+		<label class="checkbox subfield" for="gdpr_15521"><input type="checkbox" id="gdpr_15521" name="gdpr[15521]" value="Y" class="av-checkbox popup__formcheck"><span class="popup__formchecklabel">Email</span> </label>
+    
+      </div>
+        <p>You can unsubscribe at any time by clicking the link in the footer of our emails. For information about our privacy practices, please visit our website.</p>
+    </div>
+    <div class="content__gdprLegal">
+        <p>We use Mailchimp as our marketing platform. By clicking below to subscribe, you acknowledge that your information will be transferred to Mailchimp for processing. <a href="https://mailchimp.com/legal/" target="_blank">Learn more about Mailchimp's privacy practices here.</a></p>
+    </div>
+</div>
+	<div id="mce-responses">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_de6bd3e6dd47677091374eef9_7cd13f4ee7" tabindex="-1" value=""></div>
+    <div><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn" /></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+{% elseif currentSite.handle == 'saulJunctionMarina' %}
+<div id="mc_embed_signup">
+<form action="https://lakelandleisuregroup.us9.list-manage.com/subscribe/post?u=de6bd3e6dd47677091374eef9&amp;id=78a7a5529b" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-EMAIL" class="freeform-label freeform-required">Email Address</label>
+          <input type="email" value="" name="EMAIL" class="required email freeform-input" id="mce-EMAIL" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-FNAME" class="freeform-label">First Name</label>
+          <input type="text" value="" name="FNAME" class="freeform-input" id="mce-FNAME" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-LNAME" class="freeform-label">Last Name</label>
+          <input type="text" value="" name="LNAME" class="freeform-input" id="mce-LNAME" />            
+        </div>
+      </div>
+<div id="mergeRow-gdpr" class="mergeRow gdpr-mergeRow content__gdprBlock mc-field-group popup__formendinfo">
+    <div class="content__gdpr">
+        <h3>Marketing Permissions</h3>
+        <p>Please select all the ways you would like to hear from Lakeland Leisure Group:</p>
+        <div class="popup__formcheckholder">
+		<label class="checkbox subfield" for="gdpr_15233"><input type="checkbox" id="gdpr_15233" name="gdpr[15233]" value="Y" class="av-checkbox popup__formcheck"><span class="popup__formchecklabel">Email</span> </label>
+    
+      </div>
+        <p>You can unsubscribe at any time by clicking the link in the footer of our emails. For information about our privacy practices, please visit our website.</p>
+    </div>
+    <div class="content__gdprLegal">
+        <p>We use Mailchimp as our marketing platform. By clicking below to subscribe, you acknowledge that your information will be transferred to Mailchimp for processing. <a href="https://mailchimp.com/legal/" target="_blank">Learn more about Mailchimp's privacy practices here.</a></p>
+    </div>
+</div>
+	<div id="mce-responses">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_de6bd3e6dd47677091374eef9_78a7a5529b" tabindex="-1" value=""></div>
+    <div><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn" /></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+{% elseif currentSite.handle == 'greatHaywoodMarina' %}
+<div id="mc_embed_signup">
+<form action="https://lakelandleisuregroup.us9.list-manage.com/subscribe/post?u=de6bd3e6dd47677091374eef9&amp;id=67467b4749" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-EMAIL" class="freeform-label freeform-required">Email Address</label>
+          <input type="email" value="" name="EMAIL" class="required email freeform-input" id="mce-EMAIL" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-FNAME" class="freeform-label">First Name</label>
+          <input type="text" value="" name="FNAME" class="freeform-input" id="mce-FNAME" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-LNAME" class="freeform-label">Last Name</label>
+          <input type="text" value="" name="LNAME" class="freeform-input" id="mce-LNAME" />            
+        </div>
+      </div>
+<div id="mergeRow-gdpr" class="mergeRow gdpr-mergeRow content__gdprBlock mc-field-group popup__formendinfo">
+    <div class="content__gdpr">
+        <h3>Marketing Permissions</h3>
+        <p>Please select all the ways you would like to hear from Lakeland Leisure Group:</p>
+        <div class="popup__formcheckholder">
+		<label class="checkbox subfield" for="gdpr_15197"><input type="checkbox" id="gdpr_15197" name="gdpr[15197]" value="Y" class="av-checkbox popup__formcheck"><span class="popup__formchecklabel">Email</span> </label>
+      </div>
+        <p>You can unsubscribe at any time by clicking the link in the footer of our emails. For information about our privacy practices, please visit our website.</p>
+    </div>
+    <div class="content__gdprLegal">
+        <p>We use Mailchimp as our marketing platform. By clicking below to subscribe, you acknowledge that your information will be transferred to Mailchimp for processing. <a href="https://mailchimp.com/legal/" target="_blank">Learn more about Mailchimp's privacy practices here.</a></p>
+    </div>
+</div>
+	<div id="mce-responses">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_de6bd3e6dd47677091374eef9_67467b4749" tabindex="-1" value=""></div>
+    <div><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn" /></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+{% elseif currentSite.handle == 'hungerfordMarina' %}
+<div id="mc_embed_signup">
+<form action="https://lakelandleisuregroup.us9.list-manage.com/subscribe/post?u=de6bd3e6dd47677091374eef9&amp;id=b6f6c08f2c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-EMAIL" class="freeform-label freeform-required">Email Address</label>
+          <input type="email" value="" name="EMAIL" class="required email freeform-input" id="mce-EMAIL" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-FNAME" class="freeform-label">First Name</label>
+          <input type="text" value="" name="FNAME" class="freeform-input" id="mce-FNAME" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-LNAME" class="freeform-label">Last Name</label>
+          <input type="text" value="" name="LNAME" class="freeform-input" id="mce-LNAME" />            
+        </div>
+      </div>
+<div id="mergeRow-gdpr" class="mergeRow gdpr-mergeRow content__gdprBlock mc-field-group popup__formendinfo">
+    <div class="content__gdpr">
+        <h3>Marketing Permissions</h3>
+        <p>Please select all the ways you would like to hear from Lakeland Leisure Group:</p>
+        <div class="popup__formcheckholder">
+		<label class="checkbox subfield" for="gdpr_15533"><input type="checkbox" id="gdpr_15533" name="gdpr[15533]" value="Y" class="av-checkbox popup__formcheck"><span class="popup__formchecklabel">Email</span> </label>
+      </div>
+        <p>You can unsubscribe at any time by clicking the link in the footer of our emails. For information about our privacy practices, please visit our website.</p>
+    </div>
+    <div class="content__gdprLegal">
+        <p>We use Mailchimp as our marketing platform. By clicking below to subscribe, you acknowledge that your information will be transferred to Mailchimp for processing. <a href="https://mailchimp.com/legal/" target="_blank">Learn more about Mailchimp's privacy practices here.</a></p>
+    </div>
+</div>
+	<div id="mce-responses">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_de6bd3e6dd47677091374eef9_b6f6c08f2c" tabindex="-1" value=""></div>
+    <div><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn" /></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+{% elseif currentSite.handle == 'roydonMarinaVillage' %}
+
+<div id="mc_embed_signup">
+<form action="https://lakelandleisuregroup.us9.list-manage.com/subscribe/post?u=de6bd3e6dd47677091374eef9&amp;id=4ee2a010b2" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-EMAIL" class="freeform-label freeform-required">Email Address</label>
+          <input type="email" value="" name="EMAIL" class="required email freeform-input" id="mce-EMAIL" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-FNAME" class="freeform-label">First Name</label>
+          <input type="text" value="" name="FNAME" class="freeform-input" id="mce-FNAME" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-LNAME" class="freeform-label">Last Name</label>
+          <input type="text" value="" name="LNAME" class="freeform-input" id="mce-LNAME" />            
+        </div>
+      </div>
+    <input type="checkbox" value="1" name="group[34749][1]" id="mce-group[34749]-34749-0" checked="checked" class="freeform__hiddenfield" />
+<div id="mergeRow-gdpr" class="mergeRow gdpr-mergeRow content__gdprBlock mc-field-group popup__formendinfo">
+    <div class="content__gdpr">
+        <h3>Marketing Permissions</h3>
+        <p>Please select all the ways you would like to hear from Lakeland Leisure Group:</p>
+        <div class="popup__formcheckholder">
+		<label class="checkbox subfield" for="gdpr_18173"><input type="checkbox" id="gdpr_18173" name="gdpr[18173]" value="Y" class="av-checkbox popup__formcheck"><span class="popup__formchecklabel">Email</span> </label>
+    
+      </div>
+        <p>You can unsubscribe at any time by clicking the link in the footer of our emails. For information about our privacy practices, please visit our website.</p>
+    </div>
+    <div class="content__gdprLegal">
+        <p>We use Mailchimp as our marketing platform. By clicking below to subscribe, you acknowledge that your information will be transferred to Mailchimp for processing. <a href="https://mailchimp.com/legal/" target="_blank">Learn more about Mailchimp's privacy practices here.</a></p>
+    </div>
+</div>
+	<div id="mce-responses">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_de6bd3e6dd47677091374eef9_4ee2a010b2" tabindex="-1" value=""></div>
+    <div><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn" /></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+
+{% elseif currentSite.handle == 'groupMarinas' %}
+<div id="mc_embed_signup">
+<form action="https://lakelandleisuregroup.us9.list-manage.com/subscribe/post?u=de6bd3e6dd47677091374eef9&amp;id=9fc3556843" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-EMAIL" class="freeform-label freeform-required">Email Address</label>
+          <input type="email" value="" name="EMAIL" class="required email freeform-input" id="mce-EMAIL" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-FNAME" class="freeform-label">First Name</label>
+          <input type="text" value="" name="FNAME" class="freeform-input" id="mce-FNAME" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-LNAME" class="freeform-label">Last Name</label>
+          <input type="text" value="" name="LNAME" class="freeform-input" id="mce-LNAME" />            
+        </div>
+      </div>
+<div id="mergeRow-gdpr" class="mergeRow gdpr-mergeRow content__gdprBlock mc-field-group popup__formendinfo">
+    <div class="content__gdpr">
+        <h3>Marketing Permissions</h3>
+        <p>Please select all the ways you would like to hear from Lakeland Leisure Group:</p>
+        <div class="popup__formcheckholder">
+		<label class="checkbox subfield" for="gdpr_15557"><input type="checkbox" id="gdpr_15557" name="gdpr[15557]" value="Y" class="av-checkbox popup__formcheck"><span class="popup__formchecklabel">Email</span> </label>
+      </div>
+        <p>You can unsubscribe at any time by clicking the link in the footer of our emails. For information about our privacy practices, please visit our website.</p>
+    </div>
+    <div class="content__gdprLegal">
+        <p>We use Mailchimp as our marketing platform. By clicking below to subscribe, you acknowledge that your information will be transferred to Mailchimp for processing. <a href="https://mailchimp.com/legal/" target="_blank">Learn more about Mailchimp's privacy practices here.</a></p>
+    </div>
+</div>
+	<div id="mce-responses">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_de6bd3e6dd47677091374eef9_9fc3556843" tabindex="-1" value=""></div>
+    <div><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn" /></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+
+
+{% elseif currentSite.handle == 'laBellaVista' %}
+<div id="mc_embed_signup">
+<form action="https://lakelandleisuregroup.us9.list-manage.com/subscribe/post?u=de6bd3e6dd47677091374eef9&amp;id=07ff8d3817" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-EMAIL" class="freeform-label freeform-required">Email Address</label>
+          <input type="email" value="" name="EMAIL" class="required email freeform-input" id="mce-EMAIL" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-FNAME" class="freeform-label">First Name</label>
+          <input type="text" value="" name="FNAME" class="freeform-input" id="mce-FNAME" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-LNAME" class="freeform-label">Last Name</label>
+          <input type="text" value="" name="LNAME" class="freeform-input" id="mce-LNAME" />            
+        </div>
+      </div>
+<div id="mergeRow-gdpr" class="mergeRow gdpr-mergeRow content__gdprBlock mc-field-group popup__formendinfo">
+    <div class="content__gdpr">
+        <h3>Marketing Permissions</h3>
+        <p>Please select all the ways you would like to hear from Lakeland Leisure Group:</p>
+        <div class="popup__formcheckholder">
+		<label class="checkbox subfield" for="gdpr_15209"><input type="checkbox" id="gdpr_15209" name="gdpr[15209]" value="Y" class="av-checkbox popup__formcheck"><span class="popup__formchecklabel">Email</span> </label>
+      </div>
+        <p>You can unsubscribe at any time by clicking the link in the footer of our emails. For information about our privacy practices, please visit our website.</p>
+    </div>
+    <div class="content__gdprLegal">
+        <p>We use Mailchimp as our marketing platform. By clicking below to subscribe, you acknowledge that your information will be transferred to Mailchimp for processing. <a href="https://mailchimp.com/legal/" target="_blank">Learn more about Mailchimp's privacy practices here.</a></p>
+    </div>
+</div>
+	<div id="mce-responses">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_de6bd3e6dd47677091374eef9_07ff8d3817" tabindex="-1" value=""></div>
+    <div><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn" /></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+{% else %}
+{# long ashes park #}
+<div id="mc_embed_signup">
+<form action="https://lakelandleisuregroup.us9.list-manage.com/subscribe/post?u=de6bd3e6dd47677091374eef9&amp;id=20f67354f2" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-EMAIL" class="freeform-label freeform-required">Email Address</label>
+          <input type="email" value="" name="EMAIL" class="required email freeform-input" id="mce-EMAIL" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-FNAME" class="freeform-label">First Name</label>
+          <input type="text" value="" name="FNAME" class="freeform-input" id="mce-FNAME" />            
+        </div>
+      </div>
+      <div class="freeform-row">
+        <div class="freeform-column">
+          <label for="mce-LNAME" class="freeform-label">Last Name</label>
+          <input type="text" value="" name="LNAME" class="freeform-input" id="mce-LNAME" />            
+        </div>
+      </div>
+      <input type="checkbox" value="1" class="freeform__hiddenfield" name="group[34741][1]" id="mce-group[34741]-34741-0" checked="checked" />
+      
+<div id="mergeRow-gdpr" class="mergeRow gdpr-mergeRow content__gdprBlock mc-field-group popup__formendinfo">
+    <div class="content__gdpr">
+        <h3>Marketing Permissions</h3>
+        <p>Please select all the ways you would like to hear from Lakeland Leisure Group:</p>
+        <div class="popup__formcheckholder">
+		<label class="checkbox subfield" for="gdpr_18161"><input type="checkbox" id="gdpr_18161" name="gdpr[18161]" value="Y" class="av-checkbox popup__formcheck"><span class="popup__formchecklabel">Email</span> </label>
+      </div>
+        <p>You can unsubscribe at any time by clicking the link in the footer of our emails. For information about our privacy practices, please visit our website.</p>
+    </div>
+    <div class="content__gdprLegal">
+        <p>We use Mailchimp as our marketing platform. By clicking below to subscribe, you acknowledge that your information will be transferred to Mailchimp for processing. <a href="https://mailchimp.com/legal/" target="_blank">Learn more about Mailchimp's privacy practices here.</a></p>
+    </div>
+  
+</div>
+	<div id="mce-responses">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_de6bd3e6dd47677091374eef9_20f67354f2" tabindex="-1" value=""></div>
+    <div><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn" /></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+
+
+<!--End mc_embed_signup-->
+            {% endif %}
+            
+            
+            </div>
+            {% endif %}
+            
+          </div>
+        {% endif %}
+      </div>
+                
+    </div>
+  </div>
+{% endfor %}
+{% endif %}

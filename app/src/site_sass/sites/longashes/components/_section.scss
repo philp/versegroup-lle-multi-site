@@ -1,0 +1,55 @@
+.section__half--txtbehindgallery { 
+  background: #fff; 
+}
+.section__half--galleryoverlaptextsize { 
+  background: #fff; 
+}
+.section--greenoverlap { 
+  background: $lightgreen; 
+  color: #fff; 
+}
+.section--greenoverlap h2, .section--greenoverlap .h2 { 
+  color: #fff; 
+}
+.section__separatecontent--grey { 
+  background: #f7f7f7; 
+}
+.section__contactsideinner {
+  border-color: #d7d7d7;
+}
+.section__contactsideitem {
+  color: $darkgrey;  
+}
+.section__contactsideitemlink {
+  color: $darkgrey;
+}
+.section__rightheading {
+  &:before {
+    background: #9e9e9e;
+  }
+}
+
+.section__panelareainner {
+  background: #fff;
+}
+.section__panelarea {
+  background: $lightgrey;
+}
+.section--bgcol {
+  background: #fff;
+}
+
+.section__listingstop--wbackground {
+  background: $lightgreen;
+}
+
+@media (max-width: 600px) {
+	.section__separatecontent--grey { 
+    background: #fff;    
+  }
+}
+@media(max-width:400px){
+  .section--bgcol, .section__half--imgside {
+    background: #fff;
+  }
+}

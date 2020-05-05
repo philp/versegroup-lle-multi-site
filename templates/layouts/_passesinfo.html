@@ -1,0 +1,53 @@
+{% if entry.passes|length %}
+  <div class="passes">
+    {% for item in entry.passes.all() %}
+      {% if item.type == "passItem" %}
+        <div class="passes__item cs">
+          <div class="{% if item.passImage|length %}passes__itemcontent{% endif %}">
+            {% if item.passHeading|length %}
+              <div class="passes__itemheading">
+                {{ item.passHeading }}
+              </div>
+            {% endif %}
+            {% if item.passIntroduction|length %}
+              <div class="passes__itemintro">
+                {{ item.passIntroduction }}
+              </div>
+            {% endif %}
+          
+            {% if item.detailsTable|length %}
+              <div class="passes__table">
+                {% for row in item.detailsTable %}
+                  <div class="passes__tablerow">
+                    <div class="passes__tablecell passes__tablecell--highlighted">
+                      {% if row.labelSideBoldText|length or row.labelSideRegularText|length %}
+                        {% if row.labelSideBoldText|length %}<strong>{{ row.labelSideBoldText }}</strong> {% endif %}
+                        {% if row.labelSideRegularText|length %}{{ row.labelSideRegularText }}{% endif %}
+                      {% else %}
+                        &nbsp;
+                      {% endif %}
+                    </div>
+                    <div class="passes__tablecell passes__tablecell--regular">
+                      {% if row.detailsSideBoldText|length or row.detailsSideRegularText|length %}
+                        {% if row.detailsSideBoldText|length %}<strong>{{ row.detailsSideBoldText }}</strong> {% endif %}
+                        {% if row.detailsSideRegularText|length %}{{ row.detailsSideRegularText }}{% endif %}
+                      {% else %}
+                        &nbsp;
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+            
+          </div>
+          <div class="{% if item.passHeading|length or item.passIntroduction|length or  item.detailsTable|length %}passes__itemimg{% endif %}">
+            {% if item.passImage|length %}
+              <img src="{{ item.passImage.one().getUrl('passImage') }}" alt="{{ item.passImage.one().title }}" class="passes__itemimgimg" />
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}

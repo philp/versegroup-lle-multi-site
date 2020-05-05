@@ -1,0 +1,25 @@
+{% if currentGlobals.displayAnnouncement is defined and currentGlobals.displayAnnouncement %}{% else %}
+<div class="headerbtns">
+  <div class="container container--headerbtns cs"><!--
+    {% for button in entry.headerGalleryButtons.all() %}
+      {% if button.type == 'button' %}
+        {% if (button.entry|length or button.linkUrl|length or button.category|length or button.download|length) and button.text|length %}
+      --><div class="headerbtns__btnitem">
+            <a href="{% spaceless %}
+              {% if button.entry|length %}
+                {{ button.entry.one().url }}
+              {% elseif button.linkUrl|length %}  
+                {{ button.linkUrl }}
+              {% elseif button.category|length %}  
+                {{ button.category.one().url }}
+              {% elseif button.download|length %}  
+                {{ button.download.one().url }}
+              {% endif %}
+            {% endspaceless %}" class="headerbtns__btn" {% if button.openLinkInNewTab %}target="_blank"{% endif %}>{{ button.text }}</a>
+          </div><!--
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  --></div>
+</div>
+{% endif %}

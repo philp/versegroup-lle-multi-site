@@ -1,0 +1,46 @@
+body { 
+	color:#000; 
+	font-family: $fonts; 
+	background:#fff; 
+}
+h1, .h1 { 
+	color: $bellavistared;
+	&:before {
+		background: $bellavistared; 	
+	}
+}
+h2, .h2 { 
+	color: $bellavistared; 
+}
+h3, .h3 { 
+	color: $bellavistared;
+}
+h4, .h4 { 
+	color: $bellavistared; 
+}
+h6 {
+	color: $bellavistared;
+}
+
+a {  
+	color: $bellavistared; 
+	&:hover {
+		color: $bellavistared; 
+	}
+}
+em { 
+	color: $bellavistared; 
+}
+
+.leftButton, .rightButton { 
+	background: $bellavistared; 
+}
+.leftButton span { 
+	background-image: inline-svg('arrow-gallery-scroll-left',#fff);
+	background-size: contain;
+}
+.rightButton span { 
+	background-image: inline-svg('arrow-gallery-scroll-right',#fff);
+	background-size: contain;
+}
+

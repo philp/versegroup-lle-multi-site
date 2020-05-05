@@ -1,0 +1,118 @@
+.salespanels {
+  padding-top: 90px;
+}
+.salespanels__back {
+  background: #ececec;
+  padding-bottom: 75px;
+}
+.salespanels__item {
+  background: #fff;
+  float: left;
+  width: 49%;
+  margin-top: -90px;
+  margin-right: 2%;
+  margin-bottom: 24px;
+  &:nth-child(even){
+    margin-right: 0;
+  }
+}
+.salespanels__singleitem {
+  text-align: left;
+  display: inline-block;
+  margin-right: 0;
+  float: none;
+}
+.salespanels__singlepanelholder { 
+  text-align: center; 
+}
+.salespanels__itemimg {
+  width: 100%;
+}
+.salespanels__content {
+  padding: 45px 65px 45px 55px;
+  box-sizing: border-box;
+}
+.salespanels__contacthead {
+  font-weight: bold;
+  color: $lightgreen;
+  display: block;
+}
+.salespanels__contactlink {
+  color: $longashesbodytext;
+  word-wrap: break-word;
+}
+.salespanels__btns {
+  padding-top: 15px;
+}
+
+@media(max-width: 1180px){
+  .salespanels__item {
+    margin-top: -70px;
+  }
+  .salespanels {
+    padding-top: 70px;
+  }
+  .salespanels__back {
+    padding-bottom: 55px;
+  }
+}
+@media(max-width:990px){
+  .salespanels__content {
+    padding: 30px 45px 30px 35px;
+  }
+  .salespanels__btns {
+    padding-top: 5px;
+  }
+  .salespanels__back {
+    padding-bottom: 40px;
+  }
+  .salespanels__singleitem {
+    width: 59%; 
+  }
+}
+@media(max-width:750px){
+  .salespanels__content {
+    padding: 22px 30px 28px 30px;
+  }
+  .salespanels__item {
+    margin-top: -50px;
+  }
+  .salespanels {
+    padding-top: 50px;
+  }
+  .salespanels__singleitem {
+    width: 80%;  
+  }
+}
+@media(max-width:650px){
+  .salespanels__content {
+    padding: 22px 20px 28px;
+  }
+}
+@media(max-width:600px){
+  .salespanels__item {
+    margin-top: 0;
+    margin-right: 0;
+    width: 100%;
+    float: none; 
+    height: auto!important;
+  }
+  .salespanels {
+    padding: 0;
+  }
+  .salespanels__back {
+    padding-top: 29px;
+    padding-bottom: 8px;
+  }
+  .salespanels__content {
+    padding: 24px 25px 26px;
+  }
+}
+@media(max-width:400px){
+  .salespanels__content {
+    padding: 21px 20px 18px;
+  }
+  .salespanels__btns {
+    padding-top: 0;
+  }
+}

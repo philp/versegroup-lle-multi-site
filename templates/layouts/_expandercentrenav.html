@@ -1,0 +1,47 @@
+{% if currentGlobals.navigation|length %}
+  <div class="nav cs {% if propertyHeaderGalleryStatus == true and currentSite.handle == 'gamekeepersInn' %}nav--white{% endif %}">
+    <div id="nav">
+      <div class="nav__inner nav__inner--nopad" {% if currentGlobals.navigationBackground|length %}style="background-image:url({{ currentGlobals.navigationBackground.one().url }})"{% endif %}>
+        <div class="nav__innerspacing">
+          <ul class="nav__ul nav__ul--centre cs">
+
+              {% for item in currentGlobals.navigation.all() %}
+                {% if item.type == "navigationItem" %}
+                  {% if item.itemEntry|length or item.itemLink|length or item.itemCategory|length %}
+                    {% if item.itemEntry|length  %}
+                      {% set thisLink = item.itemEntry.one().url %}
+                    {% elseif item.itemCategory|length %}
+                      {% set thisLink = item.itemCategory.one().url %}
+                    {% else %}
+                      {% set thisLink = item.itemLink %}
+                    {% endif %}
+                    <li class="nav__li nav__li--centre {% if craft.app.request.absoluteUrl == currentSite.baseUrl %}
+                      {% if craft.app.request.absoluteUrl == thisLink %}
+                        active
+                      {% endif %}
+                    {% else %}
+                        {% if craft.app.request.absoluteUrl in thisLink %}
+                          active
+                        {% endif %}
+                    {% endif %}"><a href="{{ thisLink }}" class="nav__a" {% if item.openLinkInNewTab %}target="_blank"{% endif %}>{{ item.itemText }}</a></li>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+
+              {% if currentSite.handle == 'deganwyMarina' and currentGlobals.customerLogin is defined and currentGlobals.customerLogin|length %}
+
+                <li class="nav__li--nodesktop nav__li nav__li--centre {% if craft.app.request.absoluteUrl == currentGlobals.customerLogin %}active{% endif %}"><a href="{{ currentGlobals.customerLogin }}" class="nav__a">Customer Login</a></li>
+              {% elseif currentGlobals.headerButtonText is defined and currentGlobals.headerButtonText|length and ((currentGlobals.headerButtonUrl is defined and currentGlobals.headerButtonUrl|length) or (currentGlobals.headerButtonEntry is defined and currentGlobals.headerButtonEntry|length)) %}
+                <li class="nav__li--nodesktop nav__li nav__li--centre {% if (currentGlobals.headerButtonEntry|length and craft.app.request.absoluteUrl == currentGlobals.headerButtonEntry.one().url) or (currentGlobals.headerButtonUrl|length and craft.app.request.absoluteUrl == currentGlobals.headerButtonUrl) %}active{% endif %}"><a href="{% if currentGlobals.headerButtonEntry|length %}{{ currentGlobals.headerButtonEntry.one().url }}{% else %}{{ currentGlobals.headerButtonUrl }}{% endif %}" class="nav__a" {% if currentGlobals.headerButtonOpenInNewTab %}target="_blank"{% endif %}>{{ currentGlobals.headerButtonText }}</a></li>
+
+
+
+    					{% endif %}
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

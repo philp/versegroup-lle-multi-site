@@ -1,0 +1,60 @@
+{% if currentGlobals.navigation|length %}
+  {% set navHalfLength = (currentGlobals.navigation|length / 2)|round(0,'ceil') %}
+  <div class="nav cs">
+    <div id="nav">
+      <div class="nav__inner">
+        <ul class="nav__ul cs">
+          <span class="nav__column">
+            {% for item in currentGlobals.navigation.all()|slice(0,navHalfLength) %}
+              {% if item.type == "navigationItem" %}
+                {% if item.itemEntry|length or item.itemLink|length or item.itemCategory|length %}
+                  {% if item.itemEntry|length  %}
+                    {% set thisLink = item.itemEntry.one().url %}
+                  {% elseif item.itemCategory|length %}  
+                    {% set thisLink = item.itemCategory.one().url %}
+                  {% else %}
+                    {% set thisLink = item.itemLink %}
+                  {% endif %}                  
+                  <li class="nav__li {% if craft.app.request.absoluteUrl == currentSite.baseUrl %}
+                    {% if craft.app.request.absoluteUrl == thisLink %}
+                      active
+                    {% endif %}
+                  {% else %}
+                      {% if craft.app.request.absoluteUrl in thisLink %} 
+                        active
+                      {% endif %}
+                  {% endif %}"><a href="{{ thisLink }}" class="nav__a" {% if item.openLinkInNewTab %}target="_blank"{% endif %}>{{ item.itemText }}</a></li>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </span>
+          <span class="nav__column">
+            {% for item in currentGlobals.navigation.all()|slice(navHalfLength, currentGlobals.navigation|length) %}
+              {% if item.type == "navigationItem" %}
+                {% if item.itemEntry|length or item.itemLink|length or item.itemCategory|length %}
+                  {% if item.itemEntry|length  %}
+                    {% set thisLink = item.itemEntry.one().url %}
+                  {% elseif item.itemCategory|length %}  
+                    {% set thisLink = item.itemCategory.one().url %}
+                  {% else %}
+                    {% set thisLink = item.itemLink %}
+                  {% endif %}
+                  <li class="nav__li {% if craft.app.request.absoluteUrl == currentSite.baseUrl %}
+                    {% if craft.app.request.absoluteUrl == thisLink %}
+                      active
+                    {% endif %}
+                  {% else %}
+                      {% if craft.app.request.absoluteUrl in thisLink %} 
+                        active
+                      {% endif %}
+                  {% endif %}"><a href="{{ thisLink }}" class="nav__a" {% if item.openLinkInNewTab %}target="_blank"{% endif %}>{{ item.itemText }}</a></li>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </span>
+          <div class="clear">&nbsp;</div>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endif %}

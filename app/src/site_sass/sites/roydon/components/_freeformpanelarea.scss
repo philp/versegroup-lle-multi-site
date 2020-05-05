@@ -1,0 +1,22 @@
+.freeformpanelarea {
+  .freeform-row .freeform-column .freeform-label {
+    color: #090909;
+  }
+}
+.freeformpanelarea .freeform-row .freeform-column .freeform-input {
+  border-color: #082c3f;
+}
+.freeformpanelarea__fieldholder:before {
+  border-color: #082c3f;
+  background: $yellow;
+}
+.freeformpanelarea__fieldholder--arrow {
+  &:after {
+    background-image: inline-svg('down-arrow',#fff);
+  }
+}
+.freeformpanelarea__fieldholder--date {
+  &:after {
+    background-image: inline-svg('calendar',#fff);
+  }
+}

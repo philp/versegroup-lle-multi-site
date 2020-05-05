@@ -1,0 +1,37 @@
+{{ form.renderTag({id:'contactform', class:'contact__form'}) }}
+
+
+{% if form.hasErrors %}
+  {% if form.errors|length %}
+      <ul class="errors">
+          {% for error in form.errors %}
+              <li>{{ error }}</li>
+          {% endfor %}
+      </ul>
+  {% endif %}
+{% endif %}
+
+<div class="contact">
+
+{% for row in form %}
+<div class="contact__row {% if loop.first %}cs{% endif %} {{ form.customAttributes.rowClass }}">
+    {% for field in row %}
+    <div class="{% if field.type == 'submit' %}contact__submit{% else %}contact__column{% endif %}" {{ field.rulesHtmlData }}>
+  
+        {{ field.render({
+            class: field.type == "submit" ? "btn g-recaptcha",
+            errorClass: "freeform-errors",
+            instructionsClass: "freeform-instructions",
+            inputAttributes: field.type == 'submit' ? {'data-sitekey':'6LeXnIkUAAAAAFAhCvJdcXfQBJuJC0eXUfb6wkBP', 'data-callback':'onSubmit'}
+        }) }}
+
+      
+
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+
+</div>
+
+{{ form.renderClosingTag }}

@@ -1,0 +1,14 @@
+.blogslist__item {
+  &:hover .blogslist__itemcontent {
+    background: $purple;
+  }
+}
+.blogslist__itemcontent {
+  background: #171717;
+}
+.blogslist__itemtitle {
+  color: #f0f0f0;
+}
+.blogslist__itemsummary {
+  /*color: #9c9c9c;*/
+}

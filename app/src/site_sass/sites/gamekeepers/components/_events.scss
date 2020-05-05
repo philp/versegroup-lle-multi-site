@@ -1,0 +1,16 @@
+.events__item {
+  background: $purple;
+  color: #fff;
+}
+.events__itembtn {
+  border-color: $darkpurple;
+  &:hover {
+    background: $darkpurple;
+  }
+}
+.events__itemtitle {
+  color: #fff;
+  &:hover {
+    color: #fff;
+  }
+}

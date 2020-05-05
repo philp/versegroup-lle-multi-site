@@ -1,0 +1,17 @@
+.contact {
+  select {
+    background-image:inline-svg('down-arrow', $bellavistared);
+  }
+
+  input[type="text"],input[type="email"],input[type="tel"],select,textarea {
+    border-color: $brandbeige;
+  }
+}
+
+.contact__map-form {
+  input[type="text"] {
+    border-color: $brandbeige;
+  }
+}
+
+

@@ -1,0 +1,128 @@
+.section__half--txtbehindgallery { 
+  background: #fff; 
+}
+.section__half--galleryoverlaptextsize { 
+  background: #fff; 
+}
+.section--greenoverlap { 
+  background: $saulblue; 
+  color: #fff; 
+}
+.section--greenoverlap h2, .section--greenoverlap .h2 { 
+  color: #fff; 
+}
+.section__separatecontent--grey { 
+  background: #f7f7f7; 
+}
+.section__contactsideinner {
+  border-color: #d7d7d7;
+}
+.section__contactsideitem {
+  color: $darkgrey;  
+}
+.section__contactsideitemlink {
+  color: $darkgrey;
+}
+.section__contactsideheading {
+  color:$saulblue;
+}
+.section__rightheading {
+  width: 50%;
+  &:before {
+    background: #9e9e9e;
+  }
+}
+
+.section__panelareainner {
+  background: #fff;
+}
+.section__panelarea {
+  background: $lightgrey;
+}
+.section--bgcol {
+  background: #e5e5e5;
+}
+.section__half--imgside {
+  background: #e5e5e5;
+}
+
+.section__half--txtbehindgallery {
+  padding-bottom: 25px;
+}
+.section__half--galleryoverlaptextsize {  
+  padding-bottom: 25px;
+}
+
+.section ul li:before {
+  background: $saulblue;
+}
+
+.section__leftheading {
+  width: 50%;
+}
+
+
+
+.section__firsthalfheading {
+  color: $saulblue;
+}
+
+.section--bannerpanelscontact {
+  h2:before {
+    display: none; 
+  }
+}
+
+.section__belowtables {
+  p {
+    color: #000;
+  }
+}
+
+.section__half--imgsidemultiwidthback {
+  background: #f5f5f5;  
+}
+
+.section__listingstop--wbackground {
+  background: $saulblue;
+}
+
+@media (max-width: 900px) {
+  .section__half--galleryoverlaptextsize {  
+    padding-bottom: 25px;
+  }
+  .section__half--txtbehindgallery {
+    padding-bottom: 25px;
+  }
+}
+@media (max-width: 790px) {
+  .section__half--galleryoverlaptextsize {  
+    padding-bottom: 25px;
+  }
+  .section__half--txtbehindgallery {
+    padding-bottom: 25px;
+  }
+}
+@media (max-width: 700px) {
+  .section__leftheading, .section__rightheading {
+    width: 100%;
+  }
+}
+@media (max-width: 600px) {
+	.section__separatecontent--grey { 
+    background: #fff;    
+  }
+  .section__half--galleryoverlaptextsize {  
+    padding-bottom: 10px;
+  }
+  .section__half--txtbehindgallery {
+    padding-bottom: 10px;
+  }
+
+}
+@media(max-width:400px){
+  .section--bgcol, .section__half--imgside {
+    background: #fff;
+  }
+
+}

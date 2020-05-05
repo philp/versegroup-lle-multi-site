@@ -1,0 +1,62 @@
+.btn, .directionsSearch, .popup__form button, .freeformpanelarea button { 
+	font-family: $fonts; 
+	background: $bellavistared; 
+	border-bottom-color: $bellavistadarkred; 
+	&:hover {
+		background: $bellavistadarkred; 
+		border-color: $bellavistared; 
+		color: #fff; 
+	}
+}
+.btn--white { 
+	background: #fff; 
+	color: $bellavistared;
+	border-color: $bellavistadarkred; 
+	&:hover {
+		background: $bellavistadarkred; 
+		border-color: #fff; 
+		color: #fff; 
+	}
+}
+
+.btn--brochure {
+	padding-left: 70px;
+	&:before {
+		background-image: inline-svg('btnbrochures',#fff);
+	  width: 30px;
+	  height: 27px;
+		margin-top: -13.5px;
+		left: 20px;
+	}
+}
+
+@media (max-width: 1250px) {
+	.btn--brochure {
+		padding-left: 59px;
+		&:before {
+			left: 15px;
+		}
+	}
+}
+@media (max-width: 650px) {
+	.btn--brochure {
+		padding-left: 54px;
+		&:before {
+			left: 12px;
+		}
+	}
+}
+@media (max-width: 400px) {
+	.btn, .directionsSearch, .popup__form button, .freeformpanelarea button { 
+		color: #fff; 
+	}
+	.btn--white { 
+		color: $bellavistared; 
+	}
+	.btn--brochure {
+		padding-left: 58px;
+		&:before {
+			left: 15px;
+		}
+	}
+}

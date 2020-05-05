@@ -1,0 +1,16 @@
+.events__item {
+  background: $boatblue;
+  color: #fff;
+}
+.events__itembtn {
+  border-color: $boatdarkblue;
+  &:hover {
+    background: $boatdarkblue;
+  }
+}
+.events__itemtitle {
+  color: #fff;
+  &:hover {
+    color: #fff;
+  }
+}

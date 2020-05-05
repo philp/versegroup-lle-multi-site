@@ -1,0 +1,115 @@
+.freeformpanelarea {
+  padding-top: 37px;
+  .freeform-row .freeform-column .freeform-label {
+    font-weight: 400;
+    color: $longashesbodytext;
+    padding-bottom: 15px;
+  }
+  .freeform-row .freeform-column .freeform-input {
+    @extend %form-inputs;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  textarea {
+    height: 170px;
+  }
+  .freeform-row .freeform-column {
+    padding: 0 0 6px;
+  }
+  button {
+    margin-top: 15px;
+  }
+  p {
+    color: $darkgrey;
+    font-size: 100%;
+    line-height: 1.72em;
+  }
+  
+}
+
+.freeformpanelarea__fieldholder {
+  position: relative;
+  &:before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    pointer-events: none;
+    right: 1px;
+    background: #eaeaea;
+    border-left: 1px solid #c2c2c2;
+    width: 49px;
+    height: calc(100% - 2px);
+    top: 1px;
+    border-radius: 0 5px 5px 0;
+  }
+  &:after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    pointer-events: none;
+  }
+}
+.freeformpanelarea__fieldholder--arrow {
+  &:after {
+    width: 16px;
+    height: 10px;
+    position: absolute;
+    top: 20px;
+    right: 17px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-image: inline-svg('down-arrow',$lightgreen);
+  }
+}
+.freeformpanelarea__fieldholder--date {
+  &:after {
+    width: 21px;
+    height: 20px;
+    position: absolute;
+    top: 14px;
+    right: 15px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-image: inline-svg('calendar',$lightgreen);
+  }
+}
+
+.freeformpanelarea ::-webkit-input-placeholder { color: #575759; }
+.freeformpanelarea :-moz-placeholder { color: #575759; }
+.freeformpanelarea ::-moz-placeholder { color: #575759; }
+.freeformpanelarea :-ms-input-placeholder { color: #575759; }
+
+@media(max-width:1200px){
+  .freeformpanelarea {
+    padding-top: 9px;
+  }
+}
+@media(max-width:990px){
+  .freeformpanelarea {
+    padding-top: 0;
+  }
+}
+@media(max-width:900px){  
+  .freeformpanelarea .freeform-row {
+    margin: 0 -10px;
+    .freeform-column {
+      margin: 0 10px;
+    }
+  }
+}
+@media(max-width:700px){
+  .freeformpanelarea .freeform-row {
+    margin: 0;
+    display: block;
+    .freeform-column {
+      margin: 0;
+      padding: 0;
+      .freeform-input {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+    }
+  }
+}

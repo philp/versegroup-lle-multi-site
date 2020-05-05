@@ -1,0 +1,14 @@
+.fullwidthimg { 
+  width: 100%; 
+}
+.fullwidthimg--mobileonly { 
+  display: none; 
+}
+@media (max-width: 400px) {
+  .fullwidthimg--mobileonly { 
+    display: block; 
+  }
+	.fullwidthimg--nomobile { 
+    display: none; 
+  }
+}

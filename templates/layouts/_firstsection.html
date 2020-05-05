@@ -1,0 +1,253 @@
+<div id="section{{ firstPanelNum }}">
+  {% if entry.firstSectionMainStyling == 'greyBoxes' %}
+    <div class="section section--white section--simplehalves {% if boatSalesTemplate == false %}section--boxes{% endif %} {% if catPage == false and tagPage == false %}{% if entry.section.handle == 'roomsHomepage' or (entry.section.handle == 'pages' and entry.type == 'location') %}section--boxesnoend{% endif %}{% endif %}">
+      <div class="container cs">
+        {% if entry.displayPropertySearch is defined and entry.displayPropertySearch and enablePropertySearch == true %}
+          <div class="mobiletopsearch mobiletopsearch--boxessection">
+            <a class="btn mobiletopsearch__btn mobiletopsearch__btn--boxessection">Search {% if currentSite.handle == 'boatSales' %}Boats{% else %}Properties{% endif %} for Sale</a>
+            <div class="mobiletopsearch__form">
+              {% set topform = true %}
+              {% include "layouts/_mobilesectionform" %}
+            </div>
+          </div>
+        {% elseif entry.displayRoomSearch is defined and entry.displayRoomSearch %}    
+          {% if enableBooking %}
+          <div class="mobiletopsearch mobiletopsearch--boxessection">
+            <a class="btn mobiletopsearch__btn mobiletopsearch__btn--boxessection">Search for a Room</a>
+            <div class="mobiletopsearch__form">
+              {% set topform = true %}
+              {% include "layouts/_mobilesectionroomsform" %}
+            </div>
+          </div>
+          {% endif %}
+        {% endif %}
+        <div class="section__boxtextside {% if entry.firstSectionImage|length %}{% else %}section__boxtextside--noimg{% endif %}">
+          {% if entry.firstSectionCategoryHeading is defined and entry.firstSectionCategoryHeading|length %}  
+            {{ entry.firstSectionCategoryHeading }}
+          {% elseif entry.firstSectionHeading is defined and entry.firstSectionHeading|length %}  
+            {{ entry.firstSectionHeading }}
+          {% endif %}
+          {% if (entry.firstSectionCategoryIntroduction is defined and entry.firstSectionCategoryIntroduction|length) or (entry.firstSectionIntroduction is defined and entry.firstSectionIntroduction|length) or (entry.firstSectionContentCategory is defined and entry.firstSectionContentCategory|length) or (entry.firstSectionContent is defined and entry.firstSectionContent|length) or entry.firstSectionHalfLists|length or entry.firstSectionContacts|length or entry.buttons|length %}
+            <div class="section__narrowertext">
+              {% if entry.firstSectionCategoryIntroduction|length %}
+              <div class="section__intro">
+                {{ entry.firstSectionCategoryIntroduction }}
+              </div>  
+              {% elseif entry.firstSectionIntroduction|length %}
+              <div class="section__intro">
+                {{ entry.firstSectionIntroduction }}
+              </div>
+              {% endif %}
+              {% if entry.firstSectionContentCategory|length %}
+              {{ entry.firstSectionContentCategory }}
+              {% elseif entry.firstSectionContent|length %}
+                {{ entry.firstSectionContent }}
+              {% endif %}
+              {% if entry.firstSectionHalfLists|length %}
+                <div class="section__firsthalves cs">
+                  {% for item in entry.firstSectionHalfLists.all()  %}
+                    {% if item.type == 'halfList' %}
+                        <div class="section__firsthalveshalf">
+                          {% if item.listHeading|length or item.listRows|length %}
+                            <p>
+                              {% if item.listHeading|length %}
+                                <span class="section__firsthalfheading">{{ item.listHeading }}</span>
+                              {% endif %}
+                              {% if item.listRows|length %}
+                                {% for row in item.listRows %}
+                                  {{ row.listContent }}{% if loop.last %}{% else %}<br />{% endif %}
+                                {% endfor %}
+                              {% endif %}
+                            </p>
+                          {% endif %}
+                        </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+              {% if entry.firstSectionContacts|length %}
+              <p>
+                {% for item in entry.firstSectionContacts.all() %}
+                  {% if item.type == "emailAddress" %}
+                  <span class="contactmargin">{% if item.label|length %}<em>{{ item.label }}</em>{% endif %} {% if item.emailAddress|length %}<a href="mailto:{{ item.emailAddress }}">{{ item.emailAddress }}</a>{% endif %} {% if item.emailSeparator|length %}{{ item.emailSeparator }}{% endif %} {% if item.secondaryEmailAddress|length %}<a href="mailto:{{ item.secondaryEmailAddress }}">{{ item.secondaryEmailAddress }}</a>{% endif %}</span> 
+                  {% elseif item.type == "phoneNumber" %}
+                  <span class="contactmargin">{% if item.label|length %}<em>{{ item.label }}</em>{% endif %} {% if item.phoneNumber|length %}<a href="tel:{{ item.phoneNumber|replace({' ': ''}) }}">{{ item.phoneNumber }}</a>{% endif %} {% if item.numberSeparator|length %}{{ item.numberSeparator }}{% endif %} {% if item.secondaryPhoneNumber|length %}<a href="tel:{{ item.secondaryPhoneNumber|replace({' ': ''}) }}">{{ item.secondaryPhoneNumber }}</a>{% endif %}</span> 
+                  {% endif %}
+                {% endfor %}
+              </p>
+              {% endif %}
+              
+              {% if entry.buttons|length %}
+                <div class="section__firstsectionbtns">
+                  {% for item in entry.buttons.all() %}
+                    {% if item.type == "button" %}
+                      {% if item.text|length and (item.entry|length or item.linkUrl|length or item.download|length) %}
+                      {% set isPopup = false %}
+                      {% if item.entry|length %}
+                        {% if item.entry.one().section.handle == 'popups' %}
+                          {% set isPopup = true %}
+                        {% endif %}
+                      {% endif %}
+                        <a href="{% if item.entry|length %}{{ item.entry.one().url }}{% elseif item.linkUrl|length %}{{ item.linkUrl }}{% elseif item.download|length %}{{ item.download.one().url }}{% endif %}" class="btn section__btnsareabtn {% if isPopup == true %}popuplink{% endif %} {% if item.brochureIcon %}btn--brochure{% endif %}" {% if isPopup == true %}data-popup="{{ item.entry.one().slug }}"{% endif %} {% if item.openInNewTab %}target="_blank"{% endif %}>{{ item.text }}</a>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+        {% if entry.firstSectionImage|length %}
+          <div class="section__boximgside">
+            
+            <div class="section_gallery">
+              <div id="section{{ firstPanelNum }}gallery" class="section_galleryid">
+                {% for img in entry.firstSectionImage.all() %}
+                  <div class="galleryItem section_galleryitem" style="background-image:url({{ img.getUrl('boxesFirstPanelImage') }})">
+                    <div class="section_galleryitemimgholder"><img src="{{ img.getUrl('boxesFirstPanelImage') }}" class="section_galleryitemimg" alt="{{ img.title }}" /></div>
+                  </div>  
+                {% endfor %}
+              </div>
+              <script type="text/javascript">
+              <!--
+                $(function() {
+                  $('#section{{ firstPanelNum }}gallery').imageGallery({ itemButtons:false, nextPrevButtons:true, autoplay:true, speed:5000, callback:function() {
+                    slideRender($('#section{{ firstPanelNum }}gallery').find('.activeItem'));
+                  }});
+                });
+               //-->
+              </script>
+            </div>
+            
+            
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    
+    {% if boatSalesTemplate == false %}
+      {% if (entry.firstSectionCategoryIntroduction is defined and entry.firstSectionCategoryIntroduction|length) or (entry.firstSectionIntroduction is defined and entry.firstSectionIntroduction|length) or (entry.firstSectionContentCategory is defined and entry.firstSectionContentCategory|length) or (entry.firstSectionContent is defined and entry.firstSectionContent|length) or entry.firstSectionHalfLists|length or entry.firstSectionContacts|length or entry.buttons|length or entry.firstSectionImage|length %}
+        
+          <div class="section__endgrey {% if catPage == false and tagPage == false %}{% if entry.section.handle == 'roomsHomepage' or (entry.section.handle == 'pages' and entry.type == 'location') %}section__endgrey--hidden{% endif %}{% endif %}">&nbsp;</div>
+        
+      {% endif %}
+    {% endif %}
+    
+  {% else %}
+    <div class="section section--white section--greyfirstsection">
+      <div class="container cs">
+        {% if entry.displayPropertySearch is defined and entry.displayPropertySearch and enablePropertySearch == true %}
+          <div class="mobiletopsearch">
+            <a class="btn mobiletopsearch__btn">Search {% if currentSite.handle == 'boatSales' %}Boats{% else %}Properties{% endif %} for Sale</a>
+            <div class="mobiletopsearch__form">
+              {% set topform = true %}
+              {% include "layouts/_mobilesectionform" %}
+            </div>
+          </div>
+        {% elseif entry.displayRoomSearch is defined and entry.displayRoomSearch %}  
+          {% if enableBooking %}
+          <div class="mobiletopsearch">
+            <a class="btn mobiletopsearch__btn">Search for a Room</a>
+            <div class="mobiletopsearch__form">
+              {% set topform = true %}
+              {% include "layouts/_mobilesectionroomsform" %}
+            </div>
+          </div>
+          {% endif %}
+        {% endif %}
+        <div class="section__separateheader">
+          {% if entry.firstSectionCategoryHeading is defined and entry.firstSectionCategoryHeading|length %}
+            {{ entry.firstSectionCategoryHeading }}
+          {% elseif entry.firstSectionHeading is defined and entry.firstSectionHeading|length %}  
+            {{ entry.firstSectionHeading }}
+          {% endif %}
+        </div>
+      </div>
+        {% if entry.firstSectionCategoryIntroduction|length or entry.firstSectionIntroduction|length or entry.firstSectionContentCategory|length or entry.firstSectionContent|length or entry.firstSectionContacts|length or entry.buttons|length or entry.firstSectionImage|length %}
+        <div class="section__separatecontent cs section__separatecontent--grey  {% if catPage == false %}{% if entry.type == 'service' or entry.type == 'tariff' or entry.type == 'membership' %}section__separatecontent--lesspaddingend{% endif %}{% else %}section__separatecontent--lesspaddingend{% endif %}{% if craft.app.request.segments|first == 'offers' %}section__separatecontent--mediumpaddingend{% endif %}">
+          <div class="container cs">
+            <div class="section__half section__half--alignleft section__half--greycontentleft {% if entry.firstSectionImage|length < 1 %}section__half--fullwidth{% endif %}">
+              
+              {% if entry.firstSectionCategoryIntroduction|length %}
+              <div class="section__intro">
+                {{ entry.firstSectionCategoryIntroduction }}
+              </div>  
+              {% elseif entry.firstSectionIntroduction|length %}
+              <div class="section__intro">
+                {{ entry.firstSectionIntroduction }}
+              </div>
+              {% endif %}
+              {% if entry.firstSectionContentCategory|length %}
+              {{ entry.firstSectionContentCategory }}
+              {% elseif entry.firstSectionContent|length %}
+                {{ entry.firstSectionContent }}
+              {% endif %}
+              {% if entry.firstSectionContacts|length %}
+              <p>
+                {% for item in entry.firstSectionContacts.all() %}
+                  {% if item.type == "emailAddress" %}
+                  <span class="contactmargin">{% if item.label|length %}<em>{{ item.label }}</em>{% endif %} {% if item.emailAddress|length %}<a href="mailto:{{ item.emailAddress }}">{{ item.emailAddress }}</a>{% endif %} {% if item.emailSeparator|length %}{{ item.emailSeparator }}{% endif %} {% if item.secondaryEmailAddress|length %}<a href="mailto:{{ item.secondaryEmailAddress }}">{{ item.secondaryEmailAddress }}</a>{% endif %}</span> 
+                  {% elseif item.type == "phoneNumber" %}
+                  <span class="contactmargin">{% if item.label|length %}<em>{{ item.label }}</em>{% endif %} {% if item.phoneNumber|length %}<a href="tel:{{ item.phoneNumber|replace({' ': ''}) }}">{{ item.phoneNumber }}</a>{% endif %} {% if item.numberSeparator|length %}{{ item.numberSeparator }}{% endif %} {% if item.secondaryPhoneNumber|length %}<a href="tel:{{ item.secondaryPhoneNumber|replace({' ': ''}) }}">{{ item.secondaryPhoneNumber }}</a>{% endif %}</span> 
+                  {% endif %}
+                {% endfor %}
+              </p>
+              {% endif %}
+              
+              {% if entry.buttons|length %}
+                <div class="section__firstsectionbtns">
+                  {% for item in entry.buttons.all() %}
+                    {% if item.type == "button" %}
+                      {% if item.text|length and (item.entry|length or item.linkUrl|length or item.download|length) %}
+                      {% set isPopup = false %}
+                      {% if item.entry|length %}
+                        {% if item.entry.one().section.handle == 'popups' %}
+                          {% set isPopup = true %}
+                          
+                        {% endif %}
+                      {% endif %}
+                        <a href="{% if item.entry|length %}{{ item.entry.one().url }}{% elseif item.linkUrl|length %}{{ item.linkUrl }}{% elseif item.download|length %}{{ item.download.one().url }}{% endif %}" class="btn section__btnsareabtn {% if isPopup == true %}popuplink{% endif %}  {% if item.brochureIcon %}btn--brochure{% endif %}" {% if isPopup == true %}data-popup="{{ item.entry.one().slug }}"{% endif %} {% if item.openInNewTab %}target="_blank"{% endif %}>{{ item.text }}</a>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+              
+            </div>
+            {% if entry.firstSectionImage|length %}
+            <div class="section__half section__half--alignright section__half--greycontentright">
+              
+              
+              
+              <div class="section_gallery">
+                <div id="section{{ firstPanelNum }}gallery" class="section_galleryid">
+                  {% for img in entry.firstSectionImage.all() %}
+                    
+                      <div class="galleryItem section_galleryitem" style="background-image:url({{ img.getUrl('sideGallery') }})">
+                        <div class="section_galleryitemimgholder"><img src="{{ img.getUrl('sideGallery') }}" class="section_galleryitemimg" alt="{{ img.title }}" /></div>
+                      </div>  
+                  
+                  {% endfor %}
+                </div>
+                <script type="text/javascript">
+                <!--
+                  $(function() {
+                    $('#section{{ firstPanelNum }}gallery').imageGallery({ itemButtons:false, nextPrevButtons:true, autoplay:true, speed:5000, callback:function() {
+                      slideRender($('#section{{ firstPanelNum }}gallery').find('.activeItem'));
+                    }});
+                  });
+                 //-->
+                </script>
+              </div>
+              
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        
+        {% endif %}
+        
+    </div>
+  {% endif %}
+</div>
+  

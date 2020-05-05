@@ -1,0 +1,11 @@
+.contact {
+  select {
+    background-image:inline-svg('down-arrow', $purple);
+  }
+  label {
+    color: $purple;
+  }
+}
+.contact__map-form label {
+  color: $purple;
+}

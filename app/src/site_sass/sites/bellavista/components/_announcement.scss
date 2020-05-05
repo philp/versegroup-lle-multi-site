@@ -1,0 +1,11 @@
+.announcement {
+  color: #fff;
+}
+.announcement__back {
+  background: $bellavistared;
+}
+
+.announcement__content {
+  background: $bellavistadarkred;
+  border-bottom-color: darken($bellavistadarkred, 8%);
+}

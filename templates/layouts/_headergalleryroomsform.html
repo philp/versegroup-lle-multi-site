@@ -1,0 +1,48 @@
+{% if currentSite.handle == 'gamekeepersInn' %}
+
+{% if entry.headerGallery is defined or propertyHeaderGalleryStatus == true %} 
+  {% if entry.headerGallery|length or propertyHeaderGalleryStatus == true %}
+    <div class="container container--wide container--headerform">
+      <div class="headerarea__form">
+        <form class="cs" data-guestline-form>
+          <input type="text" name="hotel" class="headerarea__input--hidden" {% spaceless %}
+          {% if currentSite.handle == 'gamekeepersInn' %}          
+            value="LLGAMEKEEP"
+          {% elseif currentSite.handle == 'roydonMarinaVillage' %}          
+            value="LLROYDON"
+          {% endif %}
+          {% endspaceless %} />
+          <div class="headerarea__formitem">
+            <label class="headerarea__label">Arrive</label>
+            <div class="headerarea__inputholder headerarea__inputholder--date">
+              <input type="date" name="arrival" class="headerarea__input headerarea__input--righticon" required />
+            </div>
+          </div>
+          <div class="headerarea__formitem">
+            <label class="headerarea__label">Depart</label>
+            <div class="headerarea__inputholder headerarea__inputholder--date">
+              <input type="date" name="departure" class="headerarea__input headerarea__input--righticon" required />
+            </div>
+          </div>
+          <div class="headerarea__formitem">
+            <label class="headerarea__label">Adults</label>
+            <div class="headerarea__inputholder headerarea__inputholder--adults">
+              <input type="number" name="adults" value="1" class="headerarea__input headerarea__input--lefticon" required />
+            </div>
+          </div>
+          <div class="headerarea__formitem headerarea__formitem--last">
+            <label class="headerarea__label">Children</label>
+            <div class="headerarea__inputholder headerarea__inputholder--children">
+              <input type="number" name="children" value="0" class="headerarea__input headerarea__input--lefticon" required />
+            </div>
+          </div>
+          <div class="headerarea__formitem headerarea__formitem--btn">
+            <button type="submit" class="btn headerarea__formbtn headerarea__formbtn--shorttext">Check Availability</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  {% endif %}
+{% endif %}
+
+{% endif %}

@@ -1,0 +1,37 @@
+{% if entry.menusHeading|length or entry.menusSummary|length or entry.menus|length %}
+  <div class="brochures" id="{% if entry.type == 'occasion' %}section{{ panelsCountStart + entry.alternatingPanels|length + 1 }}{% else %}section3{% endif %}">
+    {% if entry.menusHeading|length or entry.menusSummary|length %}
+      <div class="brochures__titlesarea">
+        {% if entry.menusHeading|length %}
+          <div class="brochures__title">
+            {{ entry.menusHeading }}
+          </div>
+        {% endif %}
+        {% if entry.menusSummary|length %}
+          <div class="brochures__summary">
+            {{ entry.menusSummary }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+    {% if entry.menus|length %}
+      <div class="brochures__listarea">
+        <div class="cs">
+          {% for menu in entry.menus.all() %}
+            {% if menu.type == "menu" %}
+              <div class="brochures__item brochures__item--nocontain">
+                <a href="{{ menu.menu.one().url }}" target="_blank" class="brochures__itemlink"><div class="brochures__itemicon">&nbsp;</div></a>
+                {% if menu.menuRegularText|length or menu.menuBoldText|length %}
+                  <div class="brochures__itemtext">
+                    {% if menu.menuBoldText|length %}<strong>{{ menu.menuBoldText }}</strong> {% endif %}
+                    {% if menu.menuRegularText|length %}{{ menu.menuRegularText }}{% endif %}													
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

@@ -1,0 +1,26 @@
+{% extends "layouts/_layout" %}
+
+
+{% block content %}
+
+
+<div id="section2">
+	<div class="section section--white section--basicpage {% if entry.galleries|length %}section--galleries{% endif %}">
+		<div class="container cs">
+			{% include "layouts/_basiccontent" %}
+			
+		</div>
+	</div>
+</div>
+
+{% if entry.galleries|length %}
+	{% for gallery in entry.galleries.all() %}
+		{% if gallery.galleryDescription|length or gallery.galleryImages|length %}
+			{% include 'layouts/_imagegallery' %}
+		{% endif %}	
+	{% endfor %}
+{% endif %}
+	
+	
+	
+{% endblock %}

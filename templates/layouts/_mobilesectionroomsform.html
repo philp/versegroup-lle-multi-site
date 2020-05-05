@@ -1,0 +1,28 @@
+<div class="section__mobileform {% if topform is defined %}{% if topform == true %}section__mobileform--top{% endif %}{% endif %}">
+  <form class="mobileonlyform" data-guestline-form>
+    <input type="text" name="hotel" class="mobileonlyform__input--hidden" {% spaceless %}
+    {% if currentSite.handle == 'gamekeepersInn' %}          
+      value="LLGAMEKEEP"
+    {% elseif currentSite.handle == 'roydonMarinaVillage' %}          
+      value="LLROYDON"
+    {% endif %}
+    {% endspaceless %} />
+    <label class="mobileonlyform__label">Arrive</label>
+      <div class="mobileonlyform__inputholder mobileonlyform__inputholder--date">
+        <input type="date" name="arrival" class="mobileonlyform__input mobileonlyform__input--righticon" required />
+      </div>
+      <label class="mobileonlyform__label">Depart</label>
+      <div class="mobileonlyform__inputholder mobileonlyform__inputholder--date">
+        <input type="date" name="departure" class="mobileonlyform__input mobileonlyform__input--righticon" required />        
+      </div>
+      <label class="mobileonlyform__label">Adults</label>
+      <div class="mobileonlyform__inputholder mobileonlyform__inputholder--adults">
+        <input type="number" name="adults" value="1" class="mobileonlyform__input mobileonlyform__input--lefticon" required />        
+      </div>
+      <label class="mobileonlyform__label">Children</label>
+      <div class="mobileonlyform__inputholder mobileonlyform__inputholder--children">        
+        <input type="number" name="children" value="0" class="mobileonlyform__input mobileonlyform__input--lefticon" required />
+      </div>    
+      <button type="submit" class="btn mobileonlyform__btn">Check Availability</button>
+  </form>
+</div>

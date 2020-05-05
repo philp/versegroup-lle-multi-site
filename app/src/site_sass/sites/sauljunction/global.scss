@@ -1,0 +1,59 @@
+/*===========================================================================*\
+
+    SITE CSS
+
+\*===========================================================================*/
+
+/*---------------------------------------------------------------------------*\
+    Settings: Global variables, site-wide settings, config switches, etc.
+\*---------------------------------------------------------------------------*/
+
+@import '../../settings/settings';
+@import '../../icons/sass-inline-svg';
+
+/*---------------------------------------------------------------------------*\
+    Components: Discrete, complete chunks of UI (e.g. .carousel {}).
+\*---------------------------------------------------------------------------*/
+
+@import 'components/base'; 
+@import 'components/btn';
+@import 'components/footer';
+@import 'components/slick';  
+@import 'components/nav';
+@import 'components/headerarea';
+@import 'components/scrolldots';
+@import 'components/section';
+@import 'components/mobileonlyform';
+@import 'components/newsletter';
+@import 'components/socialfeeds';
+@import 'components/menutable';
+@import 'components/halvestitle';
+@import 'components/propertydetail';
+@import 'components/imgopts';
+@import 'components/contactmargin';
+@import 'components/announcement';
+@import 'components/faqs';
+@import 'components/blog';
+@import 'components/articles';
+@import 'components/vacancies';
+@import 'components/events';
+@import 'components/tariffarea';
+@import 'components/properties';
+@import 'components/membership';
+@import 'components/passes';
+@import 'components/endgallery';
+@import 'components/brochures';
+@import 'components/popup';
+@import 'components/container';
+@import 'components/contact';
+@import 'components/optionboxes';
+@import 'components/brochurebar';
+@import 'components/blogslist';
+@import 'components/salespanels';
+@import 'components/mooringtable';
+@import 'components/freeformpanelarea';
+@import 'components/galleryarea';
+@import 'components/pricetable';
+@import 'components/mappanel';
+@import 'components/scrollproperties';
+@import 'components/paginatedproperties';

@@ -1,0 +1,46 @@
+body { 
+	color:$gamekeepersbodytext; 
+	font-family: $fonts; 
+	background:#fff; 
+}
+h1, .h1 { 
+	color: $purple;
+	&:before {
+		background: $purple; 	
+	}
+}
+h2, .h2 { 
+	color: $purple; 
+}
+h3, .h3 { 
+	color: $purple;
+}
+h4, .h4 { 
+	color: $purple; 
+}
+h6 {
+	color: $purple;
+}
+
+a {  
+	color: $purple; 
+	&:hover {
+		color: $purple; 
+	}
+}
+em { 
+	color: $purple; 
+}
+
+.leftButton, .rightButton { 
+	background: $purple; 
+}
+.leftButton span { 
+	background-image: inline-svg('arrow-gallery-scroll-left',#fff);
+	background-size: contain;
+}
+.rightButton span { 
+	background-image: inline-svg('arrow-gallery-scroll-right',#fff);
+	background-size: contain;
+}
+

@@ -1,0 +1,99 @@
+.btn, .directionsSearch, .popup__form button, .freeformpanelarea button { 
+	border: 0; 
+	font-family: $fonts; 
+	text-transform: uppercase; 
+	color: #fff; 
+	background: transparent; 
+	cursor: pointer; 
+	text-align: center; 
+	transition:all 0.2s linear; 
+	display: inline-block; 
+	margin: 0 15px 15px 0; 
+	box-sizing:border-box; 
+	border-radius: 0; 
+	background: $lightgreen; 
+	font-size: 100%; 
+	font-weight: bold; 
+	border-bottom: 5px solid $darkgreen; 
+	padding: 20px 30px 17px; 
+	letter-spacing: 0.09em; 
+	font-weight: bold; 
+	line-height: 1.3em; 
+	appearance:none;
+	&:hover {
+		background: $darkgreen; 
+		border-color: $lightgreen; 
+		color: #fff; 
+	}
+}
+.btn--white { 
+	background: #fff; 
+	color: $lightgreen;
+	border-color: $lightergreen; 
+	&:hover {
+		background: $lightergreen; 
+		border-color: #fff; 
+		color: #fff; 
+	}
+}
+.btn--margintop { 
+	margin-top: 14px; 
+}
+.btn--brochure {
+	padding-left: 78px;
+	position: relative;
+	&:before {
+		content: "";
+		background-image: url(/assets/presentation/downloadbrochure-icon.png);
+	  width: 29px;
+	  height: 25px;
+	  background-position: center;
+	  background-size: contain;
+	  background-repeat: no-repeat;
+	  display: inline-block;
+		position: absolute;
+		top: 50%;
+		margin-top: -12.5px;
+		left: 30px;
+	}
+}
+
+@media(max-width: 1250px){
+	.btn--brochure {
+		padding-left: 64px;
+		&:before {
+			left: 20px;
+		}
+	}	
+}
+@media(max-width:650px){
+	.btn--brochure {
+		padding-left: 55px;
+		&:before {
+	    left: 13px;
+		}
+	}
+}
+@media (max-width: 400px) {
+	.btn, .directionsSearch, .popup__form button, .freeformpanelarea button { 
+		margin: 10px 0; 
+		display: block; 
+		color: $lightgrey; 
+		width: 100%; 
+	}
+	.btn--white { 
+		color: $lightgreen; 
+	}
+	.btn--property { 
+		margin-bottom: 20px; 
+	}
+	.btn--propertysearchmobile { 
+		margin-top: 30px; 
+	}
+	.btn--brochure {
+		padding-left: 59px;
+		&:before {
+	    left: 17px;
+		}
+	}
+}

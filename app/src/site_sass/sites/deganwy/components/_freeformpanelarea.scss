@@ -1,0 +1,15 @@
+.freeformpanelarea {
+  .freeform-row .freeform-column .freeform-label {
+    color: $turquoise;
+  }
+}
+.freeformpanelarea__fieldholder--arrow {
+  &:after {
+    background-image: inline-svg('down-arrow',$turquoise);
+  }
+}
+.freeformpanelarea__fieldholder--date {
+  &:after {
+    background-image: inline-svg('calendar',$turquoise);
+  }
+}

@@ -1,0 +1,46 @@
+body { 
+	color:$gamekeepersbodytext; 
+	font-family: $fonts; 
+	background:#fff; 
+}
+h1, .h1 { 
+	color: $blue;
+	&:before {
+		background: $blue; 	
+	}
+}
+h2, .h2 { 
+	color: $blue; 
+}
+h3, .h3 { 
+	color: $blue;
+}
+h4, .h4 { 
+	color: $blue; 
+}
+h6 {
+	color: $blue;
+}
+
+a {  
+	color: $blue; 
+	&:hover {
+		color: $blue; 
+	}
+}
+em { 
+	color: $blue; 
+}
+
+.leftButton, .rightButton { 
+	background: $blue; 
+}
+.leftButton span { 
+	background-image: inline-svg('arrow-gallery-scroll-left',#fff);
+	background-size: contain;
+}
+.rightButton span { 
+	background-image: inline-svg('arrow-gallery-scroll-right',#fff);
+	background-size: contain;
+}
+

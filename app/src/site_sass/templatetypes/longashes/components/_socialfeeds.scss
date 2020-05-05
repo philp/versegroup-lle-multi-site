@@ -1,0 +1,228 @@
+.socialfeeds { 
+  position: relative; 
+  background: $socialcolour;
+}
+.socialfeeds__info { 
+  color: #fff; 
+  background: $socialcolour; 
+  text-align: center; 
+  width: 60%; 
+  position: absolute; 
+  left: 20%; 
+  top: 33.33%; 
+  height: 33.33%; 
+}
+.socialfeeds__padding { 
+  padding: 53px 0 48px; 
+}
+.socialfeeds__title { 
+  text-transform: uppercase; 
+  font-weight: 300; 
+  font-size: $font38; 
+  letter-spacing: 0.07em; 
+  p { 
+    line-height: 1.2em; 
+    padding-bottom: 15px; 
+  }
+}
+.socialfeeds__link { 
+  margin: 0 13.5px; 
+}
+.socialfeeds__content { 
+  font-weight: bold; 
+  p { 
+    line-height: 2em; 
+    font-weight: bold; 
+  }
+}  
+.socialfeeds__item { 
+  width: 20%; 
+  float: left; 
+  color: #fff; 
+  position: relative; 
+  &:hover { 
+    color: #fff; 
+  }
+  &:nth-child(6) { 
+    margin-right: 60%; 
+  }
+}
+.socialfeeds__itemback { 
+  display: block; 
+  background: rgba(57,57,57,0.6); 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%;
+  transition:all 0.3s linear; 
+  opacity: 0; 
+}
+.socialfeeds__itemcontent { 
+  position: relative; 
+  transition:all 0.3s linear; 
+  opacity: 0; 
+  display: block; 
+  max-height:33.33vh;
+  overflow:auto;
+}
+.socialfeeds__itemtype { 
+  display: block; 
+  position: absolute; 
+  left: 10px; 
+  bottom: 10px; 
+}
+.socialfeeds__username { 
+  font-weight: 300; 
+  position: absolute; 
+  right: 25px; 
+  bottom: 17px; 
+  transition:all 0.3s linear; 
+  opacity: 0; 
+  display: block; 
+}
+.socialfeeds__itemcaption { 
+  text-align: center; 
+  padding: 0 28px; 
+  line-height: 1.9em; 
+  display: block; 
+}
+.socialfeeds__item:hover .socialfeeds__itemcontent, .socialfeeds__item:hover .socialfeeds__username, .socialfeeds__item:hover .socialfeeds__itemback { 
+  opacity: 1; 
+}
+.socialfeeds__itemcaptioninner { 
+  display: block; 
+}
+
+.socialfeeds__linkimg--facebook {
+  background-image: inline-svg('facebook', #fff);
+}
+.socialfeeds__linkimg--twitter {
+  background-image: inline-svg('twitter', #fff);
+}
+.socialfeeds__linkimg--instagram {
+  background-image: inline-svg('instagram', #fff);
+}
+.socialfeeds__linkimg--googleplus {
+  background-image: inline-svg('googleplus', #fff);
+}
+.socialfeeds__linkimg--tripadvisor {
+  background-image: inline-svg('tripadvisor', #fff);
+}
+.socialfeeds__linkimg { 
+  width: 50px; 
+  height: 50px;
+  display: inline-block;
+  vertical-align: middle;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.socialfeeds--mobileonly { 
+  display: none; 
+}
+.socialfeeds__info--static {
+  position: static;
+  width: 100%;
+}
+.socialfeeds__content--nonbold {
+  font-weight: 300;
+  p {
+    font-weight: 300;
+  }
+}
+
+@media (max-width: 1450px) {
+	.socialfeeds__padding { 
+    padding: 33px 0 28px; 
+  }
+	.socialfeeds__content p { 
+    padding-bottom: 19px; 
+  }
+}
+@media (max-width: 1250px) {
+  .socialfeeds__padding { 
+    padding: 28px 0 23px; 
+  }
+  .socialfeeds__title { 
+    font-size: 2.4em; 
+    p { 
+      padding-bottom: 7px; 
+    }
+  }
+}
+@media (max-width: 1140px) {
+  .socialfeeds__itemcaption { 
+    padding: 0 10px; 
+  }
+	.socialfeeds__title { 
+    font-size: 2em; 
+  }   
+	.socialfeeds__link { 
+    width: 38px; 
+    display: inline-block; 
+  }
+  .socialfeeds__linkimg {
+    width: 38px;
+    height: 38px;
+  }
+	.socialfeeds__content p { 
+    padding-bottom: 11px; 
+  }
+}
+@media (max-width: 990px) {
+  .socialfeeds__content p { 
+    line-height: 1.6em; 
+  }
+}
+@media (max-width: 900px) {
+  .socialfeeds__padding { 
+    padding: 18px 0 13px; 
+  }
+	.socialfeeds__title { 
+    font-size: 1.7em; 
+  }
+}
+@media (max-width: 760px) {
+  .socialfeeds__info { 
+    position: static; 
+    height: auto; 
+    width: 100%; 
+  }
+	#socialfeed { 
+    display: none; 
+  }
+	.socialfeeds__title { 
+    font-size: 2.145em; 
+    strong { 
+      display: block; 
+    }
+    p { 
+      padding-bottom: 22px; 
+      line-height: 1.35em; 
+    }
+  }
+	.socialfeeds__link { 
+    width: 31px; 
+    margin: 0 7.5px; 
+  }
+  .socialfeeds__linkimg {
+    width: 31px;
+    height: 31px;
+  }
+	.socialfeeds__content p { 
+    line-height: 1.75em; 
+    padding-bottom: 34px; 
+  } 
+	.socialfeeds__padding { 
+    padding: 38px 0 48px; 
+  }
+	.socialfeeds--mobileonly { 
+    display: block; 
+  }
+}
+@media (max-width: 300px) {
+  .socialfeeds__link { 
+    margin: 0 3px; 
+  }
+}

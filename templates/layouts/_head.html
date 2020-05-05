@@ -1,0 +1,78 @@
+<meta charset="utf-8">
+<title>
+  {% if tagPage == true %}{{ tag|capitalize }}{% else %}{% if entry.metaTitle|length %}{{ entry.metaTitle }}{% elseif entry.title|length %}{{ entry.title }}{% else %}{{ currentSite.name }}{% endif %}{% endif %}{% if currentGlobals.metaTitleSuffix|length %} {{ currentGlobals.metaTitleSuffix }}{% endif %}
+</title>
+{% if entry.metaDescription|length %}<meta name="description" content="{{ entry.metaDescription }}" />{% endif %}
+{% if entry.metaKeywords|length %}<meta name="keywords" content="{{ entry.metaKeywords }}" />{% endif %}
+<meta name="robots" content="all" />
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="format-detection" content="telephone=no">
+
+<base href="{{ siteUrl }}">
+
+<link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,700" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+<script>
+if (navigator.userAgent.indexOf("MSIE") >= 0) {
+  WebFont.load({
+    google: {
+      families: ['Lato', 'Lato:bold', 'Lato:light']
+    }
+  });
+}
+</script>
+
+<link rel="stylesheet" href="{{ siteUrl }}assets/css/slick.css">
+<link rel="stylesheet" href="{{ siteUrl }}assets/css/swipebox.min.css">
+<link rel="stylesheet" href="{{ siteUrl }}assets/css/templatetypes/longashes/global.css">
+<link rel="stylesheet" href="{{ siteUrl }}assets/css/{{ currentSite.handle }}/global.css">
+<script src="{{ siteUrl }}assets/js/global-min.js"></script>
+
+<link rel="apple-touch-icon" sizes="57x57" href="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="144x144" href="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon" sizes="60x60" href="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon" sizes="120x120" href="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" sizes="76x76" href="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" sizes="152x152" href="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/favicon-128.png" sizes="128x128" />
+<meta name="application-name" content="&nbsp;"/>
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/mstile-310x310.png" />
+
+{% if currentGlobals.analyticsCode is defined and currentGlobals.analyticsCode|length > 5 and not craft.app.config.general.devMode %}
+{{ currentGlobals.analyticsCode|raw }}
+{% endif %}
+
+{% if currentSite.handle == 'longAshesPark' %}
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+
+ fbq('init', '1681864552062348'); 
+fbq('track', 'PageView');
+</script>
+<noscript>
+ <img height="1" width="1" 
+src="https://www.facebook.com/tr?id=1681864552062348&ev=PageView
+&noscript=1"/>
+</noscript>
+<!-- End Facebook Pixel Code -->
+{% endif %}

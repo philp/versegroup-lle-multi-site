@@ -1,0 +1,155 @@
+.headerarea--nogallery {
+  background: $purple;
+}
+.headerarea__top--green {
+  background: $purple;
+}
+
+.headerarea__enquiries--white {
+  color: #fff;
+  &:hover {
+    color: #fff;
+  }
+}
+
+.headerarea__scrollarrow {
+  background-image: inline-svg('arrow-mainstage-down',#fff);
+}
+.headerarea__scrollarrow--white {
+  background-image: inline-svg('arrow-mainstage-down',#fff);
+}
+.headerarea__form {
+  background: rgba(21,21,21,0.6);
+  color: #fff;
+}
+.headerarea__label {
+  color: $lightgrey;
+}
+.headerarea__logoimg {
+  width: 540px;
+}
+.headerarea__scrolltext--white {
+  color: #fff;
+}
+
+.headerarea__select {
+  font-family: $fonts;
+  color: #575759;
+  background-image: inline-svg('lle-icon-down-arrow',$purple);
+  border-color: #c2c2c2;
+}
+.headerarea__selectholder:before {
+    background: #e7e7e7;
+    border-color: #c2c2c2;
+}
+.headerarea__selectholder--price:after {
+  background-image: inline-svg('money-icon', #b1b1b1);
+}
+.headerarea__selectholder--bedrooms:after {
+  background-image:  inline-svg('bed-icon', #b1b1b1);
+}
+.headerarea__selectholder--property:after {
+  background-image:  inline-svg('house-icon', #b1b1b1);
+}
+.headerarea__finance {
+  color: #000;
+  &:hover {
+    color: #000;
+  }
+}
+.headerarea__financecontent {
+  background: #fff;
+}
+.headerarea__financearrow {
+  background: $purple;
+}
+
+.headerarea__top--nogallery {
+  .headerarea__enquiries {
+    color: #fff;
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+.headerarea__loginbtn {
+  background: $purple;
+  &:hover {
+    background: $darkpurple;
+  }
+}
+.headerarea__loginbtn--nogallery {
+  background: #fff;
+  color: $purple;
+  &:hover {
+    background: $darkpurple;
+    color: #fff;
+  }
+}
+
+.headerarea--iconsgold {
+  .menu-toggle__line {
+    background: #dcb52d;
+  }
+  .menu-toggle__text {
+    color: #dcb52d;
+  }
+  .headerarea__enquiriestxt {
+    color: #dcb52d;
+  }
+  .selected .menu-toggle__line {
+    background: #fff!important;
+  }
+}
+.headerarea--iconsdarkgrey {
+  .menu-toggle__line {
+    background: #969696;
+  }
+  .menu-toggle__text {
+    color: #969696;
+  }
+  .headerarea__enquiriestxt {
+    color: #969696;
+  }
+  .selected .menu-toggle__line {
+    background: #fff!important;
+  }
+}
+.headerarea--iconslightgrey {
+  .menu-toggle__line {
+    background: #dddbd8;
+  }
+  .menu-toggle__text {
+    color: #dddbd8;
+  }
+  .headerarea__enquiriestxt {
+    color: #dddbd8;
+  }
+  .selected .menu-toggle__line {
+    background: #fff!important;
+  }
+}
+
+@media(max-width:1090px){
+  .headerarea__logoimg {
+    width: 480px;
+  }
+}
+@media(max-width:950px){
+  .headerarea__logoimg {
+    width: 434px;
+  }
+}
+@media(max-width:600px){
+  .headerarea__top {
+    padding-top: 40px;
+  }
+}
+@media (max-width: 400px) {
+  .headerarea__finance {
+    background: #fff;
+  }
+	.headerarea__financearrow {
+    background: $purple;
+  }
+}

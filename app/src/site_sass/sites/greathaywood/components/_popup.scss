@@ -1,0 +1,42 @@
+.popup {
+  background: rgba(0,0,0,0.5);
+}
+.popup__box {
+  background: #fff;
+  border-color: $haywoodblue;
+}
+.popup__topbar {
+  background: $haywoodblue;
+}
+.popup__heading {
+  background: #f8f8f8;
+  color: $haywoodblue;
+}
+.popup__contactarea {
+  border-color: $haywoodblue;
+}
+.popup__contactareaitemlabel {
+  color: $haywoodblue;
+}
+.popup__contactareaitemlink {
+  color: $gamekeepersbodytext;
+}
+.popup__form {
+  .freeform-row {
+    .freeform-column {
+      .freeform-input {
+        color: #3A3A3A;
+        background-color: #F6F6F6;
+        border-color: $haywoodblue;
+      }
+    }
+  }
+}
+
+@media(max-width:400px){
+  .popup__aboveformheading {
+    &:after {
+      background-image: inline-svg('arrow-gallery-scroll-right',$haywoodblue);
+    }
+  }
+}

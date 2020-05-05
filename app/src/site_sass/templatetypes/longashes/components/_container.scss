@@ -1,0 +1,51 @@
+.container { 
+	max-width:1180px; 
+	margin:0 auto; 
+	position:relative; 
+	z-index:2; 
+	display: block;
+}
+.container--wide { 
+	max-width: 1250px; 
+}
+.container--headerbtns {
+	max-width: 750px; 
+}
+.container__innerback {
+	background: #fff;
+}
+.container--innercolour {
+	/*background: #fff;*/
+}
+.container--footer { 
+	max-width: 1360px; 
+}
+.container--homesocial { 
+	max-width: 620px; 
+}
+.container--options {
+	max-width: 1384px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.container--widepanelareas {
+	max-width: 1262px;
+	left: -40px;
+}
+
+@media(max-width: 1615px){
+	.container--widepanelareas {
+		left: 0;
+	}
+}
+@media (max-width: 1325px) {
+	.container { 
+		padding-left: 20px; 
+		padding-right: 20px; 
+		box-sizing: border-box; 
+	}
+	.container--headerform { 
+		padding: 0 33px; 
+		box-sizing: border-box; 
+	}
+}

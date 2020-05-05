@@ -1,0 +1,60 @@
+{% if entry.bannerPanels|length %}
+  {% for item in entry.bannerPanels.all() %}
+    {% set panelNum = loop.index + panelsCountStart %}
+    {% if entry.topPanelIntroduction|length or entry.topPanelHeading|length or entry.topPanelContent|length %}
+      {% set panelNum = panelNum + 1 %}
+    {% endif %}
+    {% if entry.section.handle == 'pages' %}
+      {% if entry.type == 'location' %}
+        {% if mapPanelStatus == true %}
+          {% set panelNum = panelNum + 1 %}
+        {% endif %}
+        {% if variedPanelsStatus == true %}
+  				{% set panelNum = panelNum + 1 %}
+  			{% endif %}
+        {% if secondaryMapPanelStatus == true %}
+          {% set panelNum = panelNum + 1 %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+    
+    {% if item.type == "panel" %}
+      <div id="section{{ panelNum }}">
+        <div class="section section--banner">
+          {% if item.topBanner|length %}
+            <img src="{{ item.topBanner.one().getUrl('sectionBanner') }}" alt="{{ item.topBanner.one().title }}" class="fullwidthimg {% if item.topBannerMobile|length %}fullwidthimg--nomobile{% endif %}" />
+          {% endif %}
+          {% if item.topBannerMobile|length %}
+            <img src="{{ item.topBannerMobile.one().getUrl('sectionBannerMobile') }}" alt="{{ item.topBannerMobile.one().title }}" class="fullwidthimg fullwidthimg--mobileonly" />
+          {% endif %}
+        </div>
+        <div class="section section--white section--banneroverlap section--bgcol">
+          <div class="container container--innercolour cs">
+            <div class="container__innerback cs">
+              <div class="section__half section__half--contentside section__half--gallerytopoverlapmobile {% if loop.index is odd %}section__half--txtbehindgallery  section__half--alignright{% else %}section__half--gallerytopoverlap  section__half--galleryoverlaptextsize section__half--alignleft{% endif %}">
+                {% if item.headingImage|length %}
+                  <div class="section__headingimg">
+                    <img src="{{ item.headingImage.one().url }}" alt="{% if item.headingImageAlternativeText|length %}{{ item.headingImageAlternativeText }}{% else %}{{  item.headingImage.one().title }}{% endif %}" class="section__headingimgimg" />
+                  </div>
+                {% endif %}
+                {% include "layouts/_sectioncontent" %}
+              </div>
+              {% if item.scrollingGallery|length %}
+                <div class="section__half section__half--imgside section__half--gallerytopoverlap section__half--galleryoverlapsize {% if loop.index is odd %}section__half--alignleft{% else %}section__half--alignright{% endif %}">
+                  {% include "layouts/_sectiongallery" %}
+                </div>
+              {% endif %}    
+            </div>
+          </div>
+        </div>
+        
+        {% if item.optionBoxesBar is defined and item.optionBoxesBar|length %}
+          {% for bar in item.optionBoxesBar.all() %}
+            {% include "layouts/_optionboxes" with {'ownSection':false} %}
+          {% endfor %}
+        {% endif %}
+        
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}

@@ -1,0 +1,18 @@
+.nav__li:before {  
+  background: #fff; 
+}
+.nav__a { 
+  color: #969696; 
+}
+.nav__li:hover .nav__a, .active .nav__a { 
+  color: #fff; 
+}
+.nav__inner { 
+  background: rgba(0,0,0,0.9); 
+}
+.menu-toggle__line { 
+  background: #fff; 
+}
+.menu-toggle__text { 
+  color: #fff; 
+}

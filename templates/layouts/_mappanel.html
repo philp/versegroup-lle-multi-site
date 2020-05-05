@@ -1,0 +1,26 @@
+{% if entry.mapImage|length %}
+  <div class="mappanel section section--white" id="section{{ mapPanelNum }}">
+    
+    <div class="container">
+      
+      {% if entry.mapPanelHeading|length %}
+        <div class="mappanel__heading">
+          <div class="mappanel__headingbefore">&nbsp;</div>
+          {{ entry.mapPanelHeading|replace({'<p>':'<h2>','</p>': '</h2>'})|raw }}
+        </div>
+      {% endif %}
+      
+      <div class="mappanel__holder">
+        <img src="{{ entry.mapImage.one().url }}" alt="{{ entry.mapImage.one().title }}" />
+      </div>
+      
+      {% if entry.mapDownload|length %}
+        <div class="mappanel__btnholder">
+          <a href="{{ entry.mapDownload.one().url }}" class="btn" target="_blank">{% if entry.mapDownloadButtonText|length %}{{ entry.mapDownloadButtonText }}{% else %}Download{% endif %}</a>
+        </div>
+      {% endif %}
+      
+    </div>
+    
+  </div>
+{% endif %}

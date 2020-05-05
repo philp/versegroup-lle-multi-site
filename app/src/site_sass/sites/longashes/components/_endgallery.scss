@@ -1,0 +1,22 @@
+.endgallery {
+  .slick-arrow {
+    background: $lightgreen;
+    &.slick-next {
+      &:before {
+        background-size: contain;
+        background-image: inline-svg('arrow-gallery-scroll-right',#fff);
+      }
+    }
+    &.slick-prev {
+      left: -40px;
+      &:before {
+        background-size: contain;
+        background-image: inline-svg('arrow-gallery-scroll-left',#fff);
+      }
+    }
+  }
+  
+}
+.endgallery__opt {
+  border-color: #fff;
+}

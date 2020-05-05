@@ -1,0 +1,14 @@
+.pricetable__mainheading {
+  background: $bellavistared;
+}
+.pricetable__secondaryheading {
+  color: $bellavistared;
+}
+.pricetable__undertable {
+  color: $bellavistared;
+}
+.pricetable__cell--right {
+  &:before {
+    border-color: transparent transparent transparent $bellavistared;
+  }
+}

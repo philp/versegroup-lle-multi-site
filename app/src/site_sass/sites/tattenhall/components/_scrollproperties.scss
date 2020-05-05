@@ -1,0 +1,28 @@
+.scrollproperties__scroll {
+  .slick-slide {
+    background: #fff;
+  }
+  .slick-arrow {
+    background-image: inline-svg('side-chevron',$blue);
+  }
+  .slick-dots {
+    li {
+      &:before {
+        background: $blue;
+        border-color: $blue;
+      }
+      &.slick-active {
+        &:before {
+          background: #fff; 
+        }
+      }
+    }
+  }
+}
+.scrollproperties__contentarea {
+  background: #f9fbfc;
+}
+.scrollproperties__price {
+  background: $blue;
+  color: #fff;
+}

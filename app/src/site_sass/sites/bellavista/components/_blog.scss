@@ -1,0 +1,38 @@
+.blog__colheading {
+  color: $bellavistared;
+  border-color: $bellavistared;
+}
+.blog__catlink {
+  color: #000;
+}
+.blog__tag {
+  background: #f2f2f2;  
+  color: $gamekeepersbodytext;
+  padding: 7px 12px 10px;
+  border-radius: 3px;
+  &:hover {
+    background: $gamekeepersbodytext;
+    color: #f2f2f2;
+  }
+}
+.blog__newitemheading {
+  background: $bellavistared;
+}
+.blog__colsociallinkimg--facebook {
+  background-image: inline-svg('facebook',$bellavistared);
+}
+.blog__colsociallinkimg--twitter {
+  background-image: inline-svg('twitter',$bellavistared);
+}
+.blog__colsociallinkimg--instagram {
+  background-image: inline-svg('instagram',$bellavistared);
+}
+.blog__colsociallinkimg--googleplus {
+  background-image: inline-svg('googleplus',$bellavistared);
+}
+.blog__colsociallinkimg--tripadvisor {
+  background-image: inline-svg('tripadvisor',$bellavistared);
+}
+.blog__commentsheading {
+  color: $bellavistared;
+}

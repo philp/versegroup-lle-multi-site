@@ -1,0 +1,72 @@
+.btn, .directionsSearch, .popup__form button, .freeformpanelarea button { 
+	font-family: $fonts; 
+	background: $yellow; 
+	border-bottom-color: $darkyellow; 
+	&:hover {
+		background: $darkyellow; 
+		border-color: $yellow; 
+		color: #fff; 
+	}
+}
+.btn--white { 
+	background: #fff; 
+	color: $yellow;
+	border-color: $darkyellow; 
+	&:hover {
+		background: $darkyellow; 
+		border-color: #fff; 
+		color: #fff; 
+	}
+}
+.btn--dark {
+	background: #082c3f;
+	color: #fff;
+	border-color: #051f2d;
+	&:hover {
+		background: #051f2d;
+		border-color: #082c3f; 
+		color: #fff; 
+	}
+}
+
+.btn--brochure {
+	padding-left: 70px;
+	&:before {
+		background-image: inline-svg('btnbrochures',#fff);
+	  width: 30px;
+	  height: 27px;
+		margin-top: -13.5px;
+		left: 20px;
+	}
+}
+
+@media (max-width: 1250px) {
+	.btn--brochure {
+		padding-left: 59px;
+		&:before {
+			left: 15px;
+		}
+	}
+}
+@media (max-width: 650px) {
+	.btn--brochure {
+		padding-left: 54px;
+		&:before {
+			left: 12px;
+		}
+	}
+}
+@media (max-width: 400px) {
+	.btn, .directionsSearch, .popup__form button, .freeformpanelarea button { 
+		color: #fff; 
+	}
+	.btn--white { 
+		color: $yellow; 
+	}
+	.btn--brochure {
+		padding-left: 58px;
+		&:before {
+			left: 15px;
+		}
+	}
+}

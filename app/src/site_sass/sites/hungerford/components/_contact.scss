@@ -1,0 +1,23 @@
+.contact {
+  select {
+    background-image:inline-svg('down-arrow', $teal);
+  }
+
+  input[type="text"],input[type="email"],input[type="tel"],select,textarea {
+    border-color: #c2c2c2;
+  }
+  label {
+    color: $teal;
+  }
+}
+
+.contact__map-form {
+  input[type="text"] {
+    border-color: #c2c2c2;
+  }
+  label {
+    color: $teal;
+  }
+}
+
+

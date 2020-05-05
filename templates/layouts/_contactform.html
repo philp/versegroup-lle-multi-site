@@ -1,0 +1,47 @@
+{% set mainContactPage = craft.entries.section('contact').one() %}
+{% if currentSite.handle == 'gamekeepersInn' %}
+  {% set mainContactPage = craft.entries.section('gamekeepersInnContact').one() %}
+{% elseif currentSite.handle == 'tattenhallMarina' %}  
+  {% set mainContactPage = craft.entries.section('tattenhallMarinaContact').one() %}
+{% elseif currentSite.handle == 'roydonMarinaVillage' %}  
+  {% set mainContactPage = craft.entries.section('roydonMarinaContact').one() %}
+{% elseif currentSite.handle == 'deganwyMarina' %}  
+  {% set mainContactPage = craft.entries.section('deganwyMarinaContact').one() %}
+{% elseif currentSite.handle == 'saulJunctionMarina' %}  
+  {% set mainContactPage = craft.entries.section('saulJunctionMarinaContact').one() %}
+{% elseif currentSite.handle == 'boatSales' %}
+  {% set mainContactPage = craft.entries.section('boatSalesContact').one() %}  
+{% elseif currentSite.handle == 'greatHaywoodMarina' %}  
+  {% set mainContactPage = craft.entries.section('greatHaywoodMarinaContact').one() %}
+{% elseif currentSite.handle == 'laBellaVista' %}  
+  {% set mainContactPage = craft.entries.section('laBellaVistaContact').one() %}
+{% elseif currentSite.handle == 'hungerfordMarina' %}  
+  {% set mainContactPage = craft.entries.section('hungerfordMarinaContact').one() %}
+{% endif %}
+
+<div class="section section--contact {% if entry.displayContactForm is defined and entry.displayContactForm %}section--endcontact{% endif %}" id="contactholder" {% if entry is defined and entry.defaultSubject is defined and entry.defaultSubject|length %}data-subject="{{ entry.defaultSubject }}"{% endif %}>
+  <div class="container">
+    {% if mainContactPage.contactFormHeading|length %}
+    <h2 class="section__formheading">{{ mainContactPage.contactFormHeading|replace({'<p>':'','</p>':''})|raw }}</h2>
+    {% endif %}
+        
+    {% if entry is defined and entry.additionalFormRecipients is defined and entry.additionalFormRecipients|length  %}
+      
+      {% set extraRecipients = [] %}
+      
+      {% for row in entry.additionalFormRecipients %}
+          {% set extraRecipients = extraRecipients|merge([row.emailAddress]) %}
+      {% endfor %}
+      
+      {{ craft.freeform.form(mainContactPage.contactForm.handle, {
+        dynamicNotification: { recipients: extraRecipients, template: 'contactUsEmail' }
+      }).render() }}
+    
+    {% else %}
+    
+      {{ mainContactPage.contactForm.render() }}
+    
+    {% endif %}
+
+  </div>
+</div>

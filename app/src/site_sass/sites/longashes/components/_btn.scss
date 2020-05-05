@@ -1,0 +1,29 @@
+.btn, .directionsSearch, .popup__form button, .freeformpanelarea button { 
+	font-family: $fonts; 
+	background: $lightgreen; 
+	border-bottom-color: $darkgreen; 
+	&:hover {
+		background: $darkgreen; 
+		border-color: $lightgreen; 
+		color: #fff; 
+	}
+}
+.btn--white { 
+	background: #fff; 
+	color: $lightgreen;
+	border-color: $lightergreen; 
+	&:hover {
+		background: $lightergreen; 
+		border-color: #fff; 
+		color: #fff; 
+	}
+}
+
+@media (max-width: 400px) {
+	.btn, .directionsSearch, .popup__form button, .freeformpanelarea button { 
+		color: $lightgrey; 
+	}
+	.btn--white { 
+		color: $lightgreen; 
+	}
+}

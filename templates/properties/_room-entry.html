@@ -1,0 +1,164 @@
+{% extends "layouts/_layout" %}
+
+{% block content %}
+	
+<div id="section2">
+	<div class="section section--white section--propertycontent">
+		<div class="container cs">
+			{% if entry.displayRoomSearch is defined and entry.displayRoomSearch %}
+			<div class="mobiletopsearch">
+				{% if enableBooking %}
+					{% set topform = true %}
+					{% include "layouts/_mobilesectionroomsform" %}
+				{% endif %}
+			</div>
+			{% endif %}
+			<div class="propertydetail">
+				<div class="propertydetail__header cs">
+					<div class="propertydetail__name">
+						<h1 class="h1--property"><strong>{{ entry.propertyName }}</strong>{% if entry.propertySecondaryNameInfo|length %}<br />{{ entry.propertySecondaryNameInfo }}{% endif %}</h1>
+					</div>
+					{% if entry.price|length %}
+					<div class="propertydetail__price">
+						<div class="propertydetail__pricetext">{% if entry.priceLabel is defined and entry.priceLabel|length %}{{ entry.priceLabel }}{% else %}Price:{% endif %}</div>
+						<div class="propertydetail__pricenumber">&pound;{{ (entry.price|number_format(2, '.', ','))|replace({".00" : ""}) }}{% if entry.afterPriceText is defined and entry.afterPriceText|length %} <span class="propertydetail__priceafter">{{ entry.afterPriceText }}</span>{% endif %}</div>
+					</div>
+					{% endif %}
+				</div>
+				
+				<div class="propertydetail__left">
+					<div class="propertydetail__gallery">
+						{% if entry.propertyImages|length %}
+							<div id="propertygallery" class="propertydetail__galleryid">
+								{% for image in entry.propertyImages.all() %}
+									<div class="galleryItem propertydetail__galleryitem" style="background-image:url({{ image.getUrl('propertyImage') }})">
+										<div class="propertydetail__galleryitemimgholder"><a href="{{ image.url }}" class="swipebox" {% if entry.propertyImages|length > 1 %}rel="propertygallery"{% endif %}><img src="{{ image.getUrl('propertyImage') }}" class="propertydetail__galleryitemimg" alt="{{ image.title }}" /></a></div>
+									</div> 
+								{% endfor %}
+							</div>
+							<script type="text/javascript">
+								$(function() {
+									$('#propertygallery').imageGallery({ itemButtons:false, nextPrevButtons:true, autoplay:true, speed:5000, callback:function() {
+										slideRender($('#propertygallery').find('.activeItem'));
+									}});
+								});
+							</script>
+						{% endif %}
+						<div class="propertydetail__galleryviewphotos cs">
+							<div class="propertydetail__galleryviewphotosicon"><span class="propertydetail__galleryviewphotosiconimg">&nbsp;</span></div>
+							<div class="propertydetail__galleryviewphotostext">View Photos</div>
+						</div>
+					</div>
+					
+					<div class="propertydetail__contact propertydetail__contact--mobileonly">
+						{% if currentGlobals.roomPhoneNumber|length %}
+							<div class="propertydetail__contactitem propertydetail__contactitem--call">
+								<span class="propertydetail__contactitemiconholder propertydetail__contactitemiconholder--call"><span class="propertydetail__contacticon propertydetail__contacticon--call">&nbsp;</span></span> <a href="tel:{{ currentGlobals.roomPhoneNumber|replace({' ': ''}) }}">{{ currentGlobals.roomPhoneNumber }}</a> {% if currentGlobals.roomEmailAddress|length %}or{% endif %}
+							</div>
+						{% endif %}
+						{% if currentGlobals.roomEmailAddress|length %}
+							<div class="propertydetail__contactitem propertydetail__contactitem--email">
+								<span class="propertydetail__contactitemiconholder propertydetail__contactitemiconholder--email"><span class="propertydetail__contacticon propertydetail__contacticon--email">&nbsp;</span></span> <a class="propertydetail__contactitemlinksplit" href="mailto:{{ currentGlobals.roomEmailAddress }}">{{ currentGlobals.roomEmailAddress }}</a>
+							</div>
+						{% endif %}
+					</div>
+					
+					<div class="propertydetail__detailsheading cs">
+						<div class="propertydetail__detailsheadingtextouter">
+							<div class="propertydetail__detailsheadingtext">
+								Property Details
+							</div>
+						</div>
+						
+					</div>
+					{% if entry.propertyDetails|length %}
+						<div class="propertydetail__detailslist">
+							{% for item in entry.propertyDetails.all() %}
+								{% if item.type == "detailItem" %}
+									{% if item.detailLabel|length and item.detailContent|length %}
+										<div class="propertydetail__detailitem">
+											<div class="cs">
+												<div class="propertydetail__itemname">{{ item.detailLabel }}<span class="propertydetail__mobilecolon">:</span> </div>
+												<div class="propertydetail__itemcontent">{{ item.detailContent }}
+												</div>
+											</div>
+											{% if item.embedCode|length %}
+												<div class="propertydetail__embedcode">
+													{{ item.embedCode|raw }}
+												</div>
+											{% endif %}
+										</div>
+									{% endif %}
+								{% endif %}
+							{% endfor %}
+						</div>
+					{% endif %}
+					<div class="propertydetail__links propertydetail__links--mobileonly">
+						{% include 'layouts/_propertysidemenu' %}
+					</div>
+					
+					<div class="propertydetail__btns">
+						
+						<a href="/contact/" class="btn btn--property">Enquire Now</a>
+						{% if entry.endButtons|length %}
+							{% for item in entry.endButtons.all() %}
+								{% if item.type == "button" %}
+									{% if item.text|length and (item.entry|length or item.linkUrl|length or item.download|length) %}
+										{% set isPopup = false %}
+										{% if item.entry|length %}
+											{% if item.entry.one().section.handle == 'popups' %}
+												{% set isPopup = true %}
+											{% endif %}
+										{% endif %}
+										<a href="{% if item.entry|length %}{{ item.entry.one().url }}{% elseif item.linkUrl|length %}{{ item.linkUrl }}{% elseif item.download|length %}{{ item.download.one().url }}{% endif %}" class="btn section__btnsareabtn {% if isPopup == true %}popuplink{% endif %} {% if item.brochureIcon %}btn--brochure{% endif %} btn--property" {% if isPopup == true %}data-popup="{{ item.entry.one().slug }}"{% endif %} {% if item.openInNewTab %}target="_blank"{% endif %}>{{ item.text }}</a>
+									{% endif %}
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+					</div>	
+					{% if entry.disclaimer|length %}
+						<div class="propertydetail__disclaimer">
+							<h3>Disclaimer</h3>
+							{{ entry.disclaimer }}
+						</div>
+					{% endif %}
+					
+				</div>
+				<div class="propertydetail__right">
+					
+					<div class="propertydetail__contact propertydetail__contact--desktoponly">
+						{% if currentGlobals.roomPhoneNumber|length %}
+						<div class="propertydetail__contactitem propertydetail__contactitem--call">
+							<span class="propertydetail__contactitemiconholder propertydetail__contactitemiconholder--call"><span class="propertydetail__contacticon propertydetail__contacticon--call">&nbsp;</span></span> <a href="tel:{{ currentGlobals.roomPhoneNumber|replace({' ': ''}) }}">{{ currentGlobals.roomPhoneNumber }}</a> {% if currentGlobals.roomEmailAddress|length %}or{% endif %}
+						</div>
+						{% endif %}
+						{% if currentGlobals.roomEmailAddress|length %}
+						<div class="propertydetail__contactitem propertydetail__contactitem--email">
+							<span class="propertydetail__contactitemiconholder propertydetail__contactitemiconholder--email"><span class="propertydetail__contacticon propertydetail__contacticon--email">&nbsp;</span></span> <a  class="propertydetail__contactitemlinksplit" href="mailto:{{ currentGlobals.roomEmailAddress }}">{{ currentGlobals.roomEmailAddress }}</a>
+						</div>
+						{% endif %}
+					</div>
+					
+					
+					
+					<div class="propertydetail__links propertydetail__links--desktoponly">
+						{% include 'layouts/_propertysidemenu' %}
+					</div>
+					
+				</div>
+				
+				
+			</div>
+			
+			
+		</div>
+		
+		
+	</div>
+</div>
+	
+
+{% endblock %}
+
+
+	

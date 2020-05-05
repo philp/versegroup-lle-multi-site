@@ -1,0 +1,778 @@
+{% extends "layouts/_layout" %}
+
+
+
+	{% block headextra %}
+		{% if entry.type == 'location' %}
+			<link rel="stylesheet" href="https://webapiv2.navionics.com/dist/webapi/webapi.min.css" >
+			<script type="text/javascript" src="https://webapiv2.navionics.com/dist/webapi/webapi.min.no-dep.js"></script>
+		{% endif %}
+		{% if entry.displayContactForm is defined and entry.displayContactForm %}
+			<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+			<script>
+				function onSubmit(token) {
+					document.getElementById("contactform").submit();
+				}
+			</script>
+	  {% endif %}
+	{% endblock %}
+
+	{% block bodyextra %}
+		{% if entry.type == 'location' %}
+		data-root="https://webapiv2.navionics.com/dist/webapi/images"
+		{% endif %}
+	{% endblock %}
+
+
+{% block content %}
+	{% if entry.type == "pages" %}
+		<div id="section2">
+		  <div class="section section--white section--basicpage">
+		    <div class="container cs">
+					{% include "layouts/_basiccontent" %}
+				</div>
+			</div>
+		</div>
+	{% elseif entry.type == "alternating" %}
+		{% include "layouts/_firstsection" %}
+		{% include "layouts/_contentpanels" %}
+	{% elseif entry.type == "service" %}
+		{% include "layouts/_firstsection" %}
+		{% include "layouts/_tablesection" %}
+		{% include "layouts/_contentpanels" %}
+	{% elseif entry.type == "tariff" %}
+		{% include "layouts/_firstsection" %}
+		{% include "layouts/_contentpanels" %}
+		{% include "layouts/_tariffsection" %}
+		{% include "layouts/_secondarycontentpanels" %}
+	{% elseif entry.type == "membership" %}
+		{% include "layouts/_firstsection" %}
+		<div id="section3">
+			<div class="section section--white section--passespage">
+				<div class="container cs">
+					{% include "layouts/_basiccontent" %}
+					{% include "layouts/_passesinfo" %}
+				</div>
+			</div>
+		</div>
+		{% include "layouts/_membershipspanel" %}
+		{% include "layouts/_contentpanels" %}
+	{% elseif entry.type == "bannerPanels" %}
+
+		{% include "layouts/_contentpanels" %}
+
+	{% elseif entry.type == "menus" %}
+
+		{% include "layouts/_firstsection" %}
+
+		{% include "layouts/_menusbar" %}
+
+		{% include "layouts/_contentpanels" %}
+
+		{% if entry.endMenuGallery|length %}
+			{% for gallery in entry.endMenuGallery.all() %}
+				{% if gallery.galleryDescription|length or gallery.galleryImages|length %}
+					{% include 'layouts/_imagegallery' %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+
+	{% elseif entry.type == "optionBoxes" %}
+
+		{% include "layouts/_firstsection" %}
+
+		{% if entry.optionBoxesBar is defined and entry.optionBoxesBar|length %}
+	    {% for bar in entry.optionBoxesBar.all() %}
+	      {% include "layouts/_optionboxes" with {'ownSection':true} %}
+	    {% endfor %}
+	  {% endif %}
+
+		{% include "layouts/_contentpanels" %}
+
+	{% elseif entry.type == "occasion" %}
+
+		{% include "layouts/_firstsection" %}
+
+		{% include "layouts/_contentpanels" %}
+
+		{% include "layouts/_menusbar" %}
+
+		{% set secondarySectionPanelNum = panelsCountStart + 1 %}
+		{% if entry.alternatingPanels is defined and entry.alternatingPanels|length %}
+			{% set secondarySectionPanelNum = secondarySectionPanelNum + entry.alternatingPanels|length %}
+		{% endif %}
+		{% if (entry.menusHeading is defined and entry.menusHeading|length) or (entry.menusSummary is defined and entry.menusSummary|length) or (entry.menus is defined and entry.menus|length) %}
+			{% set secondarySectionPanelNum = secondarySectionPanelNum + 1 %}
+		{% endif %}
+
+		{% if (entry.occasionHeading is defined and entry.occasionHeading|length) or (entry.occasionIntroduction is defined and entry.occasionIntroduction|length) or (entry.occasionContent is defined and entry.occasionContent|length) %}
+		<div id="section{{ secondarySectionPanelNum }}">
+			<div class="section section--white section--simplehalves">
+				<div class="container cs">
+						<div class="section__half section__half--left">
+							{% if entry.occasionHeading|length %}
+							  {{ entry.occasionHeading }}
+							{% endif %}
+							<div>
+							{% if entry.occasionIntroduction|length %}
+							  <div class="section__intro">
+							    {{ entry.occasionIntroduction }}
+							  </div>
+							{% endif %}
+							{% if entry.occasionContent|length %}
+							  {{ entry.occasionContent }}
+							{% endif %}
+							{% if entry.occasionButtons|length %}
+								{% for item in entry.occasionButtons.all() %}
+									{% if item.type == "button" %}
+										{% if item.text|length and (item.entry|length or item.linkUrl|length or item.download|length) %}
+											{% set isPopup = false %}
+											{% if item.entry|length %}
+												{% if item.entry.one().section.handle == 'popups' %}
+													{% set isPopup = true %}
+												{% endif %}
+											{% endif %}
+											<a href="{% if item.entry|length %}{{ item.entry.one().url }}{% elseif item.linkUrl|length %}{{ item.linkUrl }}{% elseif item.download|length %}{{ item.download.one().url }}{% endif %}" class="btn section__btnsareabtn {% if isPopup == true %}popuplink{% endif %} {% if item.brochureIcon %}btn--brochure{% endif %}" {% if isPopup == true %}data-popup="{{ item.entry.one().slug }}"{% endif %} {% if item.openInNewTab %}target="_blank"{% endif %}>{{ item.text }}</a>
+										{% endif %}
+									{% endif %}
+								{% endfor %}
+							{% endif %}
+							</div>
+						</div>
+						{% if entry.occasionScrollingGallery|length %}
+							<div class="section__half section__half--right">
+								<div class="section_gallery">
+								  <div id="section{{ secondarySectionPanelNum }}gallery" class="section_galleryid">
+								    {% for img in entry.occasionScrollingGallery.all() %}
+								        <div class="galleryItem section_galleryitem" style="background-image:url({{ img.getUrl('bannerPanelGallery') }})">
+								          <div class="section_galleryitemimgholder"><img src="{{ img.getUrl('bannerPanelGallery') }}" class="section_galleryitemimg" alt="{{ img.title }}" /></div>
+								        </div>
+								    {% endfor %}
+								  </div>
+								  <script type="text/javascript">
+								  <!--
+								    $(function() {
+								      $('#section{{ secondarySectionPanelNum }}gallery').imageGallery({ itemButtons:false, nextPrevButtons:true, autoplay:true, speed:5000, callback:function() {
+								        slideRender($('#section{{ secondarySectionPanelNum }}gallery').find('.activeItem'));
+								      }});
+								    });
+								   //-->
+								  </script>
+								</div>
+							</div>
+						{% endif %}
+				</div>
+			</div>
+		</div>
+		{% endif %}
+
+
+		{% if entry.occasionSecondaryPanels is defined and entry.occasionSecondaryPanels|length %}
+			<div class="properties properties--sectionsbg">
+				{% for item in entry.occasionSecondaryPanels.all() %}
+					{% if item.type == 'panel' %}
+						<div class="properties__itembg {% if loop.index is odd %}properties__itembg--odd{% else %}properties__itembg--even{% endif %} section section--white" id="section{{ secondarySectionPanelNum + loop.index }}">
+							<div class="container">
+								<div class="properties__item cs">
+									{% if item.occasionImages|length %}
+										<div class="properties__itemimgside {% if loop.index is even %}properties__itemimgside--left{% else %}properties__itemimgside--right{% endif %}">
+											<div class="properties__itemimgsideinner">
+
+
+												<div class="section_gallery properties__itemimg">
+												  <div id="section{{ secondarySectionPanelNum + loop.index }}gallery" class="section_galleryid">
+												    {% for img in item.occasionImages.all() %}
+												        <div class="galleryItem section_galleryitem" style="background-image:url({{ img.getUrl('bannerPanelGallery') }})">
+												          <div class="section_galleryitemimgholder"><img src="{{ img.getUrl('bannerPanelGallery') }}" class="section_galleryitemimg" alt="{{ img.title }}" /></div>
+												        </div>
+												    {% endfor %}
+												  </div>
+												  <script type="text/javascript">
+												  <!--
+												    $(function() {
+												      $('#section{{ secondarySectionPanelNum + loop.index }}gallery').imageGallery({ itemButtons:false, nextPrevButtons:true, autoplay:true, speed:5000, callback:function() {
+												        slideRender($('#section{{ secondarySectionPanelNum + loop.index }}gallery').find('.activeItem'));
+												      }});
+												    });
+												   //-->
+												  </script>
+												</div>
+
+											</div>
+										</div>
+									{% endif %}
+									<div class="properties__itemcontentside {% if loop.index is even %}properties__itemcontentside--left{% else %}properties__itemcontentside--right{% endif %}">
+										{% if item.heading|length %}
+										<div class="properties__itemtitle">{{ item.heading }}</div>
+										{% endif %}
+										{% if item.occasionContent|length %}
+										<div class="properties__itemsummary">
+											{{ item.occasionContent }}
+
+											{% if (item.button1Entry|length or item.button1Link|length or item.button1Download|length) and item.button1Text|length %}{% set isPopup = false %}{% if item.button1Entry|length %}
+				                {% if item.button1Entry.one().section.handle == 'popups' %}
+				                  {% set isPopup = true %}
+				                {% endif %}
+				              {% endif %}<a href="{% if item.button1Entry|length %}{{ item.button1Entry.one().url }}{% elseif item.button1Download|length %}{{ item.button1Download.one().url }}{% else %}{{ item.button1Link }}{% endif %}" class="btn btn--margintop {% if isPopup == true %}popuplink{% endif %}" {% if isPopup == true %}data-popup="{{ item.button1Entry.one().slug }}"{% endif %} {% if item.button1OpenInNewTab %}target="_blank"{% endif %}>{{ item.button1Text }}</a>{% endif %}
+				              {% if (item.button2Entry|length or item.button2Link|length or item.button2Download|length) and item.button2Text|length %}{% set isPopup = false %}{% if item.button2Entry|length %}
+				                {% if item.button2Entry.one().section.handle == 'popups' %}
+				                  {% set isPopup = true %}
+				                {% endif %}
+				              {% endif %}<a href="{% if item.button2Entry|length %}{{ item.button2Entry.one().url }}{% elseif item.button2Download|length %}{{ item.button2Download.one().url }}{% else %}{{ item.button2Link }}{% endif %}" class="btn btn--margintop {% if isPopup == true %}popuplink{% endif %}" {% if isPopup == true %}data-popup="{{ item.button2Entry.one().slug }}"{% endif %} {% if item.button2OpenInNewTab %}target="_blank"{% endif %}>{{ item.button2Text }}</a>{% endif %}
+										</div>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+
+		{% set endGalleryNum = finalSectionNum - 1 %}
+	  {% if entry.displayContactForm is defined and entry.displayContactForm %}
+	    {% set endGalleryNum = endGalleryNum - 1 %}
+	  {% endif %}
+		{% if entry.endGallery|length %}
+	  <div id="section{{ endGalleryNum }}">
+	    <div class="section section--white">
+	      <div class="endgallery">
+	        <div class="endgallery__lrgopts">
+	          {% for opt in entry.endGallery.all() %}
+	            <div class="endgallery__lrgopt" data-fullimg="{{ opt.url }}">
+	              <img src="{{ opt.getUrl('endGalleryLargeImage') }}" alt="{{ opt.title }}" class="endgallery__lrgoptimg" />
+	            </div>
+	          {% endfor %}
+	        </div>
+	        <div class="endgallery__optsholderouter">
+	          <div class="endgallery__optsholder">
+	            <div class="endgallery__opts">
+	              {% for opt in entry.endGallery.all() %}<div class="endgallery__opt" data-fullimg="{{ opt.url }}">
+	                  <img src="{{ opt.getUrl('endGalleryThumbnail') }}" alt="{{ opt.title }}" class="endgallery__optimg" />
+	                </div>{% endfor %}
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+		{% endif %}
+
+		{% if (entry.brochureBarHeading is defined and entry.brochureBarHeading|length) or (entry.barDownload is defined and entry.barDownload|length) %}
+			<div class="brochurebar">
+				<div class="container cs">
+					<div class="brochurebar__left">
+						<div class="brochurebar__icon">&nbsp;</div>
+						{% if entry.brochureBarHeading|length %}
+							<div class="brochurebar__heading">
+								{{ entry.brochureBarHeading }}
+							</div>
+						{% endif %}
+					</div>
+					{% if entry.barDownload|length %}
+						<div class="brochurebar__right">
+							<a href="{{ entry.barDownload.one().url }}" class="btn brochurebar__btn {% if currentSite.handle == 'gamekeepersInn' %}btn--dark{% else %}btn--white{% endif %}">{% if entry.barButtonText|length %}{{ entry.barButtonText }}{% else %}Click to Download{% endif %}</a>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		{% endif %}
+
+	{% elseif entry.type == 'salesPanels' %}
+		{% include "layouts/_firstsection" %}
+		{% if entry.salesPanels|length %}
+			<div class="salespanels section" id="section2">
+				<div class="salespanels__back cs {% if entry.salesPanels|length == 1 %}salespanels__singlepanelholder{% endif %}">
+					<div class="container">
+						{% for item in entry.salesPanels.all() %}
+							{% if item.type == 'salesPanel' %}
+								<div class="salespanels__item {% if entry.salesPanels|length == 1 %}salespanels__singleitem{% endif %}">
+									{% if item.panelImage|length %}
+										<img src="{{ item.panelImage.one().getUrl('salesPanelImage') }}" alt="{{ item.panelImage.one().title }}" class="salespanels__itemimg" />
+									{% endif %}
+									<div class="salespanels__content">
+										{% if item.panelHeading|length %}
+											{{ item.panelHeading|replace({'<p>': '<h2>', '</p>': '</h2>'})|raw }}
+										{% endif %}
+										{% if item.introduction|length %}
+											<div class="section__intro">
+												{{ item.introduction }}
+											</div>
+										{% endif %}
+										{% if item.panelContent|length %}
+											{{ item.panelContent }}
+										{% endif %}
+										{% if item.contactDetailsHeading|length or entry.contactDetails|length %}
+											<p>
+												{% if item.contactDetailsHeading|length %}
+													<span class="salespanels__contacthead">{{ item.contactDetailsHeading }}</span>
+												{% endif %}
+												{% if item.contactDetails|length %}
+													{% for row in item.contactDetails %}
+														{% if row.label|length %}<strong>{{ row.label }}</strong>{% endif %}
+														{% if row.detail|length %}
+															{% if row.phoneNumber or row.emailAddress %}
+																<a href="
+																	{% if row.phoneNumber %}
+																		tel:{{ row.detail|replace({' ': ''}) }}
+																	{% else %}
+																		mailto:{{ row.detail }}
+																	{% endif %}
+																" class="salespanels__contactlink">
+																	{{ row.detail }}
+																</a>
+															{% else %}
+																{{ row.detail }}
+															{% endif %}
+														{% endif %}
+														{% if loop.last %}{% else %}<br />{% endif %}
+													{% endfor %}
+												{% endif %}
+											</p>
+										{% endif %}
+
+										{% if ((item.button1Entry|length or item.button1Link|length or item.button1Download|length) and item.button1Text|length) or ((item.button2Entry|length or item.button2Link|length or item.button2Download|length) and item.button2Text|length) %}
+										<div class="salespanels__btns">
+											{% if (item.button1Entry|length or item.button1Link|length or item.button1Download|length) and item.button1Text|length %}{% set isPopup = false %}{% if item.button1Entry|length %}
+							          {% if item.button1Entry.one().section.handle == 'popups' %}
+							            {% set isPopup = true %}
+							          {% endif %}
+							        {% endif %}<a href="{% if item.button1Entry|length %}{{ item.button1Entry.one().url }}{% elseif item.button1Download|length %}{{ item.button1Download.one().url }}{% else %}{{ item.button1Link }}{% endif %}" class="btn {% if isPopup == true %}popuplink{% endif %}" {% if isPopup == true %}data-popup="{{ item.button1Entry.one().slug }}"{% endif %} {% if item.button1OpenInNewTab %}target="_blank"{% endif %}>{{ item.button1Text }}</a>{% endif %}{% if (item.button2Entry|length or item.button2Link|length or item.button2Download|length) and item.button2Text|length %}{% set isPopup = false %}{% if item.button2Entry|length %}
+							          {% if item.button2Entry.one().section.handle == 'popups' %}
+							            {% set isPopup = true %}
+							          {% endif %}
+							        {% endif %}<a href="{% if item.button2Entry|length %}{{ item.button2Entry.one().url }}{% elseif item.button2Download|length %}{{ item.button2Download.one().url }}{% else %}{{ item.button2Link }}{% endif %}" class="btn {% if isPopup == true %}popuplink{% endif %}"  {% if isPopup == true %}data-popup="{{ item.button2Entry.one().slug }}"{% endif %} {% if item.button2OpenInNewTab %}target="_blank"{% endif %}>{{ item.button2Text }}</a>{% endif %}
+										</div>
+										{% endif %}
+
+									</div>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	{% elseif entry.type == 'mooring' %}
+		{% include "layouts/_mooring" %}
+
+	{% elseif entry.type == 'multiTableMooring' %}
+
+		{% include "layouts/_firstsection" %}
+		{% if entry.optionBoxesBar is defined and entry.optionBoxesBar|length %}
+	    {% for bar in entry.optionBoxesBar.all() %}
+	      {% include "layouts/_optionboxes" with {'ownSection':true} %}
+	    {% endfor %}
+	  {% endif %}
+
+		{% include "layouts/_alternatingboxpanels" %}
+
+		{% if entry.mapImage|length %}
+      <div class="mappanel section section--white" id="section{{ mapPanelNum }}">
+        <div class="container">
+          {% if entry.mapPanelHeading|length %}
+            <div class="mappanel__heading mappanel__heading--insideborder">
+              <div class="mappanel__headingbefore">&nbsp;</div>
+              {{ entry.mapPanelHeading|replace({'<p>':'<h2>','</p>': '</h2>'})|raw }}
+            </div>
+          {% endif %}
+        </div>
+				<div class="mappanel__holder mappanel__holder--fullwidth">
+					<img src="{{ entry.mapImage.one().url }}" alt="{{ entry.mapImage.one().title }}" class="mappanel__fullwidthimg" />
+				</div>
+				{% if entry.mapDownload|length %}
+					<div class="mappanel__blockbtnholder">
+						<div class="container">
+							<a href="{{ entry.mapDownload.one().url }}" class="btn">{% if entry.mapDownloadButtonText|length %}{{ entry.mapDownloadButtonText }}{% else %}Download{% endif %}</a>
+						</div>
+					</div>
+				{% endif %}
+      </div>
+    {% endif %}
+
+		{% if entry.tablesHeading|length or entry.tablesTopLogo|length or entry.pricingTables|length or entry.belowTablesContent|length or entry.occasionButtons|length %}
+		<div class="section section--white section--mooringtable section--multitable" id="section{{ multiTableNum }}">
+		 	<div class="container">
+				{% if entry.tablesHeading|length or entry.tablesTopLogo|length %}
+          <div class="halvestitle cs">
+            {% if entry.tablesHeading|length %}
+              <div class="halvestitle__titleside halvestitle__titleside--wlogo">
+                {{ entry.tablesHeading|replace({'<p>':'<h2 class="h1">','</p>':'</h2>'})|raw }}
+              </div>
+            {% endif %}
+
+						{% if entry.tablesTopLogo|length %}
+							<div class="halvestitle__logoside">
+								<img src="{{ entry.tablesTopLogo.one().url }}" alt="{{ currentSite.name }}" />
+							</div>
+						{% endif %}
+
+          </div>
+        {% endif %}
+
+				{% include "layouts/_pricetables" %}
+
+				{% if entry.belowTablesContent|length %}
+					<div class="section__belowtables">
+						{{ entry.belowTablesContent }}
+					</div>
+				{% endif %}
+
+				{% if entry.occasionButtons|length %}
+          {% for item in entry.occasionButtons.all() %}
+            {% if item.type == "button" %}
+              {% if item.text|length and (item.entry|length or item.linkUrl|length or item.download|length) %}
+                {% set isPopup = false %}
+                {% if item.entry|length %}
+                  {% if item.entry.one().section.handle == 'popups' %}
+                    {% set isPopup = true %}
+                  {% endif %}
+                {% endif %}
+                <a href="{% if item.entry|length %}{{ item.entry.one().url }}{% elseif item.linkUrl|length %}{{ item.linkUrl }}{% elseif item.download|length %}{{ item.download.one().url }}{% endif %}" class="btn section__btnsareabtn {% if isPopup == true %}popuplink{% endif %} {% if item.brochureIcon %}btn--brochure{% endif %}" {% if isPopup == true %}data-popup="{{ item.entry.one().slug }}"{% endif %} {% if item.openInNewTab %}target="_blank"{% endif %}>{{ item.text }}</a>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+
+			</div>
+		</div>
+		{% endif %}
+
+		{% if entry.mooringFormHeading|length or entry.mooringForm|length %}
+      <div class="section section--contact section--endcontact section--mooringcontact" id="section{{ mooringContactNum }}">
+        <div class="container">
+          {% if entry.mooringFormHeading|length %}
+            {{ entry.mooringFormHeading|replace({'<p>':'<h2 class="h1">', '</p>':'</h2>'})|raw }}
+          {% endif %}
+          {% if entry.mooringForm|length %}
+            <div class="freeformpanelarea">
+              {{ entry.mooringForm.render() }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+	{% elseif entry.type == 'location' %}
+		{% include "layouts/_firstsection" %}
+
+		{% if entry.mapImage|length %}
+		  <div class="mappanel section section--white" id="section{{ mapPanelNum }}">
+
+		    <div class="container">
+
+		      {% if entry.mapPanelHeading|length %}
+		        <div class="mappanel__heading mappanel__heading--notcontained">
+		          <div class="mappanel__headingbefore">&nbsp;</div>
+		          {{ entry.mapPanelHeading|replace({'<p>':'<h2>','</p>': '</h2>'})|raw }}
+		        </div>
+		      {% endif %}
+				</div>
+
+		      <div class="mappanel__holder mappanel__holder--pilotagemap">
+		        <img src="{{ entry.mapImage.one().url }}" alt="{{ entry.mapImage.one().title }}" class="mappanel__fullwidthimg" />
+		      </div>
+
+		      {% if entry.mapDownload|length %}
+						<div class="container">
+			        <div class="mappanel__btnholder mappanel__btnholder--borderedarea">
+			          <a href="{{ entry.mapDownload.one().url }}" class="btn" target="_blank">{% if entry.mapDownloadButtonText|length %}{{ entry.mapDownloadButtonText }}{% else %}Download{% endif %}</a>
+			        </div>
+						</div>
+		      {% endif %}
+
+		  </div>
+		{% endif %}
+
+		{% if entry.variedWidthPanels|length %}
+			<div class="boxpanels boxpanels--multiwidth section" id="section{{ variedPanelsNum }}">
+				{% for item in entry.variedWidthPanels.all() %}
+
+					{% if item.type == "singlePanel" %}
+					<div class="section boxpanels__section boxpanels__section--multiwidth">
+						<div class="container cs">
+
+							<div class="section__half section__half--contentside {% if loop.index is even %}section__half--alignright{% else %}section__half--alignleft{% endif %} section__half--galleryoverlaptextsize">
+								{% include "layouts/_sectioncontent" %}
+							</div>
+							{% if item.sideImage|length %}
+								<div class="section__half section__half--imgside section__half--imgsidemultiwidthback {% if loop.index is even %}section__half--alignleft{% else %}section__half--alignright{% endif %} section__half--galleryoverlapsize">
+
+									<div class="section_gallery">
+										<div id="sectionvariedpanels{{ loop.index }}gallery" class="section_galleryid">
+											{% for img in item.sideImage.all() %}
+												<div class="galleryItem section_galleryitem" style="background-image:url({{ img.getUrl('bannerPanelGallery') }})">
+													<div class="section_galleryitemimgholder"><img src="{{ img.getUrl('bannerPanelGallery') }}" class="section_galleryitemimg" alt="{{ img.title }}" /></div>
+												</div>
+											{% endfor %}
+										</div>
+										<script type="text/javascript">
+										<!--
+											$(function() {
+												$('#sectionvariedpanels{{ loop.index }}gallery').imageGallery({ itemButtons:false, nextPrevButtons:true, autoplay:true, speed:5000, callback:function() {
+													slideRender($('#sectionvariedpanels{{ loop.index }}gallery').find('.activeItem'));
+												}});
+											});
+										 //-->
+										</script>
+									</div>
+
+								</div>
+							{% endif %}
+
+						</div>
+					</div>
+
+					{% elseif item.type == "threePanels" %}
+
+						<div class="section boxpanels__section boxpanels__section--multiwidth">
+							<div class="container">
+								<div class="boxpanels__thirds">
+
+									{% if item.panel1Image|length or item.panel1Content|length %}
+										<div class="boxpanels__trd">
+											{% if item.panel1Image|length %}
+												<img src="{{ item.panel1Image.one().getUrl('thirdPanelImage') }}" alt="{{ item.panel1Image.one().title }}" class="boxpanels__trdimg" />
+											{% endif %}
+											{% if item.panel1Content|length or item.panel1ButtonText|length %}
+												<div class="boxpanels__trdcontentarea">
+													{% if item.panel1Content|length %}
+														<div class="boxpanels__trdcontent">
+															{{ item.panel1Content }}
+														</div>
+													{% endif %}
+
+													{% if (item.panel1ButtonEntry|length or item.panel1Link|length or item.panel1ButtonDownload|length) and item.panel1ButtonText|length %}
+													{% set isPanel1Popup = false %}
+													{% if item.panel1ButtonEntry|length %}
+													  {% if item.panel1ButtonEntry.one().section.handle == 'popups' %}
+													    {% set isPanel1Popup = true %}
+													  {% endif %}
+													{% endif %}
+													<div class="boxpanels__trdbtnarea">
+													  <a href="{% if item.panel1ButtonEntry|length %}{{ item.panel1ButtonEntry.one().url }}{% elseif item.panel1ButtonDownload|length %}{{ item.panel1ButtonDownload.one().url }}{% else %}{{ item.panel1Link }}{% endif %}" class="btn boxpanels__trdbtn {% if isPanel1Popup == true %}popuplink{% endif %}" {% if isPanel1Popup == true %}data-popup="{{ item.panel1ButtonEntry.one().slug }}"{% endif %} {% if item.panel1ButtonOpenInNewTab %}target="_blank"{% endif %}>{{ item.panel1ButtonText }}</a>
+													</div>
+													{% endif %}
+												</div>
+											{% endif %}
+										</div>
+									{% endif %}
+
+									{% if item.panel2Image|length or item.panel2Content|length %}
+										<div class="boxpanels__trd">
+											{% if item.panel2Image|length %}
+												<img src="{{ item.panel2Image.one().getUrl('thirdPanelImage') }}" alt="{{ item.panel2Image.one().title }}" class="boxpanels__trdimg" />
+											{% endif %}
+											{% if item.panel2Content|length or item.panel2ButtonText|length %}
+												<div class="boxpanels__trdcontentarea">
+													{% if item.panel2Content|length %}
+														<div class="boxpanels__trdcontent">
+															{{ item.panel2Content }}
+														</div>
+													{% endif %}
+
+													{% if (item.panel2ButtonEntry|length or item.panel2ButtonLink|length or item.panel2ButtonDownload|length) and item.panel2ButtonText|length %}
+													{% set isPanel2Popup = false %}
+													{% if item.panel2ButtonEntry|length %}
+													  {% if item.panel2ButtonEntry.one().section.handle == 'popups' %}
+													    {% set isPanel2Popup = true %}
+													  {% endif %}
+													{% endif %}
+													<div class="boxpanels__trdbtnarea">
+													  <a href="{% if item.panel2ButtonEntry|length %}{{ item.panel2ButtonEntry.one().url }}{% elseif item.panel2ButtonDownload|length %}{{ item.panel2ButtonDownload.one().url }}{% else %}{{ item.panel2ButtonLink }}{% endif %}" class="btn boxpanels__trdbtn {% if isPanel2Popup == true %}popuplink{% endif %}" {% if isPanel2Popup == true %}data-popup="{{ item.panel2ButtonEntry.one().slug }}"{% endif %} {% if item.panel2ButtonOpenInNewTab %}target="_blank"{% endif %}>{{ item.panel2ButtonText }}</a>
+													</div>
+													{% endif %}
+												</div>
+											{% endif %}
+										</div>
+									{% endif %}
+
+									{% if item.panel3Image|length or item.panel3Content|length %}
+										<div class="boxpanels__trd">
+											{% if item.panel3Image|length %}
+												<img src="{{ item.panel3Image.one().getUrl('thirdPanelImage') }}" alt="{{ item.panel3Image.one().title }}" class="boxpanels__trdimg" />
+											{% endif %}
+											{% if item.panel3Content|length or item.panel3ButtonText|length %}
+												<div class="boxpanels__trdcontentarea">
+													{% if item.panel3Content|length %}
+														<div class="boxpanels__trdcontent">
+															{{ item.panel3Content }}
+														</div>
+													{% endif %}
+
+													{% if (item.panel3ButtonEntry|length or item.panel3ButtonLink|length or item.panel3ButtonDownload|length) and item.panel3ButtonText|length %}
+													{% set isPanel3Popup = false %}
+													{% if item.panel3ButtonEntry|length %}
+													  {% if item.panel3ButtonEntry.one().section.handle == 'popups' %}
+													    {% set isPanel3Popup = true %}
+													  {% endif %}
+													{% endif %}
+													<div class="boxpanels__trdbtnarea">
+													  <a href="{% if item.panel3ButtonEntry|length %}{{ item.panel3ButtonEntry.one().url }}{% elseif item.panel3ButtonDownload|length %}{{ item.panel3ButtonDownload.one().url }}{% else %}{{ item.panel3ButtonLink }}{% endif %}" class="btn boxpanels__trdbtn {% if isPanel3Popup == true %}popuplink{% endif %}" {% if isPanel3Popup == true %}data-popup="{{ item.panel3ButtonEntry.one().slug }}"{% endif %} {% if item.panel3ButtonOpenInNewTab %}target="_blank"{% endif %}>{{ item.panel3ButtonText }}</a>
+													</div>
+													{% endif %}
+												</div>
+											{% endif %}
+										</div>
+									{% endif %}
+
+								</div>
+							</div>
+						</div>
+
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+
+
+
+		{% if entry.secondaryMapImage|length or (entry.secondaryMap is defined and entry.secondaryMap and entry.secondaryMapLatitude|length and entry.secondaryMapLongitude|length) %}
+      <div class="mappanel section section--white" id="section{{ secondaryMapPanelNum }}">
+        <div class="container">
+          {% if entry.secondaryMapHeading|length %}
+            <div class="mappanel__heading mappanel__heading--insideborder">
+              <div class="mappanel__headingbefore">&nbsp;</div>
+              {{ entry.secondaryMapHeading|replace({'<p>':'<h2>','</p>': '</h2>'})|raw }}
+            </div>
+          {% endif %}
+        </div>
+				<div class="mappanel__holder mappanel__holder--fullwidth">
+
+
+					{% if entry.secondaryMap is defined and entry.secondaryMap and entry.secondaryMapLatitude|length and entry.secondaryMapLongitude|length %}
+						<div class="mappanel__embed" ></div>
+				    <script>
+				        var webapi = new JNC.Views.BoatingNavionicsMap({
+				            tagId: '.mappanel__embed',
+				            center: [  {{ entry.secondaryMapLongitude }}, {{ entry.secondaryMapLatitude }} ],
+				            navKey: 'Navionics_webapi_03555'
+				        });
+				        webapi.showSonarControl(false);
+				    </script>
+					{% else %}
+						<img src="{{ entry.secondaryMapImage.one().url }}" alt="{{ entry.secondaryMapImage.one().title }}" class="mappanel__fullwidthimg" />
+
+					{% endif %}
+
+				</div>
+				{% if entry.secondaryMapDownload|length %}
+					<div class="mappanel__blockbtnholder">
+						<div class="container">
+							<a href="{{ entry.secondaryMapDownload.one().url }}" class="btn">{% if entry.secondaryMapDownloadButtonText|length %}{{ entry.secondaryMapDownloadButtonText }}{% else %}Download{% endif %}</a>
+						</div>
+					</div>
+				{% endif %}
+      </div>
+    {% endif %}
+
+		{% include "layouts/_bannerpanels" %}
+
+		{% if entry.weatherHeading|length or entry.weatherIntroduction|length or entry.weatherContent|length %}
+		<div class="section section--white section--nogallerypage section--basiccontentpanel" id="section{{ weatherPanelNum }}">
+			<div class="container">
+				{% if entry.weatherHeading|length %}
+					{{ entry.weatherHeading|replace({'<p>': '<h2>', '</p>': '</h2>'})|raw }}
+				{% endif %}
+
+				{% if entry.weatherIntroduction|length %}
+					<div class="section__intro">
+						{{ entry.weatherIntroduction }}
+					</div>
+				{% endif %}
+
+				{% if entry.weatherContent|length %}
+					{{ entry.weatherContent }}
+				{% endif %}
+
+			</div>
+		</div>
+		{% endif %}
+
+	{% elseif entry.type == 'locationSimple' %}
+		{% include "layouts/_firstsection" %}
+
+		{% if entry.mapImage|length %}
+		  <div class="mappanel section section--white" id="section{{ firstPanelNum + 1 }}">
+
+		    <div class="container">
+
+		      {% if entry.mapPanelHeading|length %}
+		        <div class="mappanel__heading mappanel__heading--notcontained">
+		          <div class="mappanel__headingbefore">&nbsp;</div>
+		          {{ entry.mapPanelHeading|replace({'<p>':'<h2>','</p>': '</h2>'})|raw }}
+		        </div>
+		      {% endif %}
+				</div>
+
+		      <div class="mappanel__holder mappanel__holder--pilotagemap">
+		        <img src="{{ entry.mapImage.one().url }}" alt="{{ entry.mapImage.one().title }}" class="mappanel__fullwidthimg" />
+		      </div>
+
+		      {% if entry.mapDownload|length %}
+						<div class="container">
+			        <div class="mappanel__btnholder mappanel__btnholder--borderedarea">
+			          <a href="{{ entry.mapDownload.one().url }}" class="btn" target="_blank">{% if entry.mapDownloadButtonText|length %}{{ entry.mapDownloadButtonText }}{% else %}Download{% endif %}</a>
+			        </div>
+						</div>
+		      {% endif %}
+
+		  </div>
+		{% endif %}
+		{% if entry.optionBoxesBar is defined and entry.optionBoxesBar|length %}
+	    {% for bar in entry.optionBoxesBar.all() %}
+	      {% include "layouts/_optionboxes" with {'ownSection':true} %}
+	    {% endfor %}
+	  {% endif %}
+
+	{% elseif entry.type == 'bannerPanelsOptionBoxes' %}
+
+		{% include "layouts/_contentpanels" %}
+
+		{% if entry.optionBoxesBar is defined and entry.optionBoxesBar|length %}
+	    {% for bar in entry.optionBoxesBar.all() %}
+	      {% include "layouts/_optionboxes" with {'ownSection':true} %}
+	    {% endfor %}
+	  {% endif %}
+
+		{% include "layouts/_secondaryhomepanels" %}
+
+		{% set endGalleryNum = finalSectionNum - 1 %}
+	  {% if entry.displayContactForm is defined and entry.displayContactForm %}
+	    {% set endGalleryNum = endGalleryNum - 1 %}
+	  {% endif %}
+		{% if entry.endGallery|length %}
+	  <div id="section{{ endGalleryNum }}">
+	    <div class="section section--white">
+	      <div class="endgallery">
+	        <div class="endgallery__lrgopts">
+	          {% for opt in entry.endGallery.all() %}
+	            <div class="endgallery__lrgopt" data-fullimg="{{ opt.url }}">
+	              <img src="{{ opt.getUrl('endGalleryLargeImage') }}" alt="{{ opt.title }}" class="endgallery__lrgoptimg" />
+	            </div>
+	          {% endfor %}
+	        </div>
+	        <div class="endgallery__optsholderouter">
+	          <div class="endgallery__optsholder">
+	            <div class="endgallery__opts">
+	              {% for opt in entry.endGallery.all() %}<div class="endgallery__opt" data-fullimg="{{ opt.url }}">
+	                  <img src="{{ opt.getUrl('endGalleryThumbnail') }}" alt="{{ opt.title }}" class="endgallery__optimg" />
+	                </div>{% endfor %}
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+		{% endif %}
+
+	{% endif %}
+
+	{% if entry.displayContactForm is defined and entry.displayContactForm %}
+		<div class="section section--white" id="section{{ finalSectionNum - 1 }}">
+			{% include 'layouts/_contactform' %}
+		</div>
+	{% endif %}
+
+{% endblock %}

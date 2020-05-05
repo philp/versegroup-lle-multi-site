@@ -1,0 +1,38 @@
+.blog__colheading {
+  color: $teal;
+  border-color: $teal;
+}
+.blog__catlink {
+  color: $gamekeepersbodytext;
+}
+.blog__tag {
+  background: #f2f2f2;  
+  color: $gamekeepersbodytext;
+  padding: 7px 12px 10px;
+  border-radius: 3px;
+  &:hover {
+    background: $gamekeepersbodytext;
+    color: #f2f2f2;
+  }
+}
+.blog__newitemheading {
+  background: $teal;
+}
+.blog__colsociallinkimg--facebook {
+  background-image: inline-svg('facebook',$teal);
+}
+.blog__colsociallinkimg--twitter {
+  background-image: inline-svg('twitter',$teal);
+}
+.blog__colsociallinkimg--instagram {
+  background-image: inline-svg('instagram',$teal);
+}
+.blog__colsociallinkimg--googleplus {
+  background-image: inline-svg('googleplus',$teal);
+}
+.blog__colsociallinkimg--tripadvisor {
+  background-image: inline-svg('tripadvisor',$teal);
+}
+.blog__commentsheading {
+  color: $teal;
+}

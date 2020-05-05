@@ -1,0 +1,14 @@
+.pricetable__mainheading {
+  background: $haywoodblue;
+}
+.pricetable__secondaryheading {
+  color: $haywoodblue;
+}
+.pricetable__undertable {
+  color: $haywoodblue;
+}
+.pricetable__cell--right {
+  &:before {
+    border-color: transparent transparent transparent $haywoodblue;
+  }
+}

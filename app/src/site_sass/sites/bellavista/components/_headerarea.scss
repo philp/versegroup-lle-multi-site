@@ -1,0 +1,136 @@
+.headerarea--nogallery {
+  background: $bellavistared;
+}
+.headerarea__top--green {
+  background: $bellavistared;
+}
+.headerarea__enquiries {
+  color: #fff;
+  &:hover {
+    color: #fff;
+  }
+}
+.headerarea__scrolltext {
+  color: #fff;
+}
+.headerarea__scrollarrow {
+  background-image: inline-svg('arrow-mainstage-down',#fff);
+}
+.headerarea__form {
+  background: rgba(21,21,21,0.6);
+  color: #fff;
+}
+.headerarea__label {
+  color: $lightgrey;
+}
+.headerarea__logoimg {
+  width: 576px;
+}
+
+.headerarea__select {
+  font-family: $fonts;
+  color: #575759;
+  background-image: inline-svg('lle-icon-down-arrow',$bellavistared);
+  border-color: #c2c2c2;
+}
+.headerarea__selectholder:before {
+    background: #e7e7e7;
+    border-color: #c2c2c2;
+}
+.headerarea__selectholder--price:after {
+  background-image: inline-svg('money-icon', #b1b1b1);
+}
+.headerarea__selectholder--bedrooms:after {
+  background-image:  inline-svg('bed-icon', #b1b1b1);
+}
+.headerarea__selectholder--property:after {
+  background-image:  inline-svg('house-icon', #b1b1b1);
+}
+.headerarea__finance {
+  color: #000;
+  &:hover {
+    color: #000;
+  }
+}
+.headerarea__financecontent {
+  background: #fff;
+}
+.headerarea__financearrow {
+  background: $bellavistared;
+}
+.headerarea__loginbtn {
+  background: $bellavistared;
+  &:hover {
+    background: $bellavistadarkred;
+  }
+}
+.headerarea__loginbtn--nogallery {
+  background: #fff;
+  color: $bellavistared;
+  &:hover {
+    background: $bellavistadarkred;
+    color: #fff;
+  }
+}
+
+.headerarea--iconsred {
+  .menu-toggle__line {
+    background: #cb123a;
+  }
+  .menu-toggle__text {
+    color: #cb123a;
+  }
+  .headerarea__enquiriestxt {
+    color: #cb123a;
+  }
+  .selected .menu-toggle__line {
+    background: #fff!important;
+  }
+}
+.headerarea--iconsdarkgrey {
+  .menu-toggle__line {
+    background: #36454f;
+  }
+  .menu-toggle__text {
+    color: #36454f;
+  }
+  .headerarea__enquiriestxt {
+    color: #36454f;
+  }
+  .selected .menu-toggle__line {
+    background: #fff!important;
+  }
+}
+.headerarea--iconslightgrey {
+  .menu-toggle__line {
+    background: #dddbd8;
+  }
+  .menu-toggle__text {
+    color: #dddbd8;
+  }
+  .headerarea__enquiriestxt {
+    color: #dddbd8;
+  }
+  .selected .menu-toggle__line {
+    background: #fff!important;
+  }
+}
+
+@media(max-width:1090px){
+  .headerarea__logoimg {
+    width: 548px;
+  }
+}
+@media(max-width:950px){
+  .headerarea__logoimg {
+    width: 434px;
+  }
+}
+@media (max-width: 400px) {
+  .headerarea__finance {
+    background: #fff;
+  }
+	.headerarea__financearrow {
+    background: $bellavistared;
+  }
+}

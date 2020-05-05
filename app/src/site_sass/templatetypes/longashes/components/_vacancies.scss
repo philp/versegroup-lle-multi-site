@@ -1,0 +1,148 @@
+.vacancies {
+  padding: 13px 0 31px;
+}
+.vacancies__noresultsp {
+  font-weight: 400;
+}
+.vacancies__item {
+  border: 1px solid $lightgreen;
+  padding: 44px 63px 44px 60px;
+  border-radius: 22px;
+  margin-bottom: 39px;
+}
+.vacancies__titleholder {
+  padding-bottom: 10px;
+}
+.vacancies__title {
+  color: $lightgreen;
+  font-weight: 400;
+  font-size: $font24;
+  line-height: 1.4em;
+}
+.vacancies__endbtnsside {
+  text-align: right;
+  width: 53%;
+  display: inline-block;
+  vertical-align: bottom;
+  position: relative;
+  top: -12px;
+  padding-left: 15px;
+  box-sizing: border-box;
+}
+.vacancies__endcontentside {
+  width: 47%;
+  display: inline-block;
+}
+.vacancies__btn {
+  margin: 10px 0 0 17px;
+  &:first-child {
+    margin-left: 0;
+  }
+}
+.vacancies__summary p {
+  padding-bottom: 25px;
+}
+.vacancies__endinnerhalf {
+  width: 50%;
+  float: left;
+  padding-right: 15px;
+  box-sizing: border-box;
+  p:last-child, ul:last-child, ol:last-child {
+    padding-bottom: 0;
+  }
+}
+
+@media(max-width:1100px){
+  .vacancies__endbtnsside {
+    width: 51%;
+  }
+  .vacancies__endcontentside {
+    width: 49%;
+  }
+  .vacancies__item {
+    padding: 35px 59px 39px 44px;
+  }
+  .vacancies {
+    padding-bottom: 21px;
+  }
+}
+@media(max-width:1040px){
+  .vacancies__item {
+    padding: 25px 32px 31px 29px;
+  }
+  .vacancies__endinnerhalf {
+    padding-right: 10px;
+  }
+  .vacancies__endcontentside {
+    width: 52%;
+  }
+  .vacancies__endbtnsside {
+    width: 48%;
+  }
+}
+@media(max-width:900px){
+  .vacancies__endcontentside {
+    width: 55%;
+  }
+  .vacancies__endbtnsside {
+    width: 45%;
+  }
+  .vacancies__item {
+    margin-bottom: 29px;
+  }
+}
+@media(max-width:860px){
+  .vacancies__endcontentside {
+    width: 100%;
+    float: none; 
+  }
+  .vacancies__endbtnsside {
+    width: 100%;
+    float: none; 
+    padding-left: 0;
+    text-align: left;
+    top: 0;
+    padding-top: 11px;
+  }
+  .vacancies__item {
+    padding: 25px 32px 38px 29px;
+  }
+}
+@media(max-width:700px){
+  .vacancies__noresultsp {
+    padding-bottom: 23px;
+  }
+}
+@media(max-width:550px){
+  .vacancies__endinnerhalf {
+    p:last-child, ul:last-child, ol:last-child {
+      padding-bottom: 29px;
+    }
+  }
+  .vacancies__endbtnsside {
+    padding-top: 0;
+  }
+  .vacancies__endinnerhalf {
+    width: 100%;
+    float: none;
+    padding-right: 0;
+  }
+  .vacancies__btn {
+    margin: 0 17px 10px 0;
+  }
+  .vacancies__item {
+    padding: 25px 32px 28px 29px;
+  }
+}
+@media(max-width:400px){
+  .vacancies__title {
+    font-size: 150%;
+  }
+  .vacancies__item {
+    padding: 21px 23px 18px 23px;
+    margin-bottom: 22px;
+  }
+  .vacancies {
+    padding-bottom: 9px;
+  }
+}

@@ -1,0 +1,113 @@
+.headerbtns {
+  position: absolute;
+  top: 265px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+.headerbtns__btnitem {
+  display: inline-block;
+  vertical-align: top;
+  width: 24%; 
+  margin-right: 1.33%;
+  &:last-child {
+    margin-right: 0;
+  }
+}
+.headerbtns__btn {
+	font-family: $fonts; 
+	text-transform: uppercase; 
+	color: #fff; 
+	background: transparent; 
+	cursor: pointer; 
+	text-align: center; 
+	transition:all 0.2s linear; 
+	display: inline-block; 
+	margin: 0; 
+	box-sizing:border-box; 
+	border-radius: 0; 
+	background: transparent; 
+	font-size: 86%;
+	font-weight: 400; 
+  border: 1px solid #fff; 
+	padding: 16.5px 10px 16.5px; 
+	letter-spacing: 0.125em; 
+	line-height: 1.25em; 
+	appearance:none;
+  width: 100%;
+	&:hover {
+		background: #fff; 
+		border-color: #fff; 
+		color: #000; 
+	}
+}
+@media(max-height: 605px) and (min-width: 1176px){
+  .headerbtns {
+    display: none; 
+  }
+}
+@media(max-height: 580px) and (min-width: 851px) and (max-width:1175px){
+  .headerbtns {
+    display: none; 
+  }
+}
+@media(max-height: 715px) and (min-width: 731px) and (max-width:850px){
+  .headerbtns {
+    display: none; 
+  }
+}
+@media(max-height: 740px) and (min-width: 501px) and (max-width:730px){
+  .headerbtns {
+    display: none; 
+  }
+}
+@media(max-height: 705px) and (min-width: 401px) and (max-width:500px){
+  .headerbtns {
+    display: none; 
+  }
+}
+@media(max-height: 440px) and (min-width: 381px) and (max-width:400px){
+  .headerbtns {
+    display: none; 
+  }
+}
+@media(max-height: 540px) and (max-width:380px){
+  .headerbtns {
+    display: none; 
+  }
+}
+
+@media(max-width:750px){
+  .headerbtns {
+    top: 230px;
+  }
+}
+@media(max-width:730px){
+  .headerbtns__btnitem {
+    width: 49%;
+    margin-right: 2%;
+    margin-bottom: 13px;
+    &:nth-child(even){
+      margin-right: 0;
+    }
+  }
+}
+@media(max-width:400px){
+  .headerbtns {
+    top: 238px;
+  }
+}
+@media(max-width:380px){
+  .headerbtns__btn {
+    padding-right: 6px;
+    padding-left: 6px;
+  }
+  .headerbtns__btnitem {
+    width: 100%;
+    margin-right: 0!important;
+    margin-bottom: 5px;
+  }
+  .headerbtns {
+    top: 240px;
+  }
+}

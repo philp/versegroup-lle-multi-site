@@ -1,0 +1,208 @@
+{% if entry.type == 'menus' %}
+  {% set menuCount = loop.index + 2 %}
+  {% if entry.alternatingPanels|length %}
+    {% set menuCount = menuCount + entry.alternatingPanels|length %}
+  {% endif %}
+  {% if entry.menusHeading|length or entry.menusSummary|length or entry.menus|length %}
+    {% set menuCount = menuCount + 1 %}
+  {% endif %}
+{% endif %}
+<div class="galleryarea" id="{% if entry.type == 'menus' %}section{{ menuCount }}{% else %}section{{ loop.index + 2 }}{% endif %}">
+  {% if gallery.galleryDescription|length %}
+    <div class="galleryarea__content section section--white">
+      <div class="container">
+        {{ gallery.galleryDescription }}
+      </div>
+    </div>
+  {% endif %}
+  {% if gallery.galleryImages|length %}
+    <div class="galleryarea__imgs cs">
+      {% for item in gallery.galleryImages.all() %}
+        {% switch item.type %}
+        {% case 'fifthWidthImageAbove1FifthWidthImageBelow' %}
+        {# 1 Fifth Width Image Above & 1 Fifth Width Image Below #}
+          {% if item.images|length %}
+            <div class="galleryarea__fifthsholder galleryarea__fifthsholder--1">
+              {% for image in item.images.all() %}
+                <a href="{{ image.url }}" {% if gallery.galleryImages|length > 1 or item.images|length > 1 %}rel="{{ gallery.slug }}"{% endif %} class="swipebox galleryarea__img galleryarea__img--short">
+                  <div class="galleryarea__imginner" style="background-image:url({{ image.getUrl('oneFifthX1Fifth') }});">&nbsp;</div>
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% case 'fifthWidthImageAbove2FifthWidthImageBelow' %}
+        {# 2 Fifth Width Image Above & 2 Fifth Width Image Below #}
+          {% if item.images|length %}
+            <div class="galleryarea__fifthsholder galleryarea__fifthsholder--2">
+              {% for image in item.images.all() %}
+                <a href="{{ image.url }}" {% if gallery.galleryImages|length > 1 or item.images|length > 1 %}rel="{{ gallery.slug }}"{% endif %} class="swipebox galleryarea__img galleryarea__img--short">
+                  <div class="galleryarea__imginner" style="background-image:url({{ image.getUrl('twoFifthsX1Fifth') }});">&nbsp;</div>
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% case 'fifthWidthImageAbove3FifthWidthImageBelow' %}
+        {# 3 Fifth Width Image Above & 3 Fifth Width Image Below #}
+          {% if item.images|length %}
+            <div class="galleryarea__fifthsholder galleryarea__fifthsholder--3">
+              {% for image in item.images.all() %}
+                <a href="{{ image.url }}"{% if gallery.galleryImages|length > 1 or item.images|length > 1 %}rel="{{ gallery.slug }}"{% endif %} class="swipebox galleryarea__img galleryarea__img--short">
+                  <div class="galleryarea__imginner" style="background-image:url({{ image.getUrl('threeFifthsX1Fifth') }});">&nbsp;</div>
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% case 'fifthWidthImageAbove4FifthWidthImageBelow' %}
+        {# 4 Fifth Width Image Above & 4 Fifth Width Image Below #}
+          {% if item.images|length %}
+            <div class="galleryarea__fifthsholder galleryarea__fifthsholder--4">
+              {% for image in item.images.all() %}
+                <a href="{{ image.url }}" {% if gallery.galleryImages|length > 1 or item.images|length > 1 %}rel="{{ gallery.slug }}"{% endif %}  class="swipebox galleryarea__img galleryarea__img--short">
+                  <div class="galleryarea__imginner" style="background-image:url({{ image.getUrl('fourFifthsX1Fifth') }});">&nbsp;</div>
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% case 'fifthWidthImageAbove5fifthWidthImageBelow' %}
+        {# 5 Fifth Width Image Above & 5 Fifth Width Image Below #}
+          {% if item.images|length %}
+            <div class="galleryarea__fifthsholder galleryarea__fifthsholder--5">
+              {% for image in item.images.all() %}
+                <a href="{{ image.url }}" {% if gallery.galleryImages|length > 1 or item.images|length > 1 %}rel="{{ gallery.slug }}"{% endif %}  class="swipebox galleryarea__img galleryarea__img--short">
+                  <div class="galleryarea__imginner" style="background-image:url({{ image.getUrl('fiveFifthsX1Fifth') }});">&nbsp;</div>
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% case 'fifthWidthTallImage' %}
+        {# 1 Fifth Width Tall Image #}
+          {% if item.image|length %}
+            <div class="galleryarea__fifthsholder galleryarea__fifthsholder--1">
+              {% for image in item.image.all() %}
+                <a href="{{ image.url }}" {% if gallery.galleryImages|length > 1 or item.image|length > 1 %}rel="{{ gallery.slug }}"{% endif %} class="swipebox galleryarea__img galleryarea__img--tall">
+                  <div class="galleryarea__imginner" style="background-image:url({{ image.getUrl('oneFifthX2Fifths') }});">&nbsp;</div>
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% case 'twoFifthWidthTallImage' %}
+        {# 2 Fifth Width Tall Image #}
+          {% if item.singleImage|length %}
+            <div class="galleryarea__fifthsholder galleryarea__fifthsholder--2">
+              {% for image in item.singleImage.all() %}
+                <a href="{{ image.url }}" {% if gallery.galleryImages|length > 1 or item.singleImage|length > 1 %}rel="{{ gallery.slug }}"{% endif %} class="swipebox galleryarea__img galleryarea__img--tall">
+                  <div class="galleryarea__imginner" style="background-image:url({{ image.getUrl('twoFifthsX2Fifths') }});">&nbsp;</div>
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% case 'threeFifthWidthTallImage' %}
+        {# 3 Fifth Width Tall Image #}
+          {% if item.tallSingleImage|length %}
+            <div class="galleryarea__fifthsholder galleryarea__fifthsholder--3">
+              {% for image in item.tallSingleImage.all() %}
+                <a href="{{ image.url }}" {% if gallery.galleryImages|length > 1 or item.tallSingleImage|length > 1 %}rel="{{ gallery.slug }}"{% endif %} class="swipebox galleryarea__img galleryarea__img--tall">
+                  <div class="galleryarea__imginner" style="background-image:url({{ image.getUrl('threeFifthsX2Fifths') }});">&nbsp;</div>
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% case 'FourfifthWidthTallImage' %}
+        {# 4 Fifth Width Tall Image #}
+          {% if item.tallSingleImageFour|length %}
+            <div class="galleryarea__fifthsholder galleryarea__fifthsholder--4">
+              {% for image in item.tallSingleImageFour.all() %}
+                <a href="{{ image.url }}" {% if gallery.galleryImages|length > 1 or item.tallSingleImageFour|length > 1 %}rel="{{ gallery.slug }}"{% endif %} class="swipebox galleryarea__img galleryarea__img--tall">
+                  <div class="galleryarea__imginner" style="background-image:url({{ image.getUrl('fourFifthsX2Fifths') }});">&nbsp;</div>
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% case 'fiveFifthWidthTallImage' %}
+        {# 5 Fifth Width Tall Image #}
+          {% if item.tallSingleImageFive|length %}
+            <div class="galleryarea__fifthsholder galleryarea__fifthsholder--5">
+              {% for image in item.tallSingleImageFive.all() %}
+                <a href="{{ image.url }}" {% if gallery.galleryImages|length > 1 or item.tallSingleImageFive|length > 1 %}rel="{{ gallery.slug }}"{% endif %} class="swipebox galleryarea__img galleryarea__img--tall">
+                  <div class="galleryarea__imginner" style="background-image:url({{ image.getUrl('fiveFifthsX2Fifths') }});">&nbsp;</div>
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% case 'fifthWidthImageAbove21FifthWidthImagesBelow' %}
+        {# 2 Fifth Width Image Above & 2 1 Fifth Width Images Below #}
+          {% if item.fifthImage|length and item.fifthImages|length %}
+            <div class="galleryarea__fifthsholder galleryarea__fifthsholder--2">
+              {% for image in item.fifthImage.all() %}
+                <a href="{{ image.url }}" rel="{{ gallery.slug }}" class="swipebox galleryarea__img galleryarea__img--short">
+                  <div class="galleryarea__imginner" style="background-image:url({{ image.getUrl('twoFifthsX1Fifth') }});">&nbsp;</div>
+                </a>
+              {% endfor %}
+              <div class="cs">
+                {% for image in item.fifthImages.all() %}
+                  <a href="{{ image.url }}" rel="{{ gallery.slug }}" class="swipebox galleryarea__img galleryarea__img--short galleryarea__imghalf">
+                    <div class="galleryarea__imginner" style="background-image:url({{ image.getUrl('oneFifthX1Fifth') }});">&nbsp;</div>
+                  </a>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}          
+        {% case 'fifthWidthImagesAbove2FifthWidthImageBelow' %}
+        {# 2 1 Fifth Width Images Above & 2 Fifth Width Image Below #}
+          {% if item.fifthWidthImage|length and item.fifthImages|length %}
+            <div class="galleryarea__fifthsholder galleryarea__fifthsholder--2">
+              <div class="cs">
+                {% for image in item.fifthImages.all() %}
+                  <a href="{{ image.url }}" rel="{{ gallery.slug }}" class="swipebox galleryarea__img galleryarea__img--short galleryarea__imghalf">
+                    <div class="galleryarea__imginner" style="background-image:url({{ image.getUrl('oneFifthX1Fifth') }});">&nbsp;</div>
+                  </a>
+                {% endfor %}
+              </div>
+              {% for image in item.fifthWidthImage.all() %}
+                <a href="{{ image.url }}" rel="{{ gallery.slug }}" class="swipebox galleryarea__img galleryarea__img--short">
+                  <div class="galleryarea__imginner" style="background-image:url({{ image.getUrl('twoFifthsX1Fifth') }});">&nbsp;</div>
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %}     
+        {% case 'fifthWidthImageAbove31FifthWidthImagesBelow' %}
+        {# 3 Fifth Width Image Above & 3 1 Fifth Width Images Below #}
+          {% if item.fifthImage|length and item.fifthImages|length %}
+            <div class="galleryarea__fifthsholder galleryarea__fifthsholder--3">
+              <div class="cs">
+                {% for image in item.fifthImages.all() %}
+                  <a href="{{ image.url }}" rel="{{ gallery.slug }}" class="swipebox galleryarea__img galleryarea__img--short galleryarea__imgthird">
+                    <div class="galleryarea__imginner" style="background-image:url({{ image.getUrl('oneFifthX1Fifth') }});">&nbsp;</div>
+                  </a>
+                {% endfor %}
+              </div>
+              {% for image in item.fifthImage.all() %}
+                <a href="{{ image.url }}" rel="{{ gallery.slug }}" class="swipebox galleryarea__img galleryarea__img--short">
+                  <div class="galleryarea__imginner" style="background-image:url({{ image.getUrl('threeFifthsX1Fifth') }});">&nbsp;</div>
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %} 
+        {% case 'fifthWidthImagesAbove3FifthWidthImageBelow' %}
+        {# 3 1 Fifth Width Images Above & 3 Fifth Width Image Below #}
+          {% if item.fifthWidthImage|length and item.fifthImages|length %}
+            <div class="galleryarea__fifthsholder galleryarea__fifthsholder--3">
+              {% for image in item.fifthWidthImage.all() %}
+                <a href="{{ image.url }}" rel="{{ gallery.slug }}" class="swipebox galleryarea__img galleryarea__img--short">
+                  <div class="galleryarea__imginner" style="background-image:url({{ image.getUrl('threeFifthsX1Fifth') }});">&nbsp;</div>
+                </a>
+              {% endfor %}
+              <div class="cs">
+                {% for image in item.fifthImages.all() %}
+                  <a href="{{ image.url }}" rel="{{ gallery.slug }}" class="swipebox galleryarea__img galleryarea__img--short galleryarea__imgthird">
+                    <div class="galleryarea__imginner" style="background-image:url({{ image.getUrl('oneFifthX1Fifth') }});">&nbsp;</div>
+                  </a>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+        {% endswitch %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>

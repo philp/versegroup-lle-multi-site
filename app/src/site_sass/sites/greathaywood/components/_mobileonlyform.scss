@@ -1,0 +1,22 @@
+.mobileonlyform__select { 
+  font-family: $fonts;  
+  color: #575759; 
+  background-image: inline-svg('lle-icon-down-arrow',$haywoodblue);
+  border-color: #c2c2c2; 
+}
+.mobileonlyform__selectholder { 
+  &:before { 
+    background: #e7e7e7; 
+    border-color: #c2c2c2; 
+  }
+}
+.mobileonlyform__selectholder--price:after { 
+  background-image: inline-svg('money-icon', #b1b1b1);
+}
+.mobileonlyform__selectholder--bedrooms:after { 
+  background-image: inline-svg('bed-icon', #b1b1b1);
+}
+.mobileonlyform__selectholder--property:after { 
+  background-image: inline-svg('house-icon', #b1b1b1);
+}
+

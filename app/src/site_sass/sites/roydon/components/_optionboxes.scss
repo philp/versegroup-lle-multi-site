@@ -1,0 +1,16 @@
+.optionboxes {
+  background: $yellow;
+}
+.optionboxes__item {
+  border-color: $lightyellow;
+  text-transform:none;
+}
+.optionboxes__row {
+  border-color: $lightyellow;
+}
+.optionboxes__summary {
+  letter-spacing: normal;
+}
+.container--options {
+  max-width: 1180px;
+}

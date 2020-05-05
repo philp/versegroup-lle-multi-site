@@ -1,0 +1,32 @@
+.socialfeeds { 
+  background: $haywoodbluesocial;
+}
+.socialfeeds__info { 
+  color: #fff; 
+  background: $haywoodbluesocial; 
+}
+.socialfeeds__item { 
+  color: #fff;   
+  &:hover { 
+    color: #fff; 
+  }
+}
+.socialfeeds__linkimg--facebook {
+  background-image: inline-svg('facebook', #fff);
+}
+.socialfeeds__linkimg--twitter {
+  background-image: inline-svg('twitter', #fff);
+}
+.socialfeeds__linkimg--instagram {
+  background-image: inline-svg('instagram', #fff);
+}
+.socialfeeds__linkimg--googleplus {
+  background-image: inline-svg('googleplus', #fff);
+}
+.socialfeeds__linkimg--tripadvisor {
+  background-image: inline-svg('tripadvisor', #fff);
+}
+.socialfeeds__itemback { 
+  background: rgba(57,57,57,0.6); 
+}
+

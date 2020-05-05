@@ -1,0 +1,35 @@
+.scrolldots { 
+  position: fixed; 
+  right: 16px; 
+  top: 46%; 
+  z-index: 10; 
+}
+.scrolldots__dot {
+  width: 10px; 
+  height: 10px; 
+  border-radius: 100%; 
+  background: #fff; 
+  display: block; 
+  margin-bottom: 10px; 
+  pointer-events: none; 
+  transition:all 0.2s linear; 
+}
+.scrolldots__dot--grey { 
+  background: $dotsgrey; 
+}
+.scrolldots__dot--active { 
+  background: $lightgreen; 
+}
+.scrolldots--alignhigher { 
+  top: 41%; 
+}
+@media (max-width: 1250px) {
+	.scrolldots { 
+    right: 6px; 
+  }
+}
+@media (max-width: 400px) {
+  .scrolldots { 
+    display: none; 
+  }
+}

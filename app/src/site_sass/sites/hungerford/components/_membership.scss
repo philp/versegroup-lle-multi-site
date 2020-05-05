@@ -1,0 +1,17 @@
+.membership__optioncell {
+  color: #fff;
+  border-color: #fff;
+}
+.membership__optioncell--highlighted {
+  background: $darkteal;
+}
+.membership__optioncell--regular {
+  background: $teal;
+}
+.membership__name {
+  border-color: $darkteal;
+  color: $darkteal;
+}
+.membership__enddetail {
+  border-color: $darkteal;
+}

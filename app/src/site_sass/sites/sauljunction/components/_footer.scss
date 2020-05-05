@@ -1,0 +1,40 @@
+.footer { 
+  background: $footersaulblue; 
+  color: #fff; 
+}
+.footer__link { 
+  color: #fff; 
+}
+.footer__endlinksli {
+  .footer__link {
+    color: #fff;
+  }
+}
+.footer__endlinksli { 
+  border-left-color: #fff; 
+  border-right-color: #fff; 
+}
+.footer__imgimg--logo { 
+  background-image: inline-svg('logo-img',#fff);
+}
+.footer__imgimg--footprint { 
+  background-image: inline-svg('footprint',#fff);
+}
+.footer__imgimg--telephone { 
+  background-image: inline-svg('fullphone',#fff);
+}
+.footer__sociallinkimg--facebook {
+  background-image: inline-svg('facebook',#fff);
+}
+.footer__sociallinkimg--googleplus {
+  background-image: inline-svg('googleplus',#fff);
+}
+.footer__sociallinkimg--instagram {
+  background-image: inline-svg('instagram',#fff);
+}
+.footer__sociallinkimg--tripadvisor {
+  background-image: inline-svg('tripadvisor',#fff);
+}
+.footer__sociallinkimg--twitter {
+  background-image: inline-svg('twitter',#fff);
+}

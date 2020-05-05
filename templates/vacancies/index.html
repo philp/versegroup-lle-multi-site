@@ -1,0 +1,69 @@
+{% extends "layouts/_layout" %}
+
+
+{% block content %}
+
+
+<div id="section2">
+	<div class="section section--white section--basicpage">
+		<div class="container cs">
+			{% include "layouts/_basiccontent" %}
+			
+			{% set vacanciesList = craft.entries.section('vacancies').all() %}
+			<div class="vacancies">
+				{% if vacanciesList|length > 0 %}
+					{% for item in vacanciesList %}
+						<div class="vacancies__item">
+							{% if item.jobTitle|length %}
+								<div class="vacancies__titleholder">
+									<a href="{{ item.url }}" class="vacancies__title">{{ item.jobTitle }}</a>
+								</div>
+							{% endif %}
+							{% if item.jobListingSummary|length %}
+								<div class="vacancies__summary">{{ item.jobListingSummary }}</div>
+							{% endif %}
+							<div class="vacancies__end cs">
+								<div class="{% if item.jobListingButtons|length %}vacancies__endcontentside{% endif %} cs">
+									{% if item.jobListingEndLeft|length %}
+										<div {% if item.jobListingEndRight|length %}class="vacancies__endinnerhalf"{% endif %}>
+											{{ item.jobListingEndLeft }}
+										</div>
+									{% endif %}
+									{% if item.jobListingEndRight|length %}
+										<div {% if item.jobListingEndLeft|length %}class="vacancies__endinnerhalf"{% endif %}>
+											{{ item.jobListingEndRight }}
+										</div>
+									{% endif %}
+								</div>{% if item.jobListingButtons|length %}<div {% if item.jobListingEndRight|length or item.jobListingEndLeft|length %}class="vacancies__endbtnsside"{% endif %}>
+										{% for btn in item.jobListingButtons.all() %}	
+											{% if btn.type == "viewVacancyButton" %}
+												<a href="{{ item.url }}" class="btn vacancies__btn">{% if btn.buttonText|length %}{{ btn.buttonText }}{% else %}View{% endif %}</a>
+											{% elseif btn.type == "button" %}
+												{% if btn.text|length and (btn.entry|length or btn.linkUrl|length or btn.download|length) %}
+													{% set isPopup = false %}
+													{% if btn.entry|length %}
+														{% if btn.entry.one().section.handle == 'popups' %}
+															{% set isPopup = true %}
+														{% endif %}
+													{% endif %}
+												
+													<a href="{% if btn.entry|length %}{{ btn.entry.one().url }}{% elseif btn.linkUrl|length %}{{ btn.linkUrl }}{% elseif btn.download|length %}{{ btn.download.one().url }}{% endif %}" class="btn vacancies__btn {% if isPopup == true %}popuplink{% endif %}" {% if isPopup == true %}data-popup="{{ btn.entry.one().slug }}"{% endif %} {% if btn.openInNewTab %}target="_blank"{% endif %}>{{ btn.text }}</a>
+												{% endif %}
+											{% endif %}
+										{% endfor %}
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					{% endfor %}
+				{% else %}
+					<p class="vacancies__noresultsp">Currently no vacancies.</p>
+				{% endif %}
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+	
+{% endblock %}

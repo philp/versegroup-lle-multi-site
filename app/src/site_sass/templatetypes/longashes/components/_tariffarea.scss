@@ -1,0 +1,85 @@
+.tariffarea {
+  padding-bottom: 9px;
+}
+.tariffarea__tabletitle {
+  font-weight: 400;
+  font-size: $font18;
+  color: $darkgrey;
+  line-height: 1.5em;
+  padding-bottom: 30px;
+}
+.tariffarea__contentbtn {
+    padding-bottom: 31px;
+}
+.tariffarea__contentside {
+  li {
+    margin-bottom: 12px;
+  }
+}
+.tariffarea__btn {
+  margin-right: 0;
+}
+.tariffarea__btnside--wcontent {
+  display: inline-block;
+  text-align: right;
+  vertical-align: bottom;
+  width: 28%;
+  padding-bottom: 33px;
+}
+.tariffarea__contentside--wbtn {
+  display: inline-block;
+  width: 72%;
+  padding-right: 20px;
+  box-sizing: border-box;
+}
+@media(max-width:1140px){
+  .tariffarea {
+    padding-bottom: 0;
+  }
+  .tariffarea__contentbtn {
+    padding-bottom: 5px;
+  }
+}
+
+@media(max-width:780px){
+  .tariffarea__contentbtn {
+    padding-bottom: 0;
+  }
+}
+@media(max-width:720px){
+  .tariffarea__contentside--wbtn {
+    width: 100%;
+    padding-right: 0;
+    display: block;
+  }
+  .tariffarea__btnside--wcontent {
+    width: 100%;
+    display: block;
+    padding-bottom: 19px;
+  }
+  .tariffarea__btnside {
+    text-align: left;
+  }
+  .tariffarea__contentside li {
+    margin-bottom: 0;
+  }
+}
+@media(max-width:600px){
+  .tariffarea {
+    padding-top: 12px;
+  }
+  .tariffarea__tabletitle {
+    padding-bottom: 23px;
+  }
+  .tariffarea__btnside--wcontent {
+    padding-bottom: 14px;
+  }
+}
+@media(max-width:400px){
+  .tariffarea__btn {
+    margin-top: 0;
+  }
+  .tariffarea {
+    padding-top: 27px;
+  }
+}

@@ -1,0 +1,39 @@
+.btn, .directionsSearch, .popup__form button, .freeformpanelarea button { 
+	font-family: $fonts; 
+	background: $purple; 
+	border-bottom-color: $darkpurple; 
+	&:hover {
+		background: $darkpurple; 
+		border-color: $purple; 
+		color: #fff; 
+	}
+}
+.btn--white { 
+	background: #fff; 
+	color: $purple;
+	border-color: $purple; 
+	&:hover {
+		background: $purple; 
+		border-color: #fff; 
+		color: #fff; 
+	}
+}
+.btn--dark {
+	background: #757575;
+	color: #fff;
+	border-color: $darkpurple;
+	&:hover {
+		background: $darkpurple;
+		border-color: #757575; 
+		color: #fff; 
+	}
+}
+
+@media (max-width: 400px) {
+	.btn, .directionsSearch, .popup__form button, .freeformpanelarea button { 
+		color: $lightgrey; 
+	}
+	.btn--white { 
+		color: $purple; 
+	}
+}

@@ -1,0 +1,925 @@
+{% set currentGlobals = craft.app.globals.getSetByHandle(currentSite.handle) %}
+{% set catPage = false %}
+{% set tagPage = false %}
+
+{% if category is defined %}
+	{% set catPage = true %}
+	{% set entry = category %}
+{% endif %}
+
+{% if tag is defined %}
+	{% set tagPage = true %}
+	{% if craft.app.request.segments|first == 'blog' %}
+		{% if currentSite.handle == 'gamekeepersInn' %}
+			{% set entry = craft.entries.section('gamekeepersInnBlogHomepage').one() %}
+		{% elseif currentSite.handle == 'roydonMarinaVillage' %}
+			{% set entry = craft.entries.section('roydonMarinaBlogHomepage').one() %}
+		{% elseif currentSite.handle == 'boatSales' %}
+			{% set entry = craft.entries.section('boatSalesBlogHomepage').one() %}
+		{% elseif currentSite.handle == 'tattenhallMarina' %}
+			{% set entry = craft.entries.section('tattenhallMarinaBlogHomepage').one() %}
+		{% elseif currentSite.handle == 'deganwyMarina' %}
+			{% set entry = craft.entries.section('deganwyMarinaBlogHomepage').one() %}
+		{% elseif currentSite.handle == 'saulJunctionMarina' %}
+			{% set entry = craft.entries.section('saulJunctionMarinaBlogHomepage').one() %}
+		{% elseif currentSite.handle == 'greatHaywoodMarina' %}
+			{% set entry = craft.entries.section('greatHaywoodMarinaBlogHomepage').one() %}
+		{% elseif currentSite.handle == 'laBellaVista' %}
+			{% set entry = craft.entries.section('laBellaVistaBlogHomepage').one() %}
+		{% elseif currentSite.handle == 'hungerfordMarina' %}
+			{% set entry = craft.entries.section('hungerfordMarinaBlogHomepage').one() %}
+		{% else %}
+			{% set entry = craft.entries.section('blogHomepage').one() %}
+		{% endif %}
+	{% endif %}
+{% endif %}
+
+{% if entry is defined %}{% else %}
+  {% if variables.entry is defined %}
+    {% set entry = variables.entry %}
+  {% else %}
+    {% set entry = craft.entries.section('errorPage').one() %}
+  {% endif %}
+{% endif %}
+
+{% set boatSalesTemplate = false %}
+{% if currentSite.handle == 'boatSales' and (entry.slug == 'boat' or entry.slug == 'boat-sales-properties-search') %}
+	{% set boatSalesTemplate = true %}
+{% endif %}
+
+{% set categoryQuery = craft.app.request.getParam('category') %}
+{% set bedroomsQuery = craft.app.request.getParam('bedrooms') %}
+{% set minQuery = craft.app.request.getParam('minimum') %}
+{% set maxQuery = craft.app.request.getParam('maximum') %}
+
+{% set blogSection = false %}
+{% set propertiesSection = false %}
+
+{% if catPage == true or tagPage == true %}
+	{% if craft.app.request.segments|first == 'blog' %}
+		{% set blogSection = true %}
+	{% elseif craft.app.request.segments|first == 'properties' %}
+		{% set propertiesSection = true %}
+	{% endif %}
+{% endif %}
+
+{% set articles = '' %}
+{% set properties = '' %}
+
+{% if catPage == true or tagPage == true %}
+	{% if blogSection == true %}
+		{% if catPage == true %}
+			{% set articles = craft.entries.section('blogArticles').relatedTo(category).all() %}
+		{% else %}
+			{% set blogTag = craft.tags.group('blogTags').title(tag).one() %}
+			{% set articles = craft.entries.section('blogArticles').relatedTo(blogTag).all() %}
+		{% endif %}
+	{% elseif propertiesSection == true %}
+		{% set properties = craft.entries.section('properties').relatedTo(category).all() %}
+	{% endif %}
+
+{% elseif entry.section.handle == 'blogHomepage' or entry.section.handle == 'gamekeepersInnBlogHomepage' or entry.section.handle == 'deganwyMarinaBlogHomepage' or entry.section.handle == 'tattenhallMarinaBlogHomepage' or entry.section.handle == 'roydonMarinaBlogHomepage' or entry.section.handle == 'boatSalesBlogHomepage' or entry.section.handle == 'saulJunctionMarinaBlogHomepage' or entry.section.handle == 'greatHaywoodMarinaBlogHomepage' or entry.section.handle == 'blogArticles' or entry.section.handle == 'laBellaVistaBlogHomepage' or entry.section.handle == 'hungerfordMarinaBlogHomepage' %}
+
+	{% if entry.section.handle == 'blogHomepage' or entry.section.handle == 'gamekeepersInnBlogHomepage' or entry.section.handle == 'roydonMarinaBlogHomepage' or  entry.section.handle == 'boatSalesBlogHomepage' or entry.section.handle == 'tattenhallMarinaBlogHomepage' or entry.section.handle == 'deganwyMarinaBlogHomepage' or entry.section.handle == 'saulJunctionMarinaBlogHomepage' or entry.section.handle == 'greatHaywoodMarinaBlogHomepage' or entry.section.handle == 'laBellaVistaBlogHomepage' or entry.section.handle == 'hungerfordMarinaBlogHomepage' %}
+		{% set articles = craft.entries.section('blogArticles').all() %}
+	{% elseif entry.section.handle == 'blogArticles' %}
+		{% set articles = craft.entries.section('blogArticles').orderBy('postDate desc').limit(4) %}
+	{% endif %}
+{% endif %}
+
+{% set isRoomsPage = false %}
+{% if catPage == false and tagPage == false %}
+	{% if entry.section.handle == 'rooms' %}
+		{% set isRoomsPage = true %}
+	{% endif %}
+{% endif %}
+
+{% set enableBooking = false %}
+{#{% if currentSite.handle == 'gamekeepersInn' or currentSite.handle == 'roydonMarinaVillage' %}#}
+{% if currentSite.handle == 'gamekeepersInn' %}
+	{% set enableBooking = true %}
+{% endif %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include "layouts/_head" %}
+    {% block headextra %}{% endblock %}
+  </head>
+  <body {% block bodyextra %}{% endblock %}>
+
+		{% if currentGlobals["postOpeningBodyTagCode"] is defined and currentGlobals.postOpeningBodyTagCode|length %}
+			{{currentGlobals.postOpeningBodyTagCode|raw}}
+		{% endif %}
+
+		{% if catPage == true %}
+			{% if blogSection == true %}
+				{% if currentSite.handle == 'gamekeepersInn' %}
+					{% set entry = craft.entries.section('gamekeepersInnBlogHomepage').one() %}
+				{% elseif currentSite.handle == 'roydonMarinaVillage' %}
+					{% set entry = craft.entries.section('roydonMarinaBlogHomepage').one() %}
+				{% elseif currentSite.handle == 'boatSales' %}
+					{% set entry = craft.entries.section('boatSalesBlogHomepage').one() %}
+				{% elseif currentSite.handle == 'deganwyMarina' %}
+					{% set entry = craft.entries.section('deganwyMarinaBlogHomepage').one() %}
+				{% elseif currentSite.handle == 'saulJunctionMarina' %}
+					{% set entry = craft.entries.section('saulJunctionMarinaBlogHomepage').one() %}
+				{% elseif currentSite.handle == 'greatHaywoodMarina' %}
+					{% set entry = craft.entries.section('greatHaywoodMarinaBlogHomepage').one() %}
+				{% elseif currentSite.handle == 'tattenhallMarina' %}
+					{% set entry = craft.entries.section('tattenhallMarinaBlogHomepage').one() %}
+				{% elseif currentSite.handle == 'greatHaywoodMarina' %}
+					{% set entry = craft.entries.section('greatHaywoodMarinaBlogHomepage').one() %}
+				{% elseif currentSite.handle == 'laBellaVista' %}
+					{% set entry = craft.entries.section('laBellaVistaBlogHomepage').one() %}
+				{% elseif currentSite.handle == 'hungerfordMarina' %}
+					{% set entry = craft.entries.section('hungerfordMarinaBlogHomepage').one() %}
+				{% else %}
+					{% set entry = craft.entries.section('blogHomepage').one() %}
+				{% endif %}
+			{% endif %}
+		{% endif %}
+
+    {% set panelsCountStart = 0 %}
+    {% set firstPanelNum = 0 %}
+
+    {% set homePanelsStatus = false %}
+		{% set bannerPanelsPage = false %}
+    {% set altPanelsStatus = false %}
+		{% set secondaryaltPanelsStatus = false %}
+		{% set tariffAreaStatus = false %}
+		{% set membershipsStatus = false %}
+		{% set passesStatus = false %}
+		{% set galleriesAreaStatus = false %}
+    {% set noPanelLists = false %}
+    {% set firstPanelStatus = false %}
+    {% set tablePanelStatus = false %}
+    {% set propertyHeaderGalleryStatus = false %}
+    {% set hasGallery = false %}
+		{% set offersPage = false %}
+		{% set propertyPage = false %}
+		{% set contactPage = false %}
+		{% set newsBlogPage = false %}
+    {% set extraArticlesPanel = 0 %}
+		{% set mapPanelStatus = false %}
+		{% set mooringTariffStatus = false %}
+		{% set mooringContact = false %}
+		{% set multiTables = false %}
+		{% set variedPanelsStatus = false %}
+		{% set secondaryMapPanelStatus = false %}
+		{% set weatherPanelStatus = false %}
+		{% set enablePropertySearch = true %}
+
+		{% if currentSite.handle == 'gamekeepersInn' or currentSite.handle == 'tattenhallMarina' or currentSite.handle == 'saulJunctionMarina' or currentSite.handle == 'laBellaVista' or currentSite.handle == 'hungerfordMarina' or craft.entries().section('properties')|length < 1 %}
+			{# check if site should have the property search form #}
+			{% set enablePropertySearch = false %}
+		{% endif %}
+
+		{% set headerIconsColourHandle = currentGlobals.handle ~ 'HeaderIconColour' %}
+		{% set headerIconsColour = currentGlobals.getFieldValue(headerIconsColourHandle)|lower %}
+
+    {# check if page has pricing table #}
+    {% if entry.priceListTable is defined or entry.priceListIntro is defined or entry.priceListTitle is defined %}
+      {% if entry.priceListTable|length or entry.priceListIntro|length or entry.priceListTitle|length %}
+        {% set tablePanelStatus = true %}
+      {% endif %}
+    {% endif %}
+
+		{% if entry.mapImage is defined and entry.mapImage|length %}
+			{% set mapPanelStatus = true %}
+		{% endif %}
+
+		{% if entry.variedWidthPanels is defined and entry.variedWidthPanels|length %}
+			{% set variedPanelsStatus = true %}
+		{% endif %}
+
+		{% if entry.secondaryMapImage is defined and entry.secondaryMapImage|length %}
+			{% set secondaryMapPanelStatus = true %}
+		{% endif %}
+
+		{% if (entry.weatherHeading is defined and entry.weatherHeading|length) or (entry.weatherIntroduction is defined and entry.weatherIntroduction|length) or (entry.weatherContent is defined and entry.weatherContent|length) %}
+			{% set weatherPanelStatus = true %}
+		{% endif %}
+
+		{% if (entry.mooringForm is defined and entry.mooringForm|length) or (entry.endForm is defined and entry.endForm|length) %}
+			{% set mooringContact = true %}
+		{% endif %}
+
+
+		{% if (entry.mooringTableHeading is defined and entry.mooringTableHeading|length) or (entry.mooringTableSummary is defined and entry.mooringTableSummary|length) or (entry.mooringTable is defined and entry.mooringTable|length) %}
+			{% set mooringTariffStatus = true %}
+    {% endif %}
+
+
+		{# check if offers page #}
+		{% if catPage == false and tagPage == false %}
+			{% if entry.section.handle == 'offersHomepage' or entry.section.handle == 'gamekeepersInnOffersHomepage' or entry.section.handle == 'roydonMarinaOffersHomepage' or entry.section.handle == 'tattenhallMarinaOffersHomepage' %}
+				{% set offersPage = true %}
+			{% elseif entry.section.handle == 'properties' or isRoomsPage %}
+				{% set propertyPage = true %}
+			{% elseif entry.section.handle == 'blogHomepage' or entry.section.handle == 'gamekeepersInnBlogHomepage' or entry.section.handle == 'tattenhallMarinaBlogHomepage' or entry.section.handle == 'deganwyMarinaBlogHomepage' or entry.section.handle == 'roydonMarinaBlogHomepage' or  entry.section.handle == 'saulJunctionMarinaBlogHomepage' or entry.section.handle == 'boatSalesBlogHomepage' or entry.section.handle == 'greatHaywoodMarinaBlogHomepage' or entry.section.handle == 'laBellaVistaBlogHomepage' or entry.section.handle == 'hungerfordMarinaBlogHomepage' %}
+				{% set newsBlogPage = true %}
+			{% elseif entry.section.handle == 'contact' or entry.section.handle == 'gamekeepersInnContact' or entry.section.handle == 'tattenhallMarinaContact' or entry.section.handle == 'roydonMarinaContact' or entry.section.handle == 'deganwyMarinaContact' or entry.section.handle == 'boatSalesContact' or entry.section.handle == 'greatHaywoodMarinaContact' or entry.section.handle == 'hungerfordMarinaContact' or entry.section.handle == 'laBellaVistaContact' or entry.section.handle == 'saulJunctionMarinaContact' %}
+				{% set contactPage = true %}
+			{% endif %}
+		{% endif %}
+
+    {# check if page has property header gallery #}
+    {% if entry.propertyHeaderGalleryImages is defined %}
+      {% if entry.propertyHeaderGalleryImages|length %}
+        {% set propertyHeaderGalleryStatus = true %}
+      {% endif %}
+    {% endif %}
+
+    {# check if page has seperate first section content #}
+    {% if entry.firstSectionHeading is defined or entry.firstSectionContent is defined or entry.firstSectionIntroduction is defined  %}
+      {% if entry.firstSectionHeading|length or entry.firstSectionContent|length or entry.firstSectionIntroduction|length %}
+        {% set firstPanelStatus = true %}
+      {% endif %}
+    {% endif %}
+
+    {# set initial panels count if there's a gallery #}
+    {% if entry.headerGallery is defined or entry.propertyHeaderGalleryImages is defined %}
+      {% if entry.headerGallery|length or entry.propertyHeaderGalleryImages|length %}
+        {% set panelsCountStart = 1 %}
+        {# set variable which indicates if there is a gallery #}
+        {% set hasGallery = true %}
+      {% endif %}
+    {% endif %}
+
+    {# add to initial panel count if there's a first panel or table above the panels list #}
+    {% if firstPanelStatus == true %}
+      {% set panelsCountStart = panelsCountStart + 1 %}
+    {% endif %}
+    {% if tablePanelStatus == true %}
+      {% set panelsCountStart = panelsCountStart + 1 %}
+    {% endif %}
+
+		{% if articles|length > 2 %}
+			{# number of additional panels displayed if certain number of articles #}
+			{% set extraArticlesPanel = 1 %}
+		{% endif %}
+
+    {# if there's a pricing table panel set the section number for the first panel to be one less than the starting count that the table panel will use #}
+    {% if tablePanelStatus == true %}
+      {% set firstPanelNum = panelsCountStart - 1 %}
+    {% else %}
+      {% set firstPanelNum = panelsCountStart %}
+    {% endif %}
+
+		{% set mapPanelNum = 0 %}
+		{% if mapPanelStatus == true %}
+			{% set mapPanelNum = firstPanelNum + 1 %}
+			{% if entry.optionBoxesBar is defined and entry.optionBoxesBar|length %}
+				{% set mapPanelNum = mapPanelNum + 1 %}
+			{% endif %}
+			{% if catPage == false and tagPage == false and entry.section.handle == 'pages' and entry.type == 'multiTableMooring' and entry.alternatingBoxPanels is defined and entry.alternatingBoxPanels|length %}
+        {% set mapPanelNum = mapPanelNum + entry.alternatingBoxPanels|length %}
+      {% endif %}
+		{% endif %}
+
+		{% set multiTableNum = 0 %}
+		{% if catPage == false and tagPage == false and entry.section.handle == 'pages' and entry.type == 'multiTableMooring' and entry.pricingTables is defined and entry.pricingTables|length %}
+			{% set multiTables = true %}
+			{% set multiTableNum = firstPanelNum + 1 %}
+			{% if entry.optionBoxesBar is defined and entry.optionBoxesBar|length %}
+				{% set multiTableNum = multiTableNum + 1 %}
+			{% endif %}
+			{% if catPage == false and tagPage == false and entry.section.handle == 'pages' and entry.type == 'multiTableMooring' and entry.alternatingBoxPanels is defined and entry.alternatingBoxPanels|length %}
+        {% set multiTableNum = multiTableNum + entry.alternatingBoxPanels|length %}
+      {% endif %}
+			{% if mapPanelStatus == true %}
+				{% set multiTableNum = multiTableNum + 1 %}
+			{% endif %}
+		{% endif %}
+
+		{% set mooringTariffNum = 0 %}
+		{% if mooringTariffStatus == true %}
+			{% set mooringTariffNum = firstPanelNum + 1 %}
+			{% if mapPanelStatus == true %}
+				{% set mooringTariffNum = mooringTariffNum + 1 %}
+			{% endif %}
+			{% if entry.optionBoxesBar is defined and entry.optionBoxesBar|length %}
+				{% set mooringTariffNum = mooringTariffNum + 1 %}
+			{% endif %}
+		{% endif %}
+
+		{% set variedPanelsNum = 0 %}
+		{% if variedPanelsStatus == true %}
+			{% set variedPanelsNum = firstPanelNum + 1 %}
+			{% if mapPanelStatus == true %}
+				{% set variedPanelsNum = variedPanelsNum + 1 %}
+			{% endif %}
+		{% endif %}
+
+		{% set secondaryMapPanelNum = 0 %}
+		{% if secondaryMapPanelStatus == true %}
+			{% set secondaryMapPanelNum = firstPanelNum + 1 %}
+			{% if mapPanelStatus == true %}
+				{% set secondaryMapPanelNum = secondaryMapPanelNum + 1 %}
+			{% endif %}
+			{% if variedPanelsStatus == true %}
+				{% set secondaryMapPanelNum = secondaryMapPanelNum + 1 %}
+			{% endif %}
+		{% endif %}
+
+		{% set weatherPanelNum = 0 %}
+		{% if weatherPanelStatus == true %}
+			{% set weatherPanelNum = firstPanelNum + 1 %}
+			{% if mapPanelStatus == true %}
+				{% set weatherPanelNum = weatherPanelNum + 1 %}
+			{% endif %}
+			{% if variedPanelsStatus == true %}
+				{% set weatherPanelNum = weatherPanelNum + 1 %}
+			{% endif %}
+			{% if secondaryMapPanelStatus == true %}
+				{% set weatherPanelNum = weatherPanelNum + 1 %}
+			{% endif %}
+			{% if entry.bannerPanels is defined and entry.bannerPanels|length %}
+				{% set weatherPanelNum = weatherPanelNum + entry.bannerPanels|length %}
+			{% endif %}
+		{% endif %}
+
+    {# check if the page has various types of panel lists #}
+    {% if entry.homePanels is defined %}
+      {% if entry.homePanels|length %}
+        {% set homePanelsStatus = true %}
+      {% endif %}
+    {% endif %}
+    {% if entry.alternatingPanels is defined %}
+      {% if entry.alternatingPanels|length %}
+        {% set altPanelsStatus = true %}
+      {% endif %}
+    {% endif %}
+    {% if entry.secondaryAlternatingPanels is defined %}
+      {% if entry.secondaryAlternatingPanels|length %}
+        {% set secondaryaltPanelsStatus = true %}
+      {% endif %}
+    {% endif %}
+    {% if entry.tariffInformation is defined %}
+			{% if entry.tariffInformation|length %}
+				{% set tariffAreaStatus = true %}
+			{% endif %}
+		{% endif %}
+    {% if entry.passes is defined %}
+			{% if entry.passes|length or entry.basicContent|length %}
+				{% set passesStatus = true %}
+			{% endif %}
+		{% endif %}
+		{% if entry.memberships is defined or entry.membershipsPanelContent is defined or entry.membershipsPanelDisclaimer is defined or entry.membershipsPanelButtons is defined %}
+			{% if entry.memberships|length or entry.membershipsPanelContent|length or entry.membershipsPanelDisclaimer|length or entry.membershipsPanelButtons|length %}
+				{% set membershipsStatus = true %}
+			{% endif %}
+		{% endif %}
+		{% if entry.galleries is defined %}
+			{% if entry.galleries|length %}
+				{% set galleriesAreaStatus = true %}
+			{% endif %}
+		{% endif %}
+		{% if entry.bannerPanels is defined or entry.topPanelIntroduction is defined or entry.topPanelHeading is defined or entry.topPanelContent is defined %}
+			{% if entry.bannerPanels|length or entry.topPanelIntroduction|length or entry.topPanelHeading|length or entry.topPanelContent|length %}
+				{% set bannerPanelsPage = true %}
+			{% endif %}
+		{% endif %}
+
+
+    {# check if there's no panel lists #}
+    {% if altPanelsStatus == false and homePanelsStatus == false and secondaryaltPanelsStatus == false and bannerPanelsPage == false %}
+      {% set noPanelLists = true %}
+    {% endif %}
+
+
+		{% set mooringContactNum = 0 %}
+		{% if mooringContact == true %}
+			{% set mooringContactNum = firstPanelNum + 1 %}
+			{% if mapPanelStatus == true %}
+				{% set mooringContactNum = mooringContactNum + 1 %}
+			{% endif %}
+			{% if entry.optionBoxesBar is defined and entry.optionBoxesBar|length %}
+				{% set mooringContactNum = mooringContactNum + 1 %}
+			{% endif %}
+			{% if mooringTariffStatus == true %}
+				{% set mooringContactNum = mooringContactNum + 1 %}
+			{% endif %}
+			{% if altPanelsStatus == true %}
+				{% set mooringContactNum = mooringContactNum + entry.alternatingPanels|length %}
+			{% endif %}
+			{% if multiTables == true %}
+				{% set mooringContactNum = mooringContactNum + 1 %}
+			{% endif %}
+			{% if entry.endGallery is defined and entry.endGallery|length %}
+				{% set mooringContactNum = mooringContactNum + 1 %}
+			{% endif %}
+			{% if entry.alternatingBoxPanels is defined and entry.alternatingBoxPanels|length %}
+				{% set mooringContactNum = mooringContactNum + entry.alternatingBoxPanels|length %}
+			{% endif %}
+			{% if entry.bannerPanels is defined and entry.bannerPanels|length %}
+				{% set mooringContactNum = mooringContactNum + entry.bannerPanels|length %}
+			{% endif %}
+			{% if bannerPanelsPage == true %}
+				{% set mooringContactNum = mooringContactNum + 1 %}
+			{% endif %}
+		{% endif %}
+
+
+
+    {# set the variable used to number the footer section to be the same as the starting count #}
+    {% set finalSectionNum = panelsCountStart %}
+
+    {% if homePanelsStatus == true %}
+      {% set finalSectionNum = finalSectionNum + entry.homePanels|length + 1 %}
+    {% elseif altPanelsStatus == true %}
+      {% set finalSectionNum = finalSectionNum + entry.alternatingPanels|length + 1 %}
+			{% if secondaryaltPanelsStatus == true %}
+				{% set finalSectionNum = finalSectionNum + entry.secondaryAlternatingPanels|length %}
+			{% endif %}
+		{% elseif bannerPanelsPage == true %}
+			{% if entry.topPanelContent|length or entry.topPanelHeading|length or entry.topPanelIntroduction|length %}
+				{% set finalSectionNum = finalSectionNum + 2 %}
+			{% endif %}
+			{% if entry.bannerPanels|length %}
+				{% set finalSectionNum = finalSectionNum + entry.bannerPanels|length %}
+			{% endif %}
+		{% elseif offersPage == true %}
+			{% set finalSectionNum = finalSectionNum + 2 %}
+		{% elseif contactPage == true %}
+			{% set finalSectionNum = finalSectionNum + 2 %}
+		{% elseif propertyPage == true %}
+			{% set finalSectionNum = finalSectionNum + 2 %}
+		{% elseif properties != '' and properties|length > 0 %}
+			{% set finalSectionNum = finalSectionNum + 2 %}
+    {% elseif noPanelLists == true %}
+      {# if no panel lists and a first panel and table #}
+      {% if firstPanelStatus == true and tablePanelStatus == true %}
+        {% set finalSectionNum = finalSectionNum + 1 %}
+      {% else %}
+      {# if just three sections #}
+				{% if extraArticlesPanel > 0 %}
+        	{% set finalSectionNum = finalSectionNum + 2 + extraArticlesPanel %}
+				{% elseif newsBlogPage == true %}
+					{% set finalSectionNum = finalSectionNum + 2 %}
+				{% else %}
+					{% set finalSectionNum = finalSectionNum + 1 + extraArticlesPanel %}
+				{% endif %}
+      {% endif %}
+    {% endif %}
+
+
+		{% if tariffAreaStatus == true %}
+			{% set finalSectionNum = finalSectionNum + 1	%}
+		{% endif %}
+		{% if membershipsStatus == true %}
+			{% set finalSectionNum = finalSectionNum + 1	%}
+		{% endif %}
+		{% if passesStatus == true %}
+			{% set finalSectionNum = finalSectionNum + 1	%}
+		{% endif %}
+		{% if galleriesAreaStatus == true %}
+			{% set finalSectionNum = finalSectionNum + entry.galleries|length	%}
+		{% endif %}
+  	{% if (entry.menusHeading is defined and entry.menusHeading|length) or (entry.menusSummary is defined and entry.menusSummary|length) or (entry.menus is defined and entry.menus|length) %}
+			{% set finalSectionNum = finalSectionNum + 1 %}
+		{% endif %}
+		{% if entry.endMenuGallery is defined and entry.endMenuGallery|length %}
+			{% set finalSectionNum = finalSectionNum + 1 %}
+		{% endif %}
+		{% if entry.optionBoxesBar is defined and entry.optionBoxesBar|length %}
+			{% set finalSectionNum = finalSectionNum + 1 %}
+		{% endif %}
+		{% if entry.displayContactForm is defined and entry.displayContactForm %}
+			{% set finalSectionNum = finalSectionNum + 1 %}
+		{% endif %}
+		{% if entry.occasionSecondaryPanels is defined and entry.occasionSecondaryPanels|length %}
+			{% set finalSectionNum = finalSectionNum + entry.occasionSecondaryPanels|length %}
+		{% endif %}
+		{% if (entry.occasionHeading is defined and entry.occasionHeading|length) or (entry.occasionIntroduction is defined and entry.occasionIntroduction|length) or (entry.occasionContent is defined and entry.occasionContent|length) %}
+			{% set finalSectionNum = finalSectionNum + 1 %}
+		{% endif %}
+		{% if entry.endGallery is defined and entry.endGallery|length %}
+			{% set finalSectionNum = finalSectionNum + 1 %}
+		{% endif %}
+		{% if entry.salesPanels is defined and entry.salesPanels|length %}
+			{% set finalSectionNum = finalSectionNum + 1 %}
+		{% endif %}
+		{% if catPage == false and tagPage == false and entry.section.handle == 'roomsHomepage' %}
+			{% if( entry.endPanelHeading is defined and entry.endPanelHeading|length) or (entry.endPanelIntroduction is defined and entry.endPanelIntroduction|length) or (entry.endPanelContent is defined and entry.endPanelContent|length) or (entry.endPanelButtons is defined and entry.endPanelButtons|length) %}
+				{% set finalSectionNum = finalSectionNum + 1 %}
+			{% endif %}
+		{% endif %}
+		{% if entry.secondaryHomePanels is defined and entry.secondaryHomePanels|length %}
+			{% set finalSectionNum = finalSectionNum + entry.secondaryHomePanels|length %}
+		{% endif %}
+		{% if mapPanelStatus == true %}
+			{% set finalSectionNum = finalSectionNum + 1 %}
+		{% endif %}
+		{% if mooringTariffStatus == true %}
+			{% set finalSectionNum = finalSectionNum + 1 %}
+		{% endif %}
+		{% if mooringContact == true %}
+			{% set finalSectionNum = finalSectionNum + 1 %}
+		{% endif %}
+		{% if categoryQuery|length > 0 or bedroomsQuery|length > 0 or minQuery|length > 0 or maxQuery|length > 0 %}
+			{% if entry.section.handle == 'longAshesParkPropertiesSearch' or entry.section.handle == 'roydonMarinaPropertiesSearch' %}
+				{% set finalSectionNum = finalSectionNum + 1 %}
+			{% endif %}
+		{% endif %}
+		{% if multiTables == true %}
+			{% set finalSectionNum = finalSectionNum + 1 %}
+		{% endif %}
+		{% if entry.alternatingBoxPanels is defined and entry.alternatingBoxPanels|length %}
+			{% set finalSectionNum = finalSectionNum + entry.alternatingBoxPanels|length %}
+		{% endif %}
+		{% if variedPanelsStatus == true %}
+			{% set finalSectionNum = finalSectionNum + 1 %}
+		{% endif %}
+		{% if secondaryMapPanelStatus == true %}
+			{% set finalSectionNum = finalSectionNum + 1 %}
+		{% endif %}
+		{% if weatherPanelStatus == true %}
+			{% set finalSectionNum = finalSectionNum + 1 %}
+		{% endif %}
+		{% if bannerPanelsPage == true and not (entry.section.handle == 'pages' and entry.type == 'bannerPanels') %}
+			{% set finalSectionNum = finalSectionNum + 1 %}
+		{% endif %}
+
+    {% if hasGallery == true %}
+      <div class="scrolldots {% if finalSectionNum > 8 %}scrolldots--alignhigher{% endif %}">
+        {% for i in 1..finalSectionNum %}
+          <div class="scrolldots__dot" data-section="section{{ i }}">&nbsp;</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div {% if hasGallery == true %}id="section1"{% endif %}>
+      <div class="headerarea {% if hasGallery == false %}headerarea--nogallery{% endif %} {% if hasGallery == true %}headerarea--icons{{ headerIconsColour }}{% endif %}">
+
+        {% if propertyHeaderGalleryStatus == true %}
+          <div class="headerarea__background">&nbsp;</div>
+        {% endif %}
+        {% if entry.headerGallery is defined %}
+          {% if entry.headerGallery|length %}
+            <div class="headerarea__galleryholder">
+              <div class="headerarea__galleryouter">
+                <div id="headerarea__gallery" class="headerarea__gallery">
+                  {% for block in entry.headerGallery.all() %}
+                    {% if block.type == "galleryItem" %}
+                      {% if block.itemImage|length %}
+                        <div class="galleryItem headerarea__galleryback" style="background-image:url({{ block.itemImage.one().getUrl('headerGallery') }})">
+                          <div class="headerarea__galleryimghidden"><img src="{{ block.itemImage.one().getUrl('headerGallery') }}" class="headerarea__galleryimg" alt="{{ block.itemImage.one().title }}" /></div>
+                        </div>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </div>
+                <script type="text/javascript">
+                  $(function() {
+                    $('#headerarea__gallery').imageGallery({ itemButtons:false, autoplay:true, speed:5000, callback:function() {
+                      slideRender($('#headerarea__gallery').find('.activeItem'));
+                    }});
+                  });
+                </script>
+              </div>
+            </div>
+          {% endif %}
+        {% endif %}
+        <div class="headerarea__top {#{% if propertyHeaderGalleryStatus == true %}headerarea__top--green{% endif %}#} {% if hasGallery == false %}headerarea__top--nogallery{% endif %}">
+					{% include 'layouts/_expandercentrenav' %}
+          {#{% if currentSite.handle == 'gamekeepersInn' %}
+						{% include 'layouts/_expandercentrenav' %}
+					{% elseif currentSite.handle == 'tattenhallMarina' or currentSite.handle == 'roydonMarinaVillage' %}
+						{% include 'layouts/_expanderleftnav' %}
+					{% else %}
+						{% include 'layouts/_expandernav' %}
+					{% endif %}#}
+          <a href="{{ currentSite.baseUrl }}" class="headerarea__logo">
+            <img src="assets/presentation/{{ currentSite.handle }}{% if hasGallery == true and headerIconsColour != 'white' %}-{{ headerIconsColour }}{% endif %}.svg" alt="{{ currentSite.name }}" class="headerarea__logoimg {% if hasGallery == false and propertyHeaderGalleryStatus == false %}headerarea__logoimg--nogallery{% endif %}" />
+          </a>
+          {% if currentGlobals.enquireLink|length %}
+            <a href="{{ currentGlobals.enquireLink.one().url }}" class="headerarea__enquiries {#{% if propertyHeaderGalleryStatus == true and currentSite.handle == 'gamekeepersInn' %}headerarea__enquiries--white{% endif %}#}"><span class="headerarea__enquiriestxt">Enquire</span> <img src="assets/presentation/phone{% if hasGallery == true and headerIconsColour != 'white' %}-{{ currentSite.handle }}-{{ headerIconsColour }}{% endif %}.svg" alt="Enquire" class="headerarea__enquiriesimg" /></a>
+          {% endif %}
+					{% if currentSite.handle == 'deganwyMarina' and currentGlobals.customerLogin is defined and currentGlobals.customerLogin|length %}
+						<a href="{{ currentGlobals.customerLogin }}" class="headerarea__loginbtn {% if hasGallery == false %}headerarea__loginbtn--nogallery{% endif %}">Customer Login</a>
+					{% elseif currentGlobals.headerButtonText is defined and currentGlobals.headerButtonText|length and ((currentGlobals.headerButtonUrl is defined and currentGlobals.headerButtonUrl|length) or (currentGlobals.headerButtonEntry is defined and currentGlobals.headerButtonEntry|length)) %}
+						<a href="{% if currentGlobals.headerButtonEntry|length %}{{ currentGlobals.headerButtonEntry.one().url }}{% else %}{{ currentGlobals.headerButtonUrl }}{% endif %}" {% if currentGlobals.headerButtonOpenInNewTab %}target="_blank"{% endif %} class="headerarea__loginbtn {% if hasGallery == false %}headerarea__loginbtn--nogallery{% endif %}">{{ currentGlobals.headerButtonText }}</a>
+					{% endif %}
+        </div>
+
+				{% if currentSite.handle == 'roydonMarinaVillage' and tagPage == false and catPage == false and isRoomsPage %}{% else %}
+	        {% if hasGallery == true %}
+	          {% if propertyHeaderGalleryStatus == true %}
+	            {% if currentGlobals.financeCalculatorLink|length and entry.displayFinanceCalculatorTab %}
+	              <div class="headerarea__financeholder cs">
+	      				<a class="headerarea__finance cs" target="_blank" href="{{ currentGlobals.financeCalculatorLink }}">
+	      					<div class="headerarea__financecontent">
+	                  {% if currentGlobals.financeTabLogo|length %}
+	      						      <div class="headerarea__financeicon"><img src="{{ currentGlobals.financeTabLogo.one().url }}" alt="{{ currentGlobals.financeTabLogo.one().title }}" class="headerarea__financeiconimg" /></div>
+	                  {% endif %}
+	      						<div class="headerarea__financetext">
+	      							{% if currentGlobals.financeCalculatorTabRegularText|length %}{{ currentGlobals.financeCalculatorTabRegularText }} {% endif %}{% if currentGlobals.financeCalculatorTabBoldText|length %}<strong>{{ currentGlobals.financeCalculatorTabBoldText }}</strong>{% endif %}
+	      						</div>
+	      					</div>
+	      					<div class="headerarea__financearrow"><img src="/assets/presentation/finance-calc-icon.png" alt="" class="headerarea__financearrowimg" /></div>
+	      				</a>
+	      			  </div>
+	            {% endif %}
+	          {% endif %}
+	        {% endif %}
+        {% endif %}
+
+				{% if hasGallery == true and entry.headerGalleryButtons is defined and entry.headerGalleryButtons|length %}
+					{% include 'layouts/_headergallerybuttons' %}
+				{% endif %}
+
+        {% block galleryform %}
+          {% if hasGallery == true %}
+            {% if entry.displayPropertySearch is defined and entry.displayPropertySearch and enablePropertySearch == true and isRoomsPage == false %}
+              {% include "layouts/_headergalleryform" %}
+						{% elseif entry.displayRoomSearch is defined and entry.displayRoomSearch %}
+							{% include "layouts/_headergalleryroomsform" %}
+            {% endif %}
+          {% endif %}
+        {% endblock %}
+
+        {% if hasGallery == true %}
+        <div class="headerarea__scrollholder">
+          <a href="{{ craft.app.request.absoluteUrl }}#section2" class="headerarea__scroll smoothscroll">
+            <span class="headerarea__scrolltext">Discover</span>
+						<span class="headerarea__scrollarrow">&nbsp;</span>
+            {#<img src="assets/presentation/discover-arrow.png" alt="Discover"/>#}
+          </a>
+        </div>
+        {% endif %}
+
+        {% if hasGallery == true %}
+          {% if currentGlobals.displayAnnouncement is defined %}
+            {% if currentGlobals.displayAnnouncement %}
+              <div class="announcement">
+                {% if currentGlobals.announcementLinkEntry|length or currentGlobals.announcementLinkUrl|length %}
+                <a class="announcement__back"
+                  href="{% if currentGlobals.announcementLinkEntry|length %}{{ currentGlobals.announcementLinkEntry.one().url }}{% else %}{{ currentGlobals.announcementLinkUrl }}{% endif %}"
+                {% if currentGlobals.announcementLinkOpenInNewTab %}target="_blank"{% endif %}>
+                  {% else %}
+                  <div class="announcement__back">
+                    {% endif %}
+                    <div class="announcement__inner">
+                      {% if currentGlobals.announcementHeading|length %}
+                        <div class="announcement__title">
+                          {{ currentGlobals.announcementHeading }}
+                        </div>
+                      {% endif %}
+                      {% if currentGlobals.announcementContent|length %}
+                        <div class="announcement__content">
+                          {{ currentGlobals.announcementContent }}
+                        </div>
+                      {% endif %}
+                    </div>
+                {% if currentGlobals.announcementLinkEntry|length or currentGlobals.announcementLinkUrl|length %}</a>{% else %}</div>{% endif %}
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endif %}
+
+      </div>
+
+      {% if propertyHeaderGalleryStatus == true %}
+        <div class="imgopts">
+          <div class="imgopts__inner">
+            {% for image in entry.propertyHeaderGalleryImages.all() %}
+              <div class="imgopts__imgopt">
+                <div class="imgopts__imgoptinner">
+                  <img src="{{ image.getUrl('headerGallery') }}" alt="{{ image.title }}" class="imgopts__imgoptimg" />
+                  <div class="imgopts__imgoptcover">&nbsp;</div>
+                </div>
+              </div>
+          	{% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+    </div>
+
+    {% set contentPanelsStart = 0 %}
+
+		{% if catPage == true %}
+			{% set entry = category %}
+		{% endif %}
+
+    {% block content %}{% endblock %}
+
+		{% if catPage == true %}
+			{% if blogSection == true %}
+				{% if currentSite.handle == 'gamekeepersInn' %}
+					{% set entry = craft.entries.section('gamekeepersInnBlogHomepage').one() %}
+				{% elseif currentSite.handle == 'roydonMarinaVillage' %}
+					{% set entry = craft.entries.section('roydonMarinaBlogHomepage').one() %}
+				{% elseif currentSite.handle == 'boatSales' %}
+					{% set entry = craft.entries.section('boatSalesBlogHomepage').one() %}
+				{% elseif currentSite.handle == 'saulJunctionMarina' %}
+					{% set entry = craft.entries.section('saulJunctionMarinaBlogHomepage').one() %}
+					{% elseif currentSite.handle == 'greatHaywoodMarina' %}
+						{% set entry = craft.entries.section('greatHaywoodMarinaBlogHomepage').one() %}
+				{% elseif currentSite.handle == 'tattenhallMarina' %}
+					{% set entry = craft.entries.section('tattenhallMarinaBlogHomepage').one() %}
+				{% elseif currentSite.handle == 'deganwyMarina' %}
+					{% set entry = craft.entries.section('deganwyMarinaBlogHomepage').one() %}
+				{% elseif currentSite.handle == 'greatHaywoodMarina' %}
+					{% set entry = craft.entries.section('greatHaywoodMarinaBlogHomepage').one() %}
+				{% elseif currentSite.handle == 'hungerfordMarina' %}
+					{% set entry = craft.entries.section('hungerfordMarinaBlogHomepage').one() %}
+				{% elseif currentSite.handle == 'laBellaVista' %}
+					{% set entry = craft.entries.section('laBellaVistaBlogHomepage').one() %}
+				{% else %}
+					{% set entry = craft.entries.section('blogHomepage').one() %}
+				{% endif %}
+			{% endif %}
+		{% endif %}
+
+		{% include "layouts/_popups" %}
+
+    <div id="section{{ finalSectionNum }}">
+      {% if entry.displayNewsletterSignup is defined %}
+        {% if entry.displayNewsletterSignup %}
+          {% include "layouts/_newsletter" %}
+        {% endif %}
+      {% endif %}
+
+
+      {% if entry.displaySocialFeed is defined %}
+        {% if entry.displaySocialFeed %}
+      		{% include "layouts/_socialfeed" %}
+
+					{% if currentGlobals.imageStrip|length %}
+		        <div class="imagestrip"><!--
+		          {% for item in currentGlobals.imageStrip.all() %}
+		        --><div class="imagestrip__item"><img src="{{item.getUrl('imageStripItem')}}" alt="{{item.title}}" /></div><!--
+		          {% endfor %}
+		        --></div>
+		      {% endif %}
+
+      	{% endif %}
+    	{% endif %}
+
+			{% if entry.displayBrochures is defined %}
+				{% if entry.displayBrochures %}
+					<div class="brochures">
+						{% if currentGlobals.ourBrochuresHeading|length or currentGlobals.ourBrochuresSummary|length %}
+							<div class="brochures__titlesarea">
+								{% if currentGlobals.ourBrochuresHeading|length %}
+									<div class="brochures__title">
+										{{ currentGlobals.ourBrochuresHeading }}
+									</div>
+								{% endif %}
+								{% if currentGlobals.ourBrochuresSummary|length %}
+									<div class="brochures__summary">
+										{{ currentGlobals.ourBrochuresSummary }}
+									</div>
+								{% endif %}
+							</div>
+						{% endif %}
+						{% if currentGlobals.brochures|length %}
+							<div class="brochures__listarea brochures__listarea--wcontainer">
+								<div class="container cs">
+									{% for brochure in currentGlobals.brochures.all() %}
+										{% if brochure.type == "brochure" %}
+											<div class="brochures__item">
+												<a href="{{ brochure.brochure.one().url }}" target="_blank" class="brochures__itemlink"><div class="brochures__itemicon">&nbsp;</div></a>
+												{% if brochure.brochureRegularText|length or brochure.brochureBoldText|length %}
+													<div class="brochures__itemtext">
+														{% if brochure.brochureRegularText|length %}{{ brochure.brochureRegularText }} {% endif %}
+														{% if brochure.brochureBoldText|length %}<strong>{{ brochure.brochureBoldText }}</strong>{% endif %}
+													</div>
+												{% endif %}
+											</div>
+										{% endif %}
+									{% endfor %}
+								</div>
+							</div>
+						{% endif %}
+					</div>
+				{% endif %}
+			{% endif %}
+
+
+
+
+      <div class="footer">
+        <div class="container container--footer">
+          <div class="footer__columns cs">
+            <div class="footer__column footer__column--centre">
+              <div class="footer__img"><span class="footer__imgimg footer__imgimg--telephone">&nbsp;</span></div>
+              <div class="footer__title">
+                <p><strong>Visit </strong>Us</p>
+              </div>
+              <div class="footer__details">
+								{% if currentGlobals.multipleFooterContacts is defined and currentGlobals.multipleFooterContacts|length %}
+										{% for row in currentGlobals.multipleFooterContacts %}
+											<div class="footer__row">
+												{% if row.label|length %}
+													<strong>{{ row.label }}</strong>
+												{% endif %}
+												{% if row.detail|length %}
+													{% if row.phoneNumber or row.emailAddress %}
+														<a  class="footer__link" href="{% if row.phoneNumber %}tel:{{ row.detail|replace({' ': ''}) }}{% else %}mailto:{{ row.detail }}{% endif %}">
+													{% endif %}
+													{{ row.detail }}
+													{% if row.phoneNumber or row.emailAddress %}
+														</a>
+													{% endif %}
+												{% endif %}
+											</div>
+										{% endfor %}
+								{% else %}
+	                {% if currentGlobals.phoneNumber|length %}
+	                  <div class="footer__row"><strong>Tel:</strong> <a href="tel:{{ currentGlobals.phoneNumber|replace({' ': ''}) }}" class="footer__link">{{ currentGlobals.phoneNumber }}</a></div>
+	                {% endif %}
+	                {% if currentGlobals.emailAddress|length %}
+	                  <div class="footer__row"><strong>Email:</strong> <a href="mailto:{{ currentGlobals.emailAddress }}" class="footer__link">{{ currentGlobals.emailAddress }}</a></div>
+	                {% endif %}
+	                {% if currentGlobals.address|length %}
+	                <div class="footer__row footer__row--addresstitle"><strong>Address:</strong></div>
+	                <div class="footer__row footer__row--address">
+	                  <p>
+	                    {% for row in currentGlobals.address %}
+	                      {{ row.addressRow }}{% if loop.last %}{% else %}<br />{% endif %}
+	                    {% endfor %}
+	                  </p>
+	                </div>
+	                {% endif %}
+								{% endif %}
+              </div>
+            </div><!--
+         --><div class="footer__column footer__column--left">
+              {% if currentGlobals.footerTakeMeTo|length %}
+                <div class="footer__img"><span class="footer__imgimg footer__imgimg--footprint">&nbsp;</span></div>
+                <div class="footer__title">
+                  <p><strong>Take Me </strong>To</p>
+                </div>
+                <ul class="footer__ul">
+                  {% for item in currentGlobals.footerTakeMeTo.all() %}
+                    {% if item.type == "linkItem" %}
+                      {% if item.itemEntry|length or item.itemLink|length or item.itemCategory|length %}
+                        <li class="footer__li"><a href="{% if item.itemEntry|length %}{{ item.itemEntry.one().url }}{% elseif item.itemCategory|length %}{{ item.itemCategory.one().url }}{% else %}{{ item.itemLink }}{% endif %}" {% if item.openLinkInNewTab %}target="_blank"{% endif %} class="footer__link">{{ item.itemText }}</a></li>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div><!--
+         --><div class="footer__column footer__column--right">
+              {% if currentGlobals.footerLakelandLeisureEstates|length %}
+                <div class="footer__img"><span class="footer__imgimg footer__imgimg--logo">&nbsp;</span></div>
+                <div class="footer__title">
+                  <p>Lakeland Leisure <strong>Estates</strong></p>
+                </div>
+                <ul class="footer__ul">
+                  {% for item in currentGlobals.footerLakelandLeisureEstates.all() %}
+                    {% if item.type == "linkItem" %}
+                      {% if item.itemEntry|length or item.itemLink|length or item.itemCategory|length %}
+                      <li class="footer__li"><a href="{% if item.itemEntry|length %}{{ item.itemEntry.one().url }}{% elseif item.itemCategory|length %}{{ item.itemCategory.one().url }}{% else %}{{ item.itemLink }}{% endif %}" {% if item.openLinkInNewTab %}target="_blank"{% endif %} class="footer__link">{{ item.itemText }}</a></li>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              {% else %}
+                &nbsp;
+              {% endif %}
+            </div>
+          </div>
+          <div class="footer__social">
+            {% if currentGlobals.facebookLink|length %}<a href="{{ currentGlobals.facebookLink }}" target="_blank" class="footer__sociallink"><span class="footer__sociallinkimg footer__sociallinkimg--facebook">&nbsp;</span></a>{% endif %}
+            {% if currentGlobals.twitterLink|length %}<a href="{{ currentGlobals.twitterLink }}" target="_blank" class="footer__sociallink"><span class="footer__sociallinkimg footer__sociallinkimg--twitter">&nbsp;</span></a>{% endif %}
+            {% if currentGlobals.instagramLink|length %}<a href="{{ currentGlobals.instagramLink }}" target="_blank" class="footer__sociallink"><span class="footer__sociallinkimg footer__sociallinkimg--instagram">&nbsp;</span></a>{% endif %}
+            {% if currentGlobals.googlePlusLink|length %}<a href="{{ currentGlobals.googlePlusLink }}" target="_blank" class="footer__sociallink"><span class="footer__sociallinkimg footer__sociallinkimg--googleplus">&nbsp;</span></a>{% endif %}
+            {% if currentGlobals.tripadvisorLink|length %}<a href="{{ currentGlobals.tripadvisorLink }}" target="_blank" class="footer__sociallink"><span class="footer__sociallinkimg footer__sociallinkimg--tripadvisor">&nbsp;</span></a>{% endif %}
+          </div>
+          <div class="footer__copyright">
+            {% if currentGlobals.copyright|length %}
+            Copyright &copy; {{ currentGlobals.copyright }}
+            {% else %}
+            &nbsp;
+            {% endif %}
+          </div>
+          {% if currentGlobals.footerEndLinks|length %}
+          <div class="footer__endlinks">
+            <ul class="footer__endlinksul">
+              {% for item in currentGlobals.footerEndLinks.all() %}
+                {% if item.type == "linkItem" %}
+                  {% if item.linkEntry|length or item.itemLink|length %}
+                    <li class="footer__endlinksli"><a href="{% if item.linkEntry|length %}{{ item.linkEntry.one().url }}{% else %}{{ item.itemLink }}{% endif %}" {% if item.openLinkInNewTab %}target="_blank"{% endif %} class="footer__link">{{ item.linkText }}</a></li>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+
+
+	{% if enableBooking %}
+		<script id="guestline-tag" src="https://tag.guestline.net/static/js/tag.js" data-group-id="LL" async></script>
+	{% endif %}
+  </body>
+</html>

@@ -1,0 +1,61 @@
+{% if entry.headerGallery is defined or propertyHeaderGalleryStatus == true %} 
+  {% if entry.headerGallery|length or propertyHeaderGalleryStatus == true %}
+    <div class="container container--wide container--headerform">
+      <div class="headerarea__form">
+        <form class="cs" action="{{ url('properties/search/') }}">
+          <div class="headerarea__formitem">
+            <label class="headerarea__label">{% if currentSite.handle == 'boatSales' %}Boat{% else %}Property{% endif %} Type</label>
+            <div class="headerarea__selectholder headerarea__selectholder--property">
+              <select class="headerarea__select" name="category">
+                <option value="any">{% if currentSite.handle == 'boatSales' %}All{% else %}Any{% endif %}</option>
+                {% set typesAvailable = currentGlobals.propertyTypesAvailable.all() %}
+                {% if currentSite.handle == 'boatSales' %}
+                  {% set typesAvailable = craft.categories().group('boatType').all() %}
+                {% endif %}
+                {% for category in typesAvailable %}
+                <option value="{{ category.slug }}" {% if categoryQuery|length > 0 %}{% if category.slug == categoryQuery %}selected{% endif %}{% endif %}>{{ category.title }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="headerarea__formitem">
+            <label class="headerarea__label">{% if currentSite.handle == 'boatSales' %}Berths{% else %}Bedrooms{% endif %}</label>
+            <div class="headerarea__selectholder headerarea__selectholder--bedrooms">
+              <select class="headerarea__select"  name="bedrooms">
+                <option value="no-min">{% if currentSite.handle == 'boatSales' %}All{% else %}No Min{% endif %}</option>
+                {% for category in currentGlobals.propertyBedroomsAvailable.orderBy('title asc').all() %}
+                <option value="{{ category.slug }}" {% if bedroomsQuery|length > 0 %}{% if category.slug == bedroomsQuery %}selected{% endif %}{% endif %}>{{ category.title }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="headerarea__formitem">
+            <label class="headerarea__label">Min Price</label>
+            <div class="headerarea__selectholder headerarea__selectholder--price">
+              <select class="headerarea__select" name="minimum">
+                <option value="no-min">No Min</option>
+                {% for row in currentGlobals.propertyMinPrices %}
+                  <option value="{{ row.fullNumber }}" {% if minQuery|length > 0 %}{% if row.fullNumber == minQuery %}selected{% endif %}{% endif %}>{{ row.displayedText }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="headerarea__formitem headerarea__formitem--last">
+            <label class="headerarea__label">Max Price</label>
+            <div class="headerarea__selectholder headerarea__selectholder--price">
+              <select class="headerarea__select" name="maximum">
+                <option value="no-max">No Max</option>
+                {% for row in currentGlobals.propertyMaxPrices %}
+                  <option value="{{ row.fullNumber }}" {% if maxQuery|length > 0 %}{% if row.fullNumber == maxQuery %}selected{% endif %}{% endif %}>{{ row.displayedText }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="headerarea__formitem headerarea__formitem--btn">
+            <button type="submit" class="btn headerarea__formbtn">Search {% if currentSite.handle == 'boatSales' %}Boats{% else %}Properties{% endif %} for Sale</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  {% endif %}
+{% endif %}

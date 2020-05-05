@@ -1,0 +1,316 @@
+.menutable__tableholder { 
+  border: 1px solid $darkgrey; 
+  border-radius: 0 0 5px 5px; 
+  overflow: hidden; 
+}
+.menutable__table { 
+  table-layout: fixed; 
+  border-collapse: separate; 
+  color: $darkgrey; 
+  width: 100%; 
+  border-spacing: 0; 
+  .menutable__smallfont { 
+    font-size: 100%; 
+  }
+  .menutable__disclaimer { 
+    padding-top: 15px; 
+    padding-bottom: 31px; 
+    &:nth-child(2):before { 
+      display: none; 
+    }
+  }
+  td, th {
+    border: 1px solid $darkgrey; 
+    position: relative; 
+    padding-left: 19px; 
+    padding-right: 19px; 
+    border-top: 0; 
+    border-left: 0; 
+  }
+  td {
+    padding-top: 15.5px; 
+    padding-bottom: 15.5px; 
+    &:first-child { 
+      text-align: left; 
+    }
+    &:nth-child(2), &:nth-child(3) { 
+      text-align: center; 
+    }
+    &:nth-child(2):before, &:nth-child(3):before { 
+      content: " "; 
+      display: inline-block; 
+      position: absolute; 
+      width: 0; 
+      height: 0; 
+      border-style: solid; 
+      border-width: 10px 0 10px 10px; 
+      border-color: transparent transparent transparent $darkgrey; 
+      top: 50%; 
+      margin-top: -10px; 
+      left: 0; 
+    }
+  }
+  th { 
+    font-size: $font16; 
+    background: $lightergreen; 
+    text-transform: uppercase; 
+    font-weight: 300; 
+    padding-top: 15px; 
+    padding-bottom: 15px; 
+    &:first-child { 
+      width: 77%; 
+      text-align: left; 
+    }
+    &:last-child { 
+      width: 23%; 
+    }
+  }
+  tr:last-child td, tr:last-child th { 
+    border-bottom: 0; 
+  } 
+  td:last-child, th:last-child { 
+    border-right: 0; 
+  }
+  .menutable__midtitle { 
+    background: #ebf2eb; 
+    text-transform: none; 
+    font-size: 100%; 
+    font-weight: 400; 
+    line-height: 1.4em; 
+    padding-top: 24px; 
+    padding-bottom: 24px; 
+  }
+  em { 
+    text-transform: none; 
+    font-weight: 400; 
+    font-style: italic; 
+    color: $darkgrey; 
+  }
+}
+
+.menutable__tdtwocolleft {
+  width: 77%;
+}
+.menutable__tdtwocolright {
+  width: 23%;
+}
+.menutable__tdthreecolleft {
+  width: 54%;
+}
+.menutable__tdthreecolright {
+  width: 23%;
+}
+.menutable--tariffs {
+  margin-top: 10px;
+  margin-bottom: 31px;
+}
+
+.menutable__title--rightthreemid {
+  margin-right: -1px;
+}
+
+.menutable__titlemargin { 
+  margin-right: 10px; 
+}
+.menutable__colour { 
+  color: #ec004e; 
+} 
+.menutable__disclaimer { 
+  line-height: 1.8em; 
+}
+.menutable__midtitle strong { 
+  text-transform: uppercase; 
+  display: block; 
+  padding-bottom: 13px; 
+}
+.menutable__title { 
+  color: #fff; 
+  text-transform: uppercase; 
+  background: $lightgreen; 
+  border: 1px solid $darkgrey; 
+  border-bottom: 0; 
+  font-weight: bold; 
+  font-size: $font18; 
+  line-height: 1.1em; 
+  letter-spacing: 0.1em; 
+  border-radius: 5px 5px 0 0; 
+  box-sizing: border-box; 
+}
+.menutable__title--left { 
+  float: left; 
+  width: 23%; 
+}
+.menutable__title--right { 
+  text-align: center; 
+  width: 22.9%; 
+  float: right; 
+}
+.menutable__titlepadding { 
+  padding: 14.5px 19px; 
+}
+
+
+@media (max-width: 1140px) {
+  .menutable--tariffs {
+    margin-top: 0;
+    margin-bottom: 26px;
+  }
+}
+@media (max-width: 900px) {
+  .menutable__title--left { 
+    width: 45%; 
+  }
+}
+@media(max-width:870px){
+  .menutable__tdthreecolright {
+    width: 25%;
+  }
+  .menutable__tdthreecolleft {
+    width: 50%;
+  } 
+}
+@media(max-width:780px){
+  .menutable__tdthreecolright {
+    width: 27%;
+  }
+  .menutable__tdthreecolleft {
+    width: 46%;
+  }
+}
+@media(max-width:720px){
+  .menutable__tdthreecolright {
+    width: 31%;
+  }
+  .menutable__tdthreecolleft {
+    width: 38%;
+  }
+  .menutable__title--threecolleft {
+    width: 31%;
+  }
+}
+@media(max-width:630px){
+  .menutable__tdthreecolright {
+    width: 34%;
+  }
+  .menutable__tdthreecolleft {
+    width: 32%;
+  }
+  .menutable__title--threecolleft {
+    width: 28%;
+  }
+}
+@media (max-width: 600px) {
+  .menutable--tariffs {
+    margin-bottom: 16px;
+  }
+}
+@media (max-width: 550px) {
+  .menutable__table th {
+    &:first-child { 
+      width: 70%; 
+    }
+    &:last-child { 
+      width: 30%; 
+    }
+  }
+	.menutable__title--left { 
+    width: 53%; 
+  }
+  .menutable__title--threecolleft {
+    width: 28%;
+  }
+  .menutable__tdtwocolright {
+    width: 28%;
+  }
+  .menutable__tdtwocolleft {
+    width: 72%;
+  }
+}
+@media (max-width: 500px) {
+  .menutable__table td:last-child, .menutable__table th:last-child { 
+    padding-left: 10px; 
+    padding-right: 10px; 
+  }
+}
+@media (max-width: 420px) {
+  .menutable__tdtwocolright {
+    width: 34%;
+  }
+  .menutable__tdtwocolleft {
+    width: 66%;
+  }
+}
+@media (max-width: 400px) {
+  .menutable__title { 
+    font-size: 100%; 
+    font-weight: 400; 
+  }
+	.menutable__titlepadding { 
+    padding: 17.5px 19px; 
+  }
+	.menutable__table { 
+    th { 
+      text-align: left; 
+      font-size: $font12; 
+      padding-top: 8px; 
+      padding-bottom: 7px; 
+      &:first-child { 
+        width: 66%; 
+      }
+      &:last-child { 
+        width: 34%; 
+      }
+    }
+    td { 
+      font-weight: 400; 
+      font-size: $font12; 
+      padding-top: 9px; 
+      padding-bottom: 8px; 
+      &:nth-child(2):before, &:nth-child(3):before { 
+        margin-top: -5px; 
+        width: 0; 
+        height: 0; 
+        border-style: solid; 
+        border-width: 5px 0 5px 5px; 
+        border-color: transparent transparent transparent #191919; 
+      }
+    }
+    .menutable__smallfont { 
+      font-size: $font12; 
+    }
+    .menutable__midtitle { 
+      font-size: $font12; 
+      line-height: 1.45em; 
+      padding-top: 13px; 
+      padding-bottom: 13px; 
+    }
+    .menutable__disclaimer { 
+      padding-top: 10px; 
+      padding-bottom: 13px; 
+    }
+  }
+	.menutable__title--left { 
+    width: 60%; 
+  }	
+	.menutable__midtitle strong { 
+    padding-bottom: 0; 
+  }
+	.menutable__titlemargin { 
+    margin-right: 3px; 
+  }
+	.menutable__titlepadding--sml {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+  .menutable__tdthreecolright {
+    width: 39%;
+  }
+  .menutable__tdthreecolleft {
+    width: 22%;
+    padding-left: 15px!important;
+    padding-right: 15px!important;
+  }
+  .menutable__title--threecolleft {
+    width: 20%;
+  }
+}   

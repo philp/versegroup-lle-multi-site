@@ -1,0 +1,216 @@
+{% if currentSite.handle == 'roydonMarinaVillage' %}
+  {% set viewingPop = craft.entries.section('popups').slug('roydon-marina-arrange-a-viewing').one() %}
+{% elseif currentSite.handle == 'greatHaywoodMarina' %}  
+  {% set viewingPop = craft.entries.section('popups').slug('great-haywood-marina-arrange-a-viewing').one() %}
+{% elseif currentSite.handle == 'boatSales' %}  
+  {% set viewingPop = craft.entries.section('popups').slug('boat-sales-arrange-a-viewing').one() %}
+{% else %}
+  {% set viewingPop = craft.entries.section('popups').slug('arrange-a-viewing').one() %}
+{% endif %}
+
+{% if isRoomsPage == false %}
+<a href="{{ viewingPop.url }}" class="propertydetail__link popuplink cs" data-popup="{{ viewingPop.slug }}">
+  <span class="tb propertydetail__linktext">
+    <span class="tb__c propertydetail__linktextinner">
+      Arrange a Viewing
+    </span>
+  </span>
+  <span class="propertydetail__linkicon">
+    <span class="tb">
+      <span class="tb__c tb__c--lineheight">
+        <span class="propertydetail__linkiconimg propertydetail__linkiconimg--viewing">&nbsp;</span>
+      </span>
+    </span>
+  </span>
+</a>
+{% endif %}
+{% if entry.brochure is defined and entry.brochure|length %}
+<a href="{{ entry.brochure.one().url }}" class="propertydetail__link cs">
+  <span class="tb propertydetail__linktext">
+    <span class="tb__c propertydetail__linktextinner">
+      View {% if isRoomsPage == false %}Property {% endif %}Brochure
+    </span>
+  </span>
+  <span class="propertydetail__linkicon">
+    <span class="tb">
+      <span class="tb__c tb__c--lineheight">
+        <span class="propertydetail__linkiconimg propertydetail__linkiconimg--brochure">&nbsp;</span>
+      </span>
+    </span>
+  </span>
+</a>
+{% endif %}
+{% if isRoomsPage == false %}
+{% if entry.floorPlans|length %}
+<a href="{{ entry.floorPlans.one().url }}" class="propertydetail__link cs">
+  <span class="tb propertydetail__linktext">
+    <span class="tb__c propertydetail__linktextinner">
+      View Floor Plans
+    </span>
+  </span>
+  <span class="propertydetail__linkicon">
+    <span class="tb">
+      <span class="tb__c tb__c--lineheight">
+        <span class="propertydetail__linkiconimg propertydetail__linkiconimg--floorplans">&nbsp;</span>
+      </span>
+    </span>
+  </span>
+</a>
+{% endif %}
+{% endif %}
+{% if isRoomsPage == false %}
+{% if currentGlobals.financeCalculatorLink|length and entry.displayFinanceCalculatorTab %}
+<a href="{{ currentGlobals.financeCalculatorLink }}" class="propertydetail__link cs" target="_blank">
+  <span class="tb propertydetail__linktext">
+    <span class="tb__c propertydetail__linktextinner">
+      Finance Calculator
+    </span>
+  </span>
+  <span class="propertydetail__linkicon">
+    <span class="tb">
+      <span class="tb__c tb__c--lineheight">
+        <span class="propertydetail__linkiconimg propertydetail__linkiconimg--calc">&nbsp;</span>
+      </span>
+    </span>
+  </span>
+</a>
+{% endif %}
+{% endif %}
+{% if isRoomsPage == false %}
+{% if currentGlobals.financeOptions|length %}
+<a href="{{ currentGlobals.financeOptions.one().url }}" class="propertydetail__link cs">
+  <span class="tb propertydetail__linktext">
+    <span class="tb__c propertydetail__linktextinner">
+      Finance Options
+    </span>
+  </span>
+  <span class="propertydetail__linkicon">
+    <span class="tb">
+      <span class="tb__c tb__c--lineheight">
+        <span class="propertydetail__linkiconimg propertydetail__linkiconimg--finance">&nbsp;</span>
+      </span>
+    </span>
+  </span>
+</a>
+{% endif %}
+{% endif %}
+{% set sendFriendPop = craft.entries.section('popups').slug('send-to-a-friend').one() %}
+{% if isRoomsPage %}
+  {% set sendFriendPop = craft.entries.section('popups').slug('send-room-to-a-friend').one() %}
+{% endif %}
+<a href="{{ sendFriendPop.url }}" class="propertydetail__link popuplink cs" data-popup="{{ sendFriendPop.slug }}">
+  <span class="tb propertydetail__linktext">
+    <span class="tb__c propertydetail__linktextinner">
+      Send to a Friend
+    </span>
+  </span>
+  <span class="propertydetail__linkicon">
+    <span class="tb">
+      <span class="tb__c tb__c--lineheight">
+        <span class="propertydetail__linkiconimg propertydetail__linkiconimg--friend">&nbsp;</span>
+      </span>
+    </span>
+  </span>
+</a>
+{% if (currentGlobals.propertiesFacilities is defined and currentGlobals.propertiesFacilities|length and entry.section.handle == 'properties') or (currentGlobals.roomsFacilities is defined and currentGlobals.roomsFacilities|length and isRoomsPage) %}
+<a href="{% if entry.section.handle == 'properties' %}{{ currentGlobals.propertiesFacilities.one().url }}{% else %}{{ currentGlobals.roomsFacilities.one().url }}{% endif %}" class="propertydetail__link cs">
+  <span class="tb propertydetail__linktext">
+    <span class="tb__c propertydetail__linktextinner">
+      Our Facilities
+    </span>
+  </span>
+  <span class="propertydetail__linkicon">
+    <span class="tb">
+      <span class="tb__c tb__c--lineheight">
+        <span class="propertydetail__linkiconimg propertydetail__linkiconimg--star">&nbsp;</span>
+      </span>
+    </span>
+  </span>
+</a>
+
+{% endif %}
+{% if isRoomsPage == false %}
+{% if currentGlobals.propertiesBuyersGuide|length %}
+<a href="{{ currentGlobals.propertiesBuyersGuide.one().url }}" class="propertydetail__link cs">
+  <span class="tb propertydetail__linktext">
+    <span class="tb__c propertydetail__linktextinner">
+      Buyers Guide
+    </span>
+  </span>
+  <span class="propertydetail__linkicon">
+    <span class="tb">
+      <span class="tb__c tb__c--lineheight">
+        <span class="propertydetail__linkiconimg propertydetail__linkiconimg--guide">&nbsp;</span>
+      </span>
+    </span>
+  </span>
+</a>
+{% endif %}
+{% endif %}
+{% if (currentGlobals.propertiesFaqs is defined and currentGlobals.propertiesFaqs|length and entry.section.handle == 'properties') or (currentGlobals.roomsFaqs is defined and currentGlobals.roomsFaqs|length and isRoomsPage) %}
+<a href="{% if entry.section.handle == 'properties' %}{{ currentGlobals.propertiesFaqs.one().url }}{% else %}{{ currentGlobals.roomsFaqs.one().url }}{% endif %}" class="propertydetail__link cs">
+  <span class="tb propertydetail__linktext">
+    <span class="tb__c propertydetail__linktextinner">
+      FAQs
+    </span>
+  </span>
+  <span class="propertydetail__linkicon">
+    <span class="tb">
+      <span class="tb__c tb__c--lineheight">
+          <span class="propertydetail__linkiconimg propertydetail__linkiconimg--question">&nbsp;</span>
+      </span>
+    </span>
+    
+  </span>
+</a>
+{% endif %}
+{% if entry.sideMenuAdditionalLinks is defined and entry.sideMenuAdditionalLinks|length %}
+  {% for item in entry.sideMenuAdditionalLinks.all() %}
+    {% if item.type == "linkItem" %}
+      {% if item.text|length and (item.entry|length or item.linkUrl|length or item.download|length) %}
+        {% set isPopup = false %}
+        {% if item.entry|length %}
+          {% if item.entry.one().section.handle == 'popups' %}
+            {% set isPopup = true %}
+          {% endif %}
+        {% endif %}
+        <a href="{% if item.entry|length %}{{ item.entry.one().url }}{% elseif item.linkUrl|length %}{{ item.linkUrl }}{% elseif item.download|length %}{{ item.download.one().url }}{% endif %}" class="propertydetail__link cs {% if isPopup == true %}popuplink{% endif %}" {% if isPopup == true %}data-popup="{{ item.entry.one().slug }}"{% endif %} {% if item.openInNewTab %}target="_blank"{% endif %}>
+          <span class="tb propertydetail__linktext">
+            <span class="tb__c propertydetail__linktextinner">
+              {{ item.text }}
+            </span>
+          </span>
+          <span class="propertydetail__linkicon">
+            <span class="tb">
+              <span class="tb__c tb__c--lineheight">
+                  <span class="propertydetail__linkiconimg 
+                  {% if item.itemIcon == 'viewing' %}
+                    propertydetail__linkiconimg--viewing
+                  {% elseif item.itemIcon == 'brochure' %}
+                    propertydetail__linkiconimg--brochure
+                  {% elseif item.itemIcon == 'floorPlan' %}
+                    propertydetail__linkiconimg--floorplans
+                  {% elseif item.itemIcon == 'calculator' %}
+                    propertydetail__linkiconimg--calc
+                  {% elseif item.itemIcon == 'finance' %}
+                    propertydetail__linkiconimg--finance
+                  {% elseif item.itemIcon == 'friend' %}
+                    propertydetail__linkiconimg--friend
+                  {% elseif item.itemIcon == 'guide' %}
+                    propertydetail__linkiconimg--guide
+                  {% elseif item.itemIcon == 'question' %}
+                    propertydetail__linkiconimg--question
+                  {% else %}
+                    propertydetail__linkiconimg--star
+                  {% endif %}
+                  ">&nbsp;</span>
+              </span>
+            </span>
+            
+          </span> 
+        </a>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+

@@ -1,0 +1,8 @@
+<div class="newsletter">
+  <form class="newsletter__form cs">
+    <span class="newsletter__img">&nbsp;</span>
+    <label class="newsletter__label">Join Our <strong>Mailing List</strong></label>
+    <input type="email" placeholder="Enter your email address" class="newsletter__input" />
+    <button type="submit" class="btn newsletter__btn popuplink {% if currentSite.handle == 'gamekeepersInn' %}btn--white{% elseif currentSite.handle == 'roydonMarinaVillage' or currentSite.handle == 'deganwyMarina' or currentSite.handle == 'saulJunctionMarina' or currentSite.handle == 'hungerfordMarina' or currentSite.handle == 'boatSales' %}btn--dark{% endif %}" data-popup="newsletter-signup">Subscribe</button>
+  </form>
+</div>

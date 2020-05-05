@@ -1,0 +1,50 @@
+.imgopts { 
+  background: #e9e9e9; 
+  padding: 31px 15px; 
+  box-sizing: border-box; 
+}
+.imgopts__imgopt { 
+  box-sizing: border-box; 
+  padding: 0 15px; 
+}
+.imgopts__imgoptcover { 
+  opacity: 0.46; 
+  background: #000; 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  transition:all 0.3s linear; 
+}
+.imgopts__imgoptimg { 
+  width: 100%; 
+}
+.imgopts__imgoptinner { 
+  position: relative; 
+}
+.headerarea__background { 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  background-size: cover;  
+  transition:all 0.3s linear; 
+}
+.imgopts__imgopt--active .imgopts__imgoptcover { 
+  opacity: 0; 
+}
+@media (max-width: 760px) {
+  .imgopts__imgopt { 
+    padding: 0 10px; 
+  }
+	.imgopts { 
+    padding: 21px 10px; 
+  }
+}
+@media (max-width: 550px) {
+  .imgopts { 
+    padding: 20px 10px; 
+  }
+}

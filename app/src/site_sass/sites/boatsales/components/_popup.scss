@@ -1,0 +1,42 @@
+.popup {
+  background: rgba(0,0,0,0.5);
+}
+.popup__box {
+  background: #fff;
+  border-color: $boatblue;
+}
+.popup__topbar {
+  background: $boatblue;
+}
+.popup__heading {
+  background: #f8f8f8;
+  color: $boatblue;
+}
+.popup__contactarea {
+  border-color: $boatblue;
+}
+.popup__contactareaitemlabel {
+  color: $boatblue;
+}
+.popup__contactareaitemlink {
+  color: #000;
+}
+.popup__form {
+  .freeform-row {
+    .freeform-column {
+      .freeform-input {
+        color: #3A3A3A;
+        background-color: #F6F6F6;
+        border-color: $boatblue;
+      }
+    }
+  }
+}
+
+@media(max-width:400px){
+  .popup__aboveformheading {
+    &:after {
+      background-image: inline-svg('arrow-gallery-scroll-right',$boatblue);
+    }
+  }
+}

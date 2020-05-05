@@ -1,0 +1,134 @@
+{% extends "layouts/_layout" %}
+
+{% block content %}
+	<div id="section2">
+		<div class="section section--white {% if hasGallery == true %}section--basicpage{% else %}section--nogallerypage{% endif %}">
+			<div class="container cs">
+				<div class="cs">
+					<div class="section__contentside section__equalsides">
+					{% if entry.mainContent|length %}
+						{{ entry.mainContent }}
+					{% endif %}
+					</div>
+					{% if entry.faqContactHeading|length or entry.faqAddress|length or entry.faqContactDetails|length %}
+					<div class="section__contactside">
+						<div class="section__contactsideinner section__equalsides">
+							<div class="section__contactsideinnercontent">
+								{% if entry.faqContactHeading %}
+									<div class="section__contactsideheading">
+										{{ entry.faqContactHeading }}
+									</div>
+								{% endif %}
+								
+								
+								{% if entry.faqAddress|length %}
+									<div class="section__contactsideaddress">
+										<p>
+											{% for row in entry.faqAddress %}
+												{{ row.addressRow }}{% if loop.last %}{% else %}<br />{% endif %}
+											{% endfor %}
+										</p>
+									</div>
+								{% endif %}
+								
+								{% if entry.faqContactDetails|length %}
+									<div>
+										{% for item in entry.faqContactDetails.all() %}
+											{% if item.type == "phoneNumber" %}
+												<div class="section__contactsideitem">
+													{% if item.label|length %}<strong>{{ item.label }}</strong> {% endif %}{% if item.phoneNumber|length %}<a href="tel:{{ item.phoneNumber|replace({' ': ''}) }}" class="section__contactsideitemlink">{{ item.phoneNumber }}</a>{% endif %}
+												</div>
+											{% elseif item.type == "emailAddress" %}
+												<div class="section__contactsideitem">
+													{% if item.label|length %}<strong>{{ item.label }}</strong> {% endif %}{% if item.emailAddress|length %}<a href="mailto:{{ item.emailAddress }}" class="section__contactsideitemlink">{{ item.emailAddress }}</a>{% endif %}
+												</div>
+											{% endif %}
+										{% endfor %}
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+					{% endif %}
+				</div>
+				
+				{% if entry.buttons|length %}
+					<div class="section__btnsarea">
+						{% for item in entry.buttons.all() %}
+							{% if item.type == "button" %}
+								{% if item.text|length and (item.entry|length or item.linkUrl|length or item.download|length) %}
+									{% set isPopup = false %}
+									{% if item.entry|length %}
+										{% if item.entry.one().section.handle == 'popups' %}
+											{% set isPopup = true %}
+										{% endif %}
+									{% endif %}
+									<a href="{% if item.entry|length %}{{ item.entry.one().url }}{% elseif item.linkUrl|length %}{{ item.linkUrl }}{% elseif item.download|length %}{{ item.download.one().url }}{% endif %}" class="btn section__btnsareabtn {% if isPopup == true %}popuplink{% endif %} {% if item.brochureIcon %}btn--brochure{% endif %}" {% if isPopup == true %}data-popup="{{ item.entry.one().slug }}"{% endif %} {% if item.openInNewTab %}target="_blank"{% endif %}>{{ item.text }}</a>
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+					</div>
+				{% endif %}
+				
+				{% if entry.faqs|length %}
+					<div class="faqs">
+						{% for item in entry.faqs.all() %}
+							{% if item.type == "faq" %}
+								<div class="faqs__item">
+									<div class="faqs__question">
+										{% if item.question|length %}
+											<div class="faqs__mainquestion">
+												{{ item.question }}
+											</div>
+										{% endif %}
+										{% if item.extraQuestionInformation|length %}
+											<div class="faqs__belowquestion">
+												{{ item.extraQuestionInformation }}
+											</div>
+										{% endif %}
+										<div class="faqs__expandarrow">&nbsp;</div>
+									</div>
+									<div class="faqs__answer">
+										<div class="cs">
+											{% if item.answerImage|length %}
+												{% if item.answerLayout == 'imageWithinText' %}
+													{% if item.answerImage|length %}
+														<img src="{{ item.answerImage.one().url }}" alt="{{ item.answerImage.one().title }}" class="faqs__answerimgintext" />
+													{% endif %}
+													<div class="faqs__answercontent">
+														{% if item.answer|length %}
+															{{ item.answer }}
+														{% endif %}
+													</div>
+												{% else %}
+													{% if item.answerImage|length %}
+														<div class="faqs__answerimgsideholder">
+															<img src="{{ item.answerImage.one().url }}" alt="{{ item.answerImage.one().title }}" class="faqs__answerimgside" />
+														</div>
+													{% endif %}
+													<div class="faqs__answercontent faqs__answercontentside">
+														{% if item.answer|length %}
+															{{ item.answer }}
+														{% endif %}
+													</div>
+												{% endif %}
+											{% else %}
+												{% if item.answer|length %}
+													{{ item.answer }}
+												{% endif %}
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				{% endif %}
+				
+			</div>
+		</div>
+	</div>
+	
+
+{% endblock %}
+

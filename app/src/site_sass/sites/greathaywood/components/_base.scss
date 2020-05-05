@@ -1,0 +1,46 @@
+body { 
+	color:$gamekeepersbodytext; 
+	font-family: $fonts; 
+	background:#fff; 
+}
+h1, .h1 { 
+	color: $haywoodblue;
+	&:before {
+		background: $haywoodblue; 	
+	}
+}
+h2, .h2 { 
+	color: $haywoodblue; 
+}
+h3, .h3 { 
+	color: $haywoodblue;
+}
+h4, .h4 { 
+	color: $haywoodblue; 
+}
+h6 {
+	color: $haywoodblue;
+}
+
+a {  
+	color: $haywoodblue; 
+	&:hover {
+		color: $haywoodblue; 
+	}
+}
+em { 
+	color: $haywoodblue; 
+}
+
+.leftButton, .rightButton { 
+	background: $haywoodblue; 
+}
+.leftButton span { 
+	background-image: inline-svg('arrow-gallery-scroll-left',#fff);
+	background-size: contain;
+}
+.rightButton span { 
+	background-image: inline-svg('arrow-gallery-scroll-right',#fff);
+	background-size: contain;
+}
+

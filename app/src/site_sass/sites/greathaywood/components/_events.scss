@@ -1,0 +1,16 @@
+.events__item {
+  background: $haywoodblue;
+  color: #fff;
+}
+.events__itembtn {
+  border-color: $haywooddarkblue;
+  &:hover {
+    background: $haywooddarkblue;
+  }
+}
+.events__itemtitle {
+  color: #fff;
+  &:hover {
+    color: #fff;
+  }
+}

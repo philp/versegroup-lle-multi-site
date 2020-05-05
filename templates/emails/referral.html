@@ -1,0 +1,292 @@
+{# update in cms, this file is a backup #}
+
+<style type="text/css">
+  p { 
+    margin: 0 0 15px 0; 
+    padding:0; 
+  }
+  @media(max-width:640px){
+    .navtable, .emailheader, .outertable {
+      width:100%!important;
+    }
+    .emailheader {
+      height:auto!important;
+    }
+  }
+</style>
+
+{% set mainColour = '#AFBBAF' %} 
+{% set secondaryColour = '#939D93' %} 
+{% if currentSite.handle == 'gamekeepersInn' %}
+  {% set mainColour = '#969696' %} 
+  {% set secondaryColour = '#ddb62f' %}
+{% elseif currentSite.handle == 'tattenhallMarina' %}
+  {% set mainColour = '#00789e' %} 
+  {% set secondaryColour = '#005f7d' %}
+{% elseif currentSite.handle == 'roydonMarinaVillage' %}
+  {% set mainColour = '#082c3f' %} 
+  {% set secondaryColour = '#d39830' %}
+{% elseif currentSite.handle == 'deganwyMarina' %}
+  {% set mainColour = '#008c95' %} 
+  {% set secondaryColour = '#046b72' %}
+{% elseif currentSite.handle == 'greatHaywoodMarina' %}
+  {% set mainColour = '#00a4c7' %} 
+  {% set secondaryColour = '#007f9a' %}
+{% elseif currentSite.handle == 'saulJunctionMarina' %}
+  {% set mainColour = '#5484c2' %} 
+  {% set secondaryColour = '#406390' %}
+{% elseif currentSite.handle == 'laBellaVista' %}
+  {% set mainColour = '#CB0E38' %} 
+  {% set secondaryColour = '#9a0d2d' %}
+{% elseif currentSite.handle == 'hungerfordMarina' %}
+  {% set mainColour = '#54AEB0' %} 
+  {% set secondaryColour = '#468c8e' %}
+{% elseif currentSite.handle == 'boatSales' %}
+  {% set mainColour = '#263D79' %} 
+  {% set secondaryColour = '#1b2b54' %}  
+{% endif %}
+
+<div style="background:#fff; margin:0; padding:0; color: #3A3A3A; font-size: 13px; text-align:center; font-family:Arial,Helvetica,sans-serif;">
+  <table style="width:640px; max-width:100%;margin:0 auto; font-family:Arial,Helvetica,sans-serif; color:#3A3A3A; background:#fff;" bgcolor="#ffffff" cellpadding="0"  cellspacing="0" align="center" class="outertable">
+    {% if craft.app.globals.getSetByHandle(currentSite.handle).referralEmailTopBar|length %}
+    <tr>
+      <td bgcolor="#f3f4f7" style="background:#f3f4f7;font-size: 12px;color: #3A3A3A;padding:12px 10px 12px 10px;text-align:center;">
+        {% for item in craft.app.globals.getSetByHandle(currentSite.handle).referralEmailTopBar.all() %}
+          {% if item.type == "text" %}
+            {% if item.text|length %}
+              {{ item.text }}
+            {% endif %}
+          {% elseif item.type == "linkItem" %}
+            {% if item.linkText|length and (item.linkEntry|length or item.linkUrl|length) %}
+              <a href="{% if item.linkEntry|length %}{{ item.linkEntry.one().url }}{% else %}{{ item.linkUrl }}{% endif %}" style="color:#3a3a3a;text-decoration:underline;">{{ item.linkText }}</a>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </td>
+    </tr>
+    {% endif %}
+    <tr>
+      <td bgcolor="{{ mainColour }}" style="background:{{ mainColour }};">
+				<div align="center"><a href="{{ siteUrl }}" style="text-decoration:none;"><img src="{{ siteUrl }}assets/presentation/{% if currentSite.handle == 'gamekeepersInn' %}email-header-gk.jpg{% elseif currentSite.handle == 'tattenhallMarina' %}email-header-th.jpg{% elseif currentSite.handle == 'roydonMarinaVillage' %}email-header-rm.jpg{% elseif currentSite.handle == 'deganwyMarina' %}email-header-dm.jpg{% elseif currentSite.handle == 'greatHaywoodMarina' %}email-header-gh.jpg{% elseif currentSite.handle == 'saulJunctionMarina' %}email-header-sj.jpg{% elseif currentSite.handle == 'laBellaVista' %}email-header-lbv.jpg{% elseif currentSite.handle == 'hungerfordMarina' %}email-header-hm.jpg{% elseif currentSite.handle == 'boatSales' %}email-header-bs.jpg{% else %}email-header.jpg{% endif %}" alt="{{ currentSite.name }}" align="center" width="640" height="103" style="height:103px; width:640px; max-width:100%;" class="emailheader" /></a></div>
+			</td>
+		</tr>
+    {% if craft.app.globals.getSetByHandle(currentSite.handle).emailNavigation|length %}
+      <tr>
+        <td bgcolor="{{ secondaryColour }}" style="background:{{ secondaryColour }};">
+          <table bgcolor="{{ secondaryColour }}" style="width:640px; max-width:100%;background:{{ secondaryColour }};" class="navtable">
+            <tr class="navrow">
+              {% for item in craft.app.globals.getSetByHandle(currentSite.handle).emailNavigation.all() %}
+                {% if item.type == "linkItem" %}
+                  <td style="text-align:center;padding:16px 15px 16px 15px;" class="navitem" align="center"><a href="{% if item.linkEntry|length %}{{ item.linkEntry.one().url }}{% else %}{{ siteUrl }}{{ item.linkUrl }}{% endif %}" style="text-decoration:none; color:#ffffff; font-weight:bold;font-size:14px; line-height:16px;">{{ item.linkText }}</a></td>
+                {% endif %}
+              {% endfor %}
+            </tr>
+          </table>
+        </td>
+      </tr>
+    {% endif %}
+		<tr>
+      <td bgcolor="#ffffff" style="background:#ffffff;">
+        <table cellpadding="0"  cellspacing="0" align="center" style="width:570px; max-width:100%; margin:0 auto; font-family:Arial,Helvetica,sans-serif; color:#3A3A3A; text-align:center;">
+          <tr>
+            <td>
+              <div><img src="{{ siteUrl }}assets/presentation/t.gif" alt="" width="10" height="30" style="width: 10px; height: 30px; display:block; vertical-align:middle;" /></div>
+                <p style="font-weight:bold; color:#3A3A3A; font-size: 14px; text-align:left; margin:0 0 15px 0; padding:0; line-height:18px;">Dear {{ yourFriendsName }},</p>
+                {% if craft.app.globals.getSetByHandle(currentSite.handle).referralInitialIntroduction|length %}
+                  <p style="color:#3A3A3A; font-size: 14px; text-align:left; margin:0 0 15px 0; padding:0; line-height:18px;">
+                    {% for item in craft.app.globals.getSetByHandle(currentSite.handle).referralInitialIntroduction.all() %}
+                      {% if item.type == "text" %}
+                        {{ item.text }}
+                      {% elseif item.type == "recipientName" %}  
+                        {% if item.showName %}
+                          {{ yourFriendsName }}
+                        {% endif %}
+                      {% elseif item.type == "senderName" %}
+                        {% if item.showName %}
+                          {{ yourName }}
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  </p>
+                {% endif %}
+            
+                {% if craft.app.globals.getSetByHandle(currentSite.handle).referralIntroduction|length %}
+                  <p style="color:#3A3A3A; font-size: 14px; text-align:left; margin:0 0 15px 0; padding:0; line-height:18px;">
+                    {{ craft.app.globals.getSetByHandle(currentSite.handle).referralIntroduction }}
+                  </p>
+                {% endif %}
+                
+                <div><img src="{{ siteUrl }}assets/presentation/t.gif" alt="" width="10" height="20" style="width: 10px; height: 20px; display:block; vertical-align:middle;" /></div>
+                
+                {% if currentSite.handle == 'longAshesPark' %}
+                <div align="center"><img src="{{ siteUrl }}assets/presentation/emailpropertytop.jpg" alt="" align="center" width="570" height="7" style="height:7px; width:570px; max-width:100%;" /></div>
+                {% endif %}
+                
+              </td>
+            </tr>
+            
+                
+                <tr>
+                  <td bgcolor="#fafafa" style="background:#fafafa;">
+                    <table cellpadding="0" cellspacing="0" align="center" style="width:510px; max-width:100%; margin:0 auto; font-family:Arial,Helvetica,sans-serif; color:#3A3A3A; text-align:center;">
+                      <tr>
+                        <td>
+                          <div><img src="{{ siteUrl }}assets/presentation/t.gif" alt="" width="10" height="27" style="width: 10px; height: 27px; display:block; vertical-align:middle;" /></div>
+                          
+                          <table cellpadding="0" cellspacing="0" align="center" style="width:510px; max-width:100%; margin:0 auto; font-family:Arial,Helvetica,sans-serif; color:{{ mainColour }}; text-align:center;">
+                            <tr>
+                              <td style="vertical-align:top;text-align:left;" valign="top">
+                                {% if craft.entries.section('properties').slug(hidden).one().propertyName|length %}
+                                <div style="font-size:24px;font-weight:bold;line-height:18px;color:{{ mainColour }};text-align:left;margin:0 0 12px 0;">
+                                {{ craft.entries.section('properties').slug(hidden).one().propertyName }}  
+                                </div>
+                                {% endif %}
+                                {% if craft.entries.section('properties').slug(hidden).one().propertySecondaryNameInfo|length %}
+                                <div style="font-size:20px;font-weight:400;line-height:18px;color:{{ mainColour }};text-align:left;">
+                                {{ craft.entries.section('properties').slug(hidden).one().propertySecondaryNameInfo }}
+                                </div>
+                                {% endif %}
+                              </td>
+                              <td style="vertical-align:top;text-align:right;" valign="top">
+                                {% if craft.entries.section('properties').slug(hidden).one().price|length %}
+                                <div style="font-size:24px;font-weight:bold;line-height:18px;color:{{ mainColour }};text-align:right;">&pound;{{ craft.entries.section('properties').slug(hidden).one().price }}
+                                  </div>
+                                {% endif %}
+                              </td>
+                            </tr>
+                          </table>
+                          
+                          <div><img src="{{ siteUrl }}assets/presentation/t.gif" alt="" width="10" height="17" style="width: 10px; height: 17px; display:block; vertical-align:middle;" /></div>
+                          
+                          <div bgcolor="{{ mainColour }}" style="background:{{ mainColour }};"><img src="{{ siteUrl }}assets/presentation/t.gif" alt="" width="10" height="2" style="width: 10px; height: 2px; display:block; vertical-align:middle;" /></div>
+                          
+                          <div><img src="{{ siteUrl }}assets/presentation/t.gif" alt="" width="10" height="18" style="width: 10px; height: 18px; display:block; vertical-align:middle;" /></div>
+                          
+                          {% if craft.entries.section('properties').slug(hidden).one().numberOfBedroomsNumber|length or craft.entries.section('properties').slug(hidden).one().numberOfBathrooms|length %}
+                          <div style="color:{{ mainColour }};font-size:14px;line-height:18px;font-weight:bold;text-align:left;">
+                            {% if craft.entries.section('properties').slug(hidden).one().numberOfBedroomsNumber|length %}
+                            {{ craft.entries.section('properties').slug(hidden).one().numberOfBedroomsNumber }} Bedroom{% if craft.entries.section('properties').slug(hidden).one().numberOfBedroomsNumber > 1 %}s{% endif %}
+                            {% endif %}
+                            {% if craft.entries.section('properties').slug(hidden).one().numberOfBedroomsNumber|length and craft.entries.section('properties').slug(hidden).one().numberOfBathrooms|length %}
+                              <span style="display:inline-block;margin:0 7px 0 7px;">&nbsp;|&nbsp;</span>
+                            {% endif %}
+                            {% if craft.entries.section('properties').slug(hidden).one().numberOfBathrooms|length %}
+                            {{ craft.entries.section('properties').slug(hidden).one().numberOfBathrooms }} Bathroom{% if craft.entries.section('properties').slug(hidden).one().numberOfBathrooms > 1 %}s{% endif %}                          
+                            {% endif %}
+                          </div>
+                          
+                          <div><img src="{{ siteUrl }}assets/presentation/t.gif" alt="" width="10" height="20" style="width: 10px; height: 20px; display:block; vertical-align:middle;" /></div>
+                          
+                          {% endif %}
+                          
+                          {% if craft.entries.section('properties').slug(hidden).one().emailImage|length or craft.entries.section('properties').slug(hidden).one().propertyImages|length %}
+                          <div><img src="{% if craft.entries.section('properties').slug(hidden).one().emailImage|length %}{{ craft.entries.section('properties').slug(hidden).one().emailImage.one().url }}{% else %}{{ craft.entries.section('properties').slug(hidden).one().propertyImages.one().url }}{% endif %}" alt="{{ craft.entries.section('properties').slug(hidden).one().propertyName }}" width="510" style="width: 510px; display:block; vertical-align:middle;max-width:100%;" /></div>
+                          
+                            <div><img src="{{ siteUrl }}assets/presentation/t.gif" alt="" width="10" height="30" style="width: 10px; height: 30px; display:block; vertical-align:middle;" /></div>
+                            
+                          {% endif %}
+                          
+                          
+                          {% if craft.entries.section('properties').slug(hidden).one().emailDescription|length %}
+                          <div style="font-size:13px;line-height:18px;font-weight:bold;text-align:left;">Property Description</div>
+                          
+                          <div><img src="{{ siteUrl }}assets/presentation/t.gif" alt="" width="10" height="15" style="width: 10px; height: 15px; display:block; vertical-align:middle;" /></div>
+                          
+                          <div style="font-size:13px;line-height:18px;text-align:left;">
+                            {{ craft.entries.section('properties').slug(hidden).one().emailDescription }}
+                          </div>
+                          
+                          <div><img src="{{ siteUrl }}assets/presentation/t.gif" alt="" width="10" height="15" style="width: 10px; height: 15px; display:block; vertical-align:middle;" /></div>
+                          
+                          {% endif %}
+                            
+                          <div style="text-align:left;"><a href="{{ craft.entries.section('properties').slug(hidden).one().url }}" style="font-size: 14px;font-family: Arial,Helvetica,sans-serif; color: #ffffff; background: {{ mainColour }}; text-align: center; display:inline-block;border-top: 17px solid {{ mainColour }};  border-bottom: 17px solid {{ mainColour }};  border-right: 30px solid {{ mainColour }};  border-left: 30px solid {{ mainColour }};font-weight:bold;text-decoration:none;">
+                            View Full Details  
+                          </a>
+                          </div>
+                          
+                          <div><img src="{{ siteUrl }}assets/presentation/t.gif" alt="" width="10" height="35" style="width: 10px; height: 35px; display:block; vertical-align:middle;" /></div>
+                            
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                
+                
+                <tr>
+                  <td>
+                    <div bgcolor="#f2f2f2" style="background:#f2f2f2;"><img src="{{ siteUrl }}assets/presentation/t.gif" alt="" width="10" height="2" style="width: 10px; height: 2px; display:block; vertical-align:middle;" /></div>
+                  
+                    <div><img src="{{ siteUrl }}assets/presentation/t.gif" alt="" width="10" height="48" style="width: 10px; height:  48px; display:block; vertical-align:middle;" /></div>
+                  
+                    {% if craft.app.globals.getSetByHandle(currentSite.handle).referralEmailEndContent|length %}
+                      <div style="font-size: 14px;line-height:18px;color:#3A3A3A;text-align:left;">
+                        {{ craft.app.globals.getSetByHandle(currentSite.handle).referralEmailEndContent }}
+                      </div>
+                    {% endif %}
+                    
+                    {% if craft.app.globals.getSetByHandle(currentSite.handle).referralEmailFrom|length %}
+                      <div style="font-size: 14px;line-height:18px;color:#3A3A3A;font-weight:bold; text-align:left;">
+                        {{ craft.app.globals.getSetByHandle(currentSite.handle).referralEmailFrom }}
+                      </div>
+                    {% endif %}
+                  
+                  
+                  <div><img src="{{ siteUrl }}assets/presentation/t.gif" alt="" width="10" height="50" style="width: 10px; height: 50px; display:block; vertical-align:middle;" /></div>
+                  
+                    <div bgcolor="{{ mainColour }}" style="background:{{ mainColour }};"><img src="{{ siteUrl }}assets/presentation/t.gif" alt="" width="10" height="2" style="width: 10px; height: 2px; display:block; vertical-align:middle;" /></div>
+                  
+                    <div><img src="{{ siteUrl }}assets/presentation/t.gif" alt="" width="10" height="25" style="width: 10px; height: 25px; display:block; vertical-align:middle;" /></div>
+                  
+                    <table cellpadding="0" cellspacing="0" align="center" style="width:570px; max-width:100%; margin:0 auto; font-family:Arial,Helvetica,sans-serif; text-align:center;">
+                      <tr>
+                        <td style="vertical-align:top;text-align:left;" valign="top">
+                          {% if craft.app.globals.getSetByHandle(currentSite.handle).emailFooterAddress|length %}
+                            {% for row in craft.app.globals.getSetByHandle(currentSite.handle).emailFooterAddress %}
+                              <div style="font-size: 14px;line-height:18px;margin:0 0 5px 0;{% if loop.index == 1 %}color:{{ mainColour }};font-weight:bold;{% else %}color:#3a3a3a;{% endif %}">
+                                {{ row.addressLine }}
+                              </div>
+                            {% endfor %}
+                          {% endif %}
+                        </td>
+                        <td style="vertical-align:top;text-align:right;" valign="top">
+                          {% if craft.app.globals.getSetByHandle(currentSite.handle).emailFooterPhoneNumber|length %}
+                          <div style="font-size: 14px;line-height:18px;margin:0 0 5px 0;color:#3a3a3a;">
+                            <span style="color:{{ mainColour }};font-weight:bold;">T:</span> <a style="color:#3a3a3a;text-decoration:none;" href="tel:{{ craft.app.globals.getSetByHandle(currentSite.handle).emailFooterPhoneNumber }}">{{ craft.app.globals.getSetByHandle(currentSite.handle).emailFooterPhoneNumber }}</a>
+                          </div>
+                          {% endif %}
+                          {% if craft.app.globals.getSetByHandle(currentSite.handle).emailFooterEmailAddress|length %}
+                          <div style="font-size: 14px;line-height:18px;margin:0 0 5px 0;color:#3a3a3a;">
+                            <span style="color:{{ mainColour }};font-weight:bold;">E:</span> <a style="color:#3a3a3a;text-decoration:none;" href="mailto:{{ craft.app.globals.getSetByHandle(currentSite.handle).emailFooterEmailAddress }}">{{ craft.app.globals.getSetByHandle(currentSite.handle).emailFooterEmailAddress }}</a>
+                          </div>
+                          {% endif %}
+                          {% if craft.app.globals.getSetByHandle(currentSite.handle).emailFooterWebsite|length %}
+                          <div style="font-size: 14px;line-height:18px;margin:0 0 5px 0;color:#3a3a3a;">
+                            <span style="color:{{ mainColour }};font-weight:bold;">W:</span> <a style="color:#3a3a3a;text-decoration:none;" href="{{ siteUrl }}">{{ craft.app.globals.getSetByHandle(currentSite.handle).emailFooterWebsite }}</a>
+                          </div>
+                          {% endif %}
+                          
+                        </td>
+                      </tr>
+                    </table>
+                  
+                  
+                    <div><img src="{{ siteUrl }}assets/presentation/t.gif" alt="" width="10" height="33" style="width: 10px; height: 33px; display:block; vertical-align:middle;" /></div>
+                  
+                  </td>
+                </tr>
+                
+                
+                
+        </table>
+      </td>
+    </tr>
+      
+  
+  </table>
+</div>
+    
+
+
+

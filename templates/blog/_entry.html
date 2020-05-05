@@ -1,0 +1,144 @@
+{% extends "layouts/_layout" %}
+
+{% block content %}
+	
+	
+<div id="section2">
+	<div class="section section--white section--basicpage">
+		<div class="container cs">
+			<div class="blog cs blog--wcomments">
+								
+				<div class="blog__contentside blog__contentside--blogstyle">
+					{% if entry.displayDefaultHeading %}
+						{% if entry.articleTitle|length %}
+							<h1><strong>{{ entry.articleTitle }}</strong></h1>
+						{% endif %}
+						
+						
+							<div class="blog__postedbar">
+								<strong>Posted: </strong> {{ entry.dateCreated|date('jS F Y') }}
+							</div>
+					
+						
+					{% endif %}
+			
+					{% include "layouts/_basiccontent" %}
+					
+					
+						<div class="blog__comments">
+							<div class="blog__commentsheading">Leave a Comment</div>
+						
+							<div id="disqus_thread"></div>
+							<script>						
+							var disqus_config = function () {
+							this.page.url = '{{ craft.app.request.absoluteUrl }}'; 
+							this.page.identifier = '{{ entry.section.handle }}{{ entry.slug }}';
+							};
+							
+							(function() { 
+							var d = document, s = d.createElement('script');
+							{% if currentSite.handle == 'gamekeepersInn' %}
+								s.src = 'https://the-gamekeepers-inn.disqus.com/embed.js';
+							{% elseif currentSite.handle == 'longAshesPark' %}
+								s.src = 'https://long-ashes-park.disqus.com/embed.js';
+							{% elseif currentSite.handle == 'roydonMarinaVillage' %}
+								s.src = 'https://roydon-marina-village.disqus.com/embed.js';			
+							{% elseif currentSite.handle == 'tattenhallMarina' %}			
+								s.src = 'https://tattenhall-marina.disqus.com/embed.js';			
+							{% elseif currentSite.handle == 'saulJunctionMarina' %}		
+								s.src = 'https://saul-junction-marina.disqus.com/embed.js';	
+							{% elseif currentSite.handle == 'greatHaywoodMarina' %}		
+								s.src = 'https://great-haywood-marina.disqus.com/embed.js';
+							{% elseif currentSite.handle == 'deganwyMarina' %}			
+								s.src = 'https://deganwy-marina.disqus.com/embed.js';
+							{% elseif currentSite.handle == 'laBellaVista' %}
+								s.src = 'https://la-bella-vista.disqus.com/embed.js';
+							{% elseif currentSite.handle == 'boatSales' %}
+								s.src = 'https://boat-sales.disqus.com/embed.js';
+							{% elseif currentSite.handle == 'hungerfordMarina' %}
+								s.src = 'https://hungerford-marina.disqus.com/embed.js';
+							{% endif %}
+							s.setAttribute('data-timestamp', +new Date());
+							(d.head || d.body).appendChild(s);
+							})();
+							</script>
+							<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+																			
+						</div>
+			
+					
+				</div>
+				
+			
+					<div class="blog__colside blog__colside--blogstyle">
+						
+							{% if currentGlobals.facebookLink|length or currentGlobals.twitterLink|length or currentGlobals.instagramLink|length or currentGlobals.googlePlusLink|length or currentGlobals.tripadvisorLink|length %}
+							<div class="blog__colheading blog__colheading--blogstyle blog__colheading--sml">
+								Follow Us
+							</div>
+							<div class="blog__colsocials">
+								{% if currentGlobals.facebookLink|length %}<a target="_blank" href="{{ currentGlobals.facebookLink }}" class="blog__colsociallink"><span class="blog__colsociallinkimg blog__colsociallinkimg--facebook">&nbsp;</span></a>{% endif %}{% if currentGlobals.twitterLink|length %}<a target="_blank" href="{{ currentGlobals.twitterLink }}" class="blog__colsociallink"><span class="blog__colsociallinkimg blog__colsociallinkimg--twitter">&nbsp;</span></a>{% endif %}{% if currentGlobals.instagramLink|length %}<a target="_blank" href="{{ currentGlobals.instagramLink }}" class="blog__colsociallink"><span class="blog__colsociallinkimg blog__colsociallinkimg--instagram">&nbsp;</span></a>{% endif %}{% if currentGlobals.googlePlusLink|length %}<a target="_blank" href="{{ currentGlobals.googlePlusLink }}" class="blog__colsociallink"><span class="blog__colsociallinkimg blog__colsociallinkimg--googleplus">&nbsp;</span></a>{% endif %}{% if currentGlobals.tripadvisorLink|length %}<a target="_blank" href="{{ currentGlobals.tripadvisorLink }}" class="blog__colsociallink"><span class="blog__colsociallinkimg blog__colsociallinkimg--tripadvisor">&nbsp;</span></a>{% endif %}
+							</div>
+							{% endif %}
+						
+							{% if articles|length > 1 %}
+							
+								<div class="blog__colheading blog__colheading--blogstyle">What's New?</div>
+								<div class="blog__newlist">
+									{% set articleLimit = 3 %}
+									{% for article in articles.all() %}
+										{% if loop.index <= articleLimit %}
+											{% if entry.slug == article.slug %}
+												{% set articleLimit = 4 %}
+											{% else %}	
+												<div class="blog__newitem cs">
+													{% if article.articleTitle|length %}
+														<a href="{{ article.url }}" class="blog__newitemheading">{{ article.articleTitle }}</a>
+													{% endif %}
+													{% if article.articleImage|length %}
+														<div class="blog__newitemimg">
+															<a href="{{ article.url }}" class="blog__newsitemimglink">
+																<img src="{{ article.articleImage.one().getUrl('blogWhatsNew') }}" alt="{% if article.articleTitle|length %}{{ article.articleTitle }}{% else %}{{ article.articleImage.one().title }}{% endif %}" class="blog__newitemimgimg" />
+															</a>
+														</div>
+													{% endif %}
+													{% if article.articleSummary|length %}
+														<div class="blog__newitemsummary">{{ article.articleSummary }}</div>
+													{% endif %}
+												</div>
+											{% endif %}
+										{% endif %}
+									{% endfor %}
+								</div>
+								
+							{% endif %}
+											
+						{% if entry.blogCategories|length %}
+							<div class="blog__colheading blog__colheading--blogstyle">Categories</div>
+							<div class="blog__tags">
+						
+									{% for cat in entry.blogCategories.all() %}<a href="{{ cat.url }}" class="blog__tag">{{ cat.title }}</a>{% endfor %}
+								
+								
+							</div>
+						{% endif %}
+						{% if entry.blogTags|length %}
+							<div class="blog__colheading blog__colheading--blogstyle">Tags</div>
+							<div class="blog__tags">
+								{% for tag in entry.blogTags.all() %}<a href="{{ url('blog/tag/'~tag.slug) }}" class="blog__tag">{{ tag.title }}</a>{% endfor %}
+							</div>
+						{% endif %}
+					</div>
+			
+				
+			</div>
+			
+			
+		
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}
+

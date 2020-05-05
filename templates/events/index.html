@@ -1,0 +1,38 @@
+{% extends "layouts/_layout" %}
+
+
+{% block content %}
+
+
+<div id="section2">
+	<div class="section section--white section--basicpage">
+		<div class="container cs">
+			{% include "layouts/_basiccontent" %}
+			
+			{% set eventsList = craft.entries.section('events').orderBy('eventDate').all() %}
+			<div class="events">
+				{% if eventsList|length > 0 %}
+					{% for item in eventsList %}
+						<div class="events__item cs">
+							{% if item.eventImage|length %}<a class="events__itemimg" style="background-image:url({{ item.eventImage.one().url }});" href="{{ item.url }}">&nbsp;</a>{% endif %}
+							<div class="events__itemcontent {% if item.eventImage|length %}{% else %}events__itemcontent--noimg{% endif %}">
+								<a class="events__itemtitle" href="{{ item.url }}">{{ item.eventName }}</a>
+								<div class="events__itemdate">{{ item.eventDate|date('jS F Y') }}</div>
+								<div class="events__itemsummary">{{ item.eventSummary }}</div>
+								<a href="{{ item.url }}" class="events__itembtn btn btn--white">Read More</a>
+							</div>
+						</div>
+					{% endfor %}
+				{% else %}
+					<p class="events__noresultsp">Currently no events.</p>
+				{% endif %}
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+	
+
+	
+{% endblock %}

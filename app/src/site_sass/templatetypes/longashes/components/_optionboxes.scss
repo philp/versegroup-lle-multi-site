@@ -1,0 +1,149 @@
+.optionboxes {
+  background: $darkgreen;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: $font18;
+  text-align: center;
+  letter-spacing: 0.07em;
+  line-height: 1.35em;
+  padding: 6px 0 0;
+}
+.optionboxes__summary {
+  font-weight: 300;
+}
+.optionboxes__heading {
+  font-weight: bold;
+  padding-bottom: 6px;
+}
+.optionboxes__row {
+  border-bottom: 1px solid $lightgreen;
+  padding: 60px 0 55px;
+  display:flex;
+  flex-wrap: nowrap;
+  align-content: flex-start;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+.optionboxes__item {
+  width: 33.33%;
+  box-sizing: border-box;
+  padding: 0 20px;
+  border-color: $lightgreen;
+  border-left-width: 1px;
+  border-left-style: solid;
+  border-right-style: solid;
+  border-right-width: 0px;
+  vertical-align:top;
+  flex:1;
+
+  &:first-child {
+    border-left-width: 0px;
+  }
+}
+
+.optionboxes__imgarea {
+    height: auto
+}
+
+.optionboxes--widerow {
+  .optionboxes__item img {
+    max-height:90px;
+  }
+}
+
+.optionboxes__content {
+  padding-top: 29px;
+  box-sizing: border-box;
+}
+.optionboxes__img {
+  max-width: 230px;
+}
+
+@media(max-width:960px){
+  .optionboxes {
+    padding-top: 0;
+  }
+}
+@media(max-width:880px){
+  .optionboxes__img { 
+    max-width: 100%; 
+  }
+}
+@media(max-width:850px){
+  .optionboxes__row {
+    padding: 45px 0;
+  }
+}
+@media(max-width:720px){
+  .optionboxes__content {
+    padding-top: 18px;
+  }
+
+  .optionboxes--widerow {
+    padding:40px 0;
+
+    .optionboxes__row {
+      display:inline;
+      border:0;
+      padding:0;
+
+      &:after {
+        display:none;
+      }
+    }
+
+    .optionboxes__item {
+      display:inline-block;
+      margin:10px -0.5px;
+      border-left-width:1px;
+      border-right-width:1px;
+      float:none;
+    }
+  }
+}
+@media(max-width:660px){
+  .optionboxes {
+    font-size: 100%;
+  }
+}
+@media(max-width:550px){
+  .optionboxes__row {
+    padding: 0;
+    border: 0;
+    display:block;
+
+    &:last-child {
+      .optionboxes__item {
+        &:last-child {
+          border-bottom: 0;
+        }
+      }
+    }
+  }
+  .optionboxes__item {
+    width: 100%;
+    float: none;
+    padding: 30px 20px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-left-width: 0;
+    &:first-child{
+      border-left: none;
+      border-right: none;
+    }
+  }
+  .optionboxes--widerow {
+    .optionboxes__item {
+      border-left-width: 0;
+      border-right-width: 0;
+    }
+  }
+  .optionboxes__imgarea {
+    height: auto!important;
+  }
+  .optionboxes {
+    padding: 10px 0 16px;
+  }
+}

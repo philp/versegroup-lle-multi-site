@@ -1,0 +1,61 @@
+<div id="section{{ panelsCountStart }}">
+  <div class="section section--white section--menu">
+    <div class="container cs">
+      {% if entry.priceListTitle|length or entry.priceListIntro|length %}
+        <div class="halvestitle cs">
+          {% if entry.priceListTitle|length %}
+            <div class="halvestitle__titleside">
+              {{ entry.priceListTitle }}
+            </div>
+          {% endif %}
+          {% if entry.priceListIntro|length %}
+            <div class="halvestitle__introside">
+              {{ entry.priceListIntro }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+      <div class="menutable">
+        {% if entry.priceListMainHeadingLeft|length or entry.priceListMainHeadingRight|length %}
+          <div class="menutable__titles cs">
+            {% if entry.priceListMainHeadingLeft|length %}
+              <div class="menutable__title menutable__title--left"><div class="menutable__titlepadding">{{ entry.priceListMainHeadingLeft }}</div></div>
+            {% endif %}
+            {% if entry.priceListMainHeadingRight|length %}
+              <div class="menutable__title menutable__title--right"><div class="menutable__titlepadding">{{ entry.priceListMainHeadingRight }}</div></div>
+            {% endif %}
+          </div>
+        {% endif %}
+        {% if entry.priceListTable|length %}
+          <div class="menutable__tableholder">
+            <table class="menutable__table">
+              {% for item in entry.priceListTable.all() %}
+                {% if item.type == "heading" %}
+                  <tr>
+                    <th {% if item.smallFont %}class="menutable__smallfont"{% endif %}>{% if item.boldText|length %}<strong {% if item.italicText %}class="menutable__titlemargin"{% endif %}>{{ item.boldText }}</strong> {% endif %}{% if item.regularText|length %}{% if item.italicText %}<em>{% endif %}{{ item.regularText }}{% if item.italicText %}</em>{% endif %}{% endif %}</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                {% elseif item.type == "backgroundDetailRow" %}
+                  <tr>
+                    <th class="menutable__midtitle">{% if item.rowHeading|length or item.rowContent|length %}{% if item.rowHeading|length %}<strong>{{ item.rowHeading }}</strong> {% endif %}{% if item.rowContent|length %}{{ item.rowContent }}{% endif %}{% else %}&nbsp;{% endif %}</th>
+                    <th class="menutable__midtitle">&nbsp;</th>
+                  </tr>
+                {% elseif item.type == "row" %}
+                  <tr>
+                    <td>{% if item.leftContent|length %}{{ item.leftContent }}{% else %}&nbsp;{% endif %}</td>
+                    <td>{% if item.italicBeforeRightContent %}<em>{{ item.italicBeforeRightContent }}</em> {% endif %}{% if item.rightContent|length %}{{ item.rightContent }}{% else %}&nbsp;{% endif %}</td>
+                  </tr>
+                {% elseif item.type == "disclaimerRow" %}
+                  <tr>
+                    <td class="menutable__disclaimer">{% if item.disclaimerMarker|length %}<span class="menutable__colour">{{ item.disclaimerMarker }}</span> {% endif %}{% if item.regularText|length %}{{ item.regularText }} <br />{% endif %}{% if item.boldText|length %}<strong>{{ item.boldText }}</strong>{% endif %}</td>
+                    <td class="menutable__disclaimer menutable__tdempty">&nbsp;</td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
+            </table>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

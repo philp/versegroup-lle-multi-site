@@ -1,0 +1,24 @@
+<div class="section_gallery">
+  <div id="section{{ panelNum }}gallery" class="section_galleryid">
+    {% for img in item.scrollingGallery.all() %}
+      {% if item.panelStyling == 'greyBoxes' %}
+        <div class="galleryItem section_galleryitem" style="background-image:url({{ img.getUrl('boxesFirstPanelImage') }})">
+          <div class="section_galleryitemimgholder"><img src="{{ img.getUrl('boxesFirstPanelImage') }}" class="section_galleryitemimg" alt="{{ img.title }}" /></div>
+        </div>  
+      {% else %}
+        <div class="galleryItem section_galleryitem" style="background-image:url({{ img.getUrl('bannerPanelGallery') }})">
+          <div class="section_galleryitemimgholder"><img src="{{ img.getUrl('bannerPanelGallery') }}" class="section_galleryitemimg" alt="{{ img.title }}" /></div>
+        </div>  
+      {% endif %}  
+    {% endfor %}
+  </div>
+  <script type="text/javascript">
+  <!--
+    $(function() {
+      $('#section{{ panelNum }}gallery').imageGallery({ itemButtons:false, nextPrevButtons:true, autoplay:true, speed:5000, callback:function() {
+        slideRender($('#section{{ panelNum }}gallery').find('.activeItem'));
+      }});
+    });
+   //-->
+  </script>
+</div>

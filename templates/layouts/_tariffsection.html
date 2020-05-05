@@ -1,0 +1,153 @@
+{% if entry.tariffInformation|length %}
+
+{% set numAbovePanels = 0 %}
+{% if altPanelsStatus == true %}
+  {% set numAbovePanels = entry.alternatingPanels|length %}
+{% endif %}
+{% set panelNum = panelsCountStart + numAbovePanels + 1 %}
+
+<div id="section{{ panelNum }}">
+  <div class="section section--white section--menu section--reducedendpad">
+    <div class="container cs">
+      <div class="tariffarea">
+        {% for item in entry.tariffInformation.all() %}
+          {% switch item.type %}
+          {% case 'twoColumnTable' %}
+            <div class="menutable menutable--tariffs">
+              <div class="menutable__titles cs">
+                {% if item.column1Title|length or item.column1TitleRegular|length %}
+                  <div class="menutable__title menutable__title--left"><div class="menutable__titlepadding">
+                    {% if item.column1Title|length %}
+                      {{ item.column1Title }}
+                    {% endif %}
+                    {% if item.column1TitleRegular|length %}
+                      <span class="regular">{{ item.column1TitleRegular }}</span>
+                    {% endif %}
+                  </div></div>
+                {% endif %}
+                {% if item.column2Title|length or item.column2TitleRegular|length %}
+                  <div class="menutable__title menutable__title--right"><div class="menutable__titlepadding">
+                    {% if item.column2Title|length %}
+                      {{ item.column2Title }}
+                    {% endif %}
+                    {% if item.column2TitleRegular|length %}
+                      <span class="regular">{{ item.column2TitleRegular }}</span>
+                    {% endif %}
+                  </div></div>
+                {% endif %}
+              </div>
+              <div class="menutable__tableholder">
+                <table class="menutable__table">
+                  {% for row in item.table %}
+                    <tr>
+                      <td class="menutable__tdtwocolleft">{% if row.column1|length %}{{ row.column1 }}{% else %}&nbsp;{% endif %}</td>
+                      <td class="menutable__tdtwocolright">{% if row.column2|length %}{{ row.column2 }}{% else %}&nbsp;{% endif %}</td>
+                    </tr>
+                  {% endfor %}
+                </table>
+              </div>
+            </div>
+          {% case 'threeColumnTable' %}
+            <div class="menutable menutable--tariffs">          
+              <div class="menutable__titles cs">
+                {% if item.column1Title|length or item.column1TitleRegular|length %}
+                  <div class="menutable__title menutable__title--left menutable__title--threecolleft"><div class="menutable__titlepadding menutable__titlepadding--sml">
+                    <div class="menutable__3colequaltitle">
+                    {% if item.column1Title|length %}
+                      {{ item.column1Title }}
+                    {% endif %}
+                    {% if item.column1TitleRegular|length %}
+                      <span class="regular">{{ item.column1TitleRegular }}</span>
+                    {% endif %}
+                    </div>
+                  </div></div>
+                {% endif %}
+                {% if item.column3Title|length or item.column3TitleRegular|length %}
+                  <div class="menutable__title menutable__title--right menutable__title--rightthreecol menutable__title--rightthreelast"><div class="menutable__titlepadding menutable__titlepadding--sml">
+                    <div class="menutable__3colequaltitle">
+                    {% if item.column3Title|length %}
+                      {{ item.column3Title }}
+                    {% endif %}
+                    {% if item.column3TitleRegular|length %}
+                      <span class="regular">{{ item.column3TitleRegular }}</span>
+                    {% endif %}
+                    </div>
+                  </div></div>
+                {% endif %}
+                {% if item.column2Title|length or item.column2TitleRegular|length %}
+                  <div class="menutable__title menutable__title--right menutable__title--rightthreecol menutable__title--rightthreemid"><div class="menutable__titlepadding menutable__titlepadding--sml">
+                    <div class="menutable__3colequaltitle">
+                    {% if item.column2Title|length %}
+                      {{ item.column2Title }}
+                    {% endif %}
+                    {% if item.column2TitleRegular|length %}
+                      <span class="regular">{{ item.column2TitleRegular }}</span>
+                    {% endif %}
+                    </div>
+                  </div></div>
+                {% endif %}
+              </div>
+              <div class="menutable__tableholder">
+                <table class="menutable__table">
+                  {% for row in item.table %}
+                    <tr>
+                      <td class="menutable__tdthreecolleft">{% if row.column1|length %}{{ row.column1 }}{% else %}&nbsp;{% endif %}</td>
+                      <td class="menutable__tdthreecolright">{% if row.column2|length %}{{ row.column2 }}{% else %}&nbsp;{% endif %}</td>
+                      <td class="menutable__tdthreecolright">{% if row.column3|length %}{{ row.column3 }}{% else %}&nbsp;{% endif %}</td>
+                    </tr>
+                  {% endfor %}
+                </table>
+              </div>
+            </div>
+          {% case 'tableTitle' %}
+            <div class="tariffarea__tabletitle">{{ item.titleContent }}</div>
+          {% case 'headingsArea' %}
+            {% if item.leftHeading|length or item.rightIntro|length %}
+              <div class="halvestitle cs">
+                {% if item.leftHeading|length %}
+                  <div class="halvestitle__titleside">
+                    {{ item.leftHeading }}
+                  </div>
+                {% endif %}
+                {% if item.rightIntro|length %}
+                  <div class="halvestitle__introside">
+                    {{ item.rightIntro }}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% case 'contentBesideButton' %}
+            <div class="cs tariffarea__contentbtn">
+              {% if item.contentSide|length %}
+                <div class="tariffarea__contentside {% if item.buttonText|length %}{% if item.buttonEntry|length or item.buttonLink|length or item.buttonDownload|length %}tariffarea__contentside--wbtn{% endif %}{% endif %}">
+                  {{ item.contentSide }}
+                </div>{% endif %}{% if item.buttonText|length %}{% if item.buttonEntry|length or item.buttonLink|length or item.buttonDownload|length %}<div class="tariffarea__btnside {% if item.contentSide|length %}tariffarea__btnside--wcontent{% endif %}">
+                  {% set isPopup = false %}
+                  {% if item.buttonEntry|length %}
+                    {% if item.buttonEntry.one().section.handle == 'popups' %}
+                      {% set isPopup = true %}
+                    {% endif %}
+                  {% endif %}
+                    <a href="
+                    {% if item.buttonEntry|length %}
+                      {{ item.buttonEntry.one().url }}
+                    {% elseif item.buttonLink|length %}
+                      {{ item.buttonLink }}
+                    {% elseif item.buttonDownload|length %}
+                      {{ item.buttonDownload.one().url }}
+                    {% endif %}" class="btn tariffarea__btn {% if isPopup == true %}popuplink{% endif %}" {% if isPopup == true %}data-popup="{{ item.buttonEntry.one().slug }}"{% endif %} {% if item.openButtonInNewTab %}target="_blank"{% endif %}>{{ item.buttonText }}</a>
+                  </div>{% endif %}{% endif %}
+            </div>
+          
+          
+          {% case 'fullWidthContent' %}
+          
+          {% case 'buttons' %}
+          
+          {% endswitch %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}

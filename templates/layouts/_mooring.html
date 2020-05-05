@@ -1,0 +1,224 @@
+{% include "layouts/_firstsection" %}
+
+    {% if entry.optionBoxesBar is defined and entry.optionBoxesBar|length %}
+      {% for bar in entry.optionBoxesBar.all() %}
+        {% include "layouts/_optionboxes" with {'ownSection':true} %}
+      {% endfor %}
+    {% endif %}
+
+    {% include "layouts/_mappanel" %}
+
+    {% if entry.mooringTableHeading|length or entry.mooringTableSummary|length or entry.mooringTable|length or entry.occasionButtons|length %}
+    <div class="section section--mooringtable section--white" id="section{{ mooringTariffNum }}">
+      <div class="container">
+        {% if entry.mooringTableHeading|length or entry.mooringTableSummary|length %}
+          <div class="halvestitle cs">
+            {% if entry.mooringTableHeading|length %}
+              <div class="halvestitle__titleside">
+                {{ entry.mooringTableHeading|replace({'<p>':'<h2 class="h1">','</p>':'</h2>'})|raw }}
+              </div>
+            {% endif %}
+            {% if entry.mooringTableSummary|length %}
+              <div class="halvestitle__introside">
+                {{ entry.mooringTableSummary }}
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if entry.mooringTable|length %}
+          <div class="mooringtable">
+            <div class="mooringtable__holder">
+              {% set prevRowType = 'none' %}
+              {% set cellsNum = 4 %}
+              {% if entry.hideMooringTableColumn4 %}
+                {% set cellsNum = cellsNum - 1 %}
+              {% endif %}
+              {% if entry.hideMooringTableColumn3 %}
+                {% set cellsNum = cellsNum - 1 %}
+              {% endif %}
+              {% if entry.hideMooringTableColumn2 %}
+                {% set cellsNum = cellsNum - 1 %}
+              {% endif %}
+              {% if entry.hideMooringTableColumn1 %}
+                {% set cellsNum = cellsNum - 1 %}
+              {% endif %}
+
+
+              {% set reducedCols = false %}
+              {% if entry.hideMooringTableColumn4 or entry.hideMooringTableColumn3  or entry.hideMooringTableColumn2 or entry.hideMooringTableColumn1 %}
+                {% set reducedCols = true %}
+              {% endif %}
+
+              {% set containerOpen = false %}
+
+              {% for item in entry.mooringTable.all() %}
+                {% if item.type == "headingsRow" %}
+
+                  {% if containerOpen == true %}
+                    </div>
+                  {% endif %}
+                  {% if item.column1Heading|length or item.column2Heading|length or item.column3Heading|length or item.column4Heading|length %}
+                    <div>
+                      <div class="mooringtable__headingrow cs">
+                        {% if item.column1Heading|length %}
+                          <div class="mooringtable__headingcell">
+                            <div class="mooringtable__headingcellinner">
+                              {{ item.column1Heading|replace({'<p>':'','</p>':''})|raw }}
+                            </div>
+                          </div>
+                        {% endif %}
+                        {% if item.column2Heading|length %}
+                          <div class="mooringtable__headingcell">
+                            <div class="mooringtable__headingcellinner">
+                              {{ item.column2Heading|replace({'<p>':'','</p>':''})|raw }}
+                            </div>
+                          </div>
+                        {% endif %}
+                        {% if item.column3Heading|length %}
+                          <div class="mooringtable__headingcell">
+                            <div class="mooringtable__headingcellinner">
+                              {{ item.column3Heading|replace({'<p>':'','</p>':''})|raw }}
+                            </div>
+                          </div>
+                        {% endif %}
+                        {% if item.column4Heading|length %}
+                          <div class="mooringtable__headingcell">
+                            <div class="mooringtable__headingcellinner">
+                              {{ item.column4Heading|replace({'<p>':'','</p>':''})|raw }}
+                            </div>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  {% endif %}
+                  {% set prevRowType = 'heading' %}
+                {% elseif item.type == "contentRow" %}
+
+                  {% if prevRowType == 'heading' or prevRowType == 'midheading' %}
+                    {% set containerOpen = true %}
+                    <div class="mooringtable__contentrows">
+                      {% if cellsNum < 4 and entry.hideMooringTableColumn1 == false and entry.hideMooringTableColumn2 == false and entry.hideMooringTableColumn3 == false and entry.hideMooringTableColumn4 == false %}
+                        <div class="mooringtable__sidebackground mooringtable__sidebackground--{% if cellsNum == 1 %}3{% elseif cellsNum == 2 %}2{% elseif cellsNum == 3 %}1{% endif %}" {% if entry.tableBlankImage|length %}style="background-image:url({{ entry.tableBlankImage.one().url }});"{% endif %}>
+                          &nbsp;
+                        </div>
+                      {% endif %}
+                  {% endif %}
+
+                  <div>
+                    <div class="mooringtable__contentrow cs {% if loop.last %}mooringtable__contentrow--last{% endif %}">
+                      {% if item.column1Content|length %}
+                        <div class="mooringtable__contentcell {% if loop.last %}mooringtable__contentcell--finalfirstcell{% endif %} {% if item.smallText.contains('column1') %}mooringtable__contentcell--sml{% endif %} {% if cellsNum == 1 %}mooringtable__contentcell--last {% if reducedCols == false %}mooringtable__contentcell--lastnotfull{% endif %}{% endif %}">
+                          {{ item.column1Content|replace({'<p>':'','</p>':''})|raw }}
+                        </div>
+                      {% endif %}
+                      {% if item.column2Content|length %}
+                        <div class="mooringtable__contentcell {% if item.smallText.contains('column2') %}mooringtable__contentcell--sml{% endif %} {% if cellsNum == 2 %}mooringtable__contentcell--last {% if reducedCols == false %}mooringtable__contentcell--lastnotfull{% endif %}{% endif %}">
+                          {{ item.column2Content|replace({'<p>':'','</p>':''})|raw }}
+                        </div>
+                      {% elseif cellsNum > 1 %}
+                        <div class="mooringtable__contentcell {% if cellsNum == 2 %}mooringtable__contentcell--last {% if reducedCols == false %}mooringtable__contentcell--lastnotfull{% endif %}{% endif %}">&nbsp;</div>
+                      {% endif %}
+                      {% if item.column3Content|length %}
+                        <div class="mooringtable__contentcell {% if item.smallText.contains('column3') %}mooringtable__contentcell--sml{% endif %} {% if cellsNum == 3 %}mooringtable__contentcell--last {% if reducedCols == false %}mooringtable__contentcell--lastnotfull{% endif %}{% endif %}">
+                          {{ item.column3Content|replace({'<p>':'','</p>':''})|raw }}
+                        </div>
+                      {% elseif cellsNum > 2 %}
+                        <div class="mooringtable__contentcell {% if cellsNum == 3 %}mooringtable__contentcell--last {% if reducedCols == false %}mooringtable__contentcell--lastnotfull{% endif %}{% endif %}">&nbsp;</div>
+                      {% endif %}
+                      {% if item.column4Content|length %}
+                        <div class="mooringtable__contentcell {% if item.smallText.contains('column4') %}mooringtable__contentcell--sml{% endif %} {% if cellsNum == 4 %}mooringtable__contentcell--last{% endif %}">
+                          {{ item.column4Content|replace({'<p>':'','</p>':''})|raw }}
+                        </div>
+                      {% elseif cellsNum > 3 %}
+                        <div class="mooringtable__contentcell {% if cellsNum == 4 %}mooringtable__contentcell--last{% endif %}">&nbsp;</div>
+                      {% endif %}
+                    </div>
+                  </div>
+                  {% set prevRowType = 'content' %}
+                  {% if loop.last and containerOpen == true %}
+                    </div>
+                  {% endif %}
+
+                {% elseif item.type == "midTableHeadingRow" %}
+
+                  {% if containerOpen == true %}
+                    </div>
+                  {% endif %}
+                  {% set cellsNum = item.columnNumberAfter %}
+                  <div class="mooringtable__midheadingouter">
+                    {% if cellsNum < 4 %}
+                      <div class="mooringtable__midheadingsidearea {% if reducedCols %}mooringtable__midheadingsidearea--reduced{{ cellsNum }}{% endif %} {% if cellsNum == 3 %}mooringtable__midheadingsidearea--1{% elseif cellsNum == 2 %}mooringtable__midheadingsidearea--2{% elseif cellsNum == 1 %}mooringtable__midheadingsidearea--3{% endif %}">&nbsp;</div>
+                    {% endif %}
+                    <div class="mooringtable__midheadingrow {% if loop.last %}mooringtable__midheadingrow--last{% endif %} cs">
+                      {% if item.column1Content|length %}
+                        <div class="mooringtable__midheadingcell {% if cellsNum == 1 %}mooringtable__midheadingcell--last mooringtable__midheadingcell--lastnotfull{% endif %}">
+                          {{ item.column1Content|replace({'<p>':'','</p>':''})|raw }}
+                        </div>
+                      {% endif %}
+                      {% if item.column2Content|length %}
+                        <div class="mooringtable__midheadingcell {% if cellsNum == 2 %}mooringtable__midheadingcell--last mooringtable__midheadingcell--lastnotfull{% endif %}">
+                          {{ item.column2Content|replace({'<p>':'','</p>':''})|raw }}
+                        </div>
+                      {% elseif cellsNum > 1 %}
+                        <div class="mooringtable__midheadingcell {% if cellsNum == 2 %}mooringtable__midheadingcell--last mooringtable__midheadingcell--lastnotfull{% endif %}">&nbsp;</div>
+                      {% endif %}
+                      {% if item.column3Content|length %}
+                        <div class="mooringtable__midheadingcell {% if cellsNum == 3 %}mooringtable__midheadingcell--last mooringtable__midheadingcell--lastnotfull{% endif %}">
+                          {{ item.column3Content|replace({'<p>':'','</p>':''})|raw }}
+                        </div>
+                      {% elseif cellsNum > 2 %}
+                        <div class="mooringtable__midheadingcell {% if cellsNum == 3 %}mooringtable__midheadingcell--last mooringtable__midheadingcell--lastnotfull{% endif %}">&nbsp;</div>
+                      {% endif %}
+                      {% if item.column4Content|length %}
+                        <div class="mooringtable__midheadingcell {% if cellsNum == 4 %}mooringtable__midheadingcell--last{% endif %}">
+                          {{ item.column4Content|replace({'<p>':'','</p>':''})|raw }}
+                        </div>
+                      {% elseif cellsNum > 3 %}
+                        <div class="mooringtable__midheadingcell {% if cellsNum == 4 %}mooringtable__midheadingcell--last{% endif %}">&nbsp;</div>
+                      {% endif %}
+                    </div>
+                  </div>
+                  {% set prevRowType = 'midheading' %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if entry.occasionButtons|length %}
+          {% for item in entry.occasionButtons.all() %}
+            {% if item.type == "button" %}
+              {% if item.text|length and (item.entry|length or item.linkUrl|length or item.download|length) %}
+                {% set isPopup = false %}
+                {% if item.entry|length %}
+                  {% if item.entry.one().section.handle == 'popups' %}
+                    {% set isPopup = true %}
+                  {% endif %}
+                {% endif %}
+                <a href="{% if item.entry|length %}{{ item.entry.one().url }}{% elseif item.linkUrl|length %}{{ item.linkUrl }}{% elseif item.download|length %}{{ item.download.one().url }}{% endif %}" class="btn section__btnsareabtn {% if isPopup == true %}popuplink{% endif %} {% if item.brochureIcon %}btn--brochure{% endif %}" {% if isPopup == true %}data-popup="{{ item.entry.one().slug }}"{% endif %} {% if item.openInNewTab %}target="_blank"{% endif %}>{{ item.text }}</a>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% include "layouts/_contentpanels" %}
+
+
+    {% if entry.mooringFormHeading|length or entry.mooringForm|length %}
+      <div class="section section--contact section--endcontact section--mooringcontact" id="section{{ mooringContactNum }}">
+        <div class="container">
+          {% if entry.mooringFormHeading|length %}
+            {{ entry.mooringFormHeading|replace({'<p>':'<h2 class="h1">', '</p>':'</h2>'})|raw }}
+          {% endif %}
+          {% if entry.mooringForm|length %}
+            <div class="freeformpanelarea">
+              {{ entry.mooringForm.render() }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}

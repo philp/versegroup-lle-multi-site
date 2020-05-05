@@ -1,0 +1,294 @@
+.mooringtable {
+  margin-bottom: 49px;
+}
+.mooringtable__headingcell {
+  text-align: center;
+  box-sizing: border-box;
+  padding-left: 14px;
+  padding-right: 14px;
+  float: left;
+  &:first-child {
+    text-align: left;
+    width: 24%;
+    padding-left: 0;
+  }
+  &:nth-child(2){
+    width: 26%;
+  }
+  &:nth-child(3){
+    width: 26%;
+  }
+  &:nth-child(4){
+    width: 24%;
+    padding-right: 0;
+  }
+}
+.mooringtable__headingcellinner {
+  text-transform: uppercase;
+  background: $lightgreen;
+  border: 1px solid $darkgrey;
+  box-sizing: border-box;
+  border-bottom: 0;
+  font-size: $font18;
+  color: #fff;
+  letter-spacing: 0.1em;
+  line-height: 1.1em;
+  border-radius: 5px 5px 0 0;
+  padding: 14.5px 19px;
+  font-weight: 300;
+}
+.mooringtable__contentrow {
+  box-sizing: border-box;
+  font-weight: 400;
+}
+.mooringtable__contentcell {
+  text-align: center;
+  float: left;
+  border: 1px solid $darkgrey;
+  box-sizing: border-box;
+  border-bottom-width: 0;
+  border-right: 0;
+  padding: 15.5px 19px;
+  position: relative;
+  em {
+    color: $longashesbodytext;
+    font-style: italic;
+    font-weight: 300;
+    font-size: $font12;
+    text-transform: none;
+  }
+  &:before {
+    content: " ";
+    display: inline-block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 0 10px 10px;
+    border-color: transparent transparent transparent $darkgrey;
+    top: 50%;
+    margin-top: -10px;
+    left: 0;
+  }
+  &:first-child {
+    &:before {
+      display: none;
+    }
+    text-align: left;
+    width: 24%;
+    &.mooringtable__contentcell--lastnotfull {
+      width: 24%;
+    }
+  }
+  &:nth-child(2){
+    width: 26%;
+    font-size: $font16;
+    &.mooringtable__contentcell--lastnotfull {
+      width: 26%;
+    }
+  }
+  &:nth-child(3){
+    width: 26%;
+    font-size: $font16;
+    &.mooringtable__contentcell--lastnotfull {
+      width: 26%;
+    }
+  }
+  &:nth-child(4){
+    width: 24%;
+    font-size: $font16;
+  }
+}
+.mooringtable__contentcell--sml {
+  font-size: $font12;
+}
+.mooringtable__contentcell--last {
+  border-right: 1px solid $darkgrey;
+}
+.mooringtable__midheadingcell {
+  text-align: center;
+  float: left;
+  text-transform: uppercase;
+  border: 1px solid $darkgrey;
+  box-sizing: border-box;
+  border-right: 0;
+  padding: 15.5px 19px;
+  border-bottom-width: 0;
+  background: $lightergreen;
+  &:first-child {
+    text-align: left;
+    width: 24%;
+    &.mooringtable__midheadingcell--lastnotfull {
+      width: 24%;
+    }
+  }
+  &:nth-child(2){
+    width: 26%;
+    font-size: $font16;
+    &.mooringtable__midheadingcell--lastnotfull {
+      width:26%;
+    }
+  }
+  &:nth-child(3){
+    width: 26%;
+    font-size: $font16;
+    &.mooringtable__midheadingcell--lastnotfull {
+      width: 26%;
+    }
+  }
+  &:nth-child(4){
+    width: 24%;
+    font-size: $font16;
+  }
+}
+.mooringtable__midheadingcell--last {
+  border-right: 1px solid $darkgrey;
+}
+.mooringtable__midheadingouter {
+  position: relative;
+}
+.mooringtable__midheadingsidearea {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  box-sizing: border-box;
+  background: $lightergreen;
+  border: 1px solid $darkgrey;
+  border-bottom-width: 0;
+  right: 1px;
+}
+.mooringtable__midheadingsidearea--1 {
+  width: 76%;
+  /*left: 24%;*/
+
+  &.mooringtable__midheadingsidearea--reduced3 {
+    right: 24%;
+    width: 52%;
+  }
+  &.mooringtable__midheadingsidearea--reduced2 {
+    right: 50%;
+    width: 26%;
+  }
+  &.mooringtable__midheadingsidearea--reduced1 {
+    display: none;
+  }
+}
+.mooringtable__midheadingsidearea--2 {
+  width: 50%;
+  /*left: 50%;*/
+
+  &.mooringtable__midheadingsidearea--reduced3 {
+    right: 24%;
+    width: 26%;
+  }
+  &.mooringtable__midheadingsidearea--reduced2 {
+    display: none;
+  }
+}
+.mooringtable__midheadingsidearea--3 {
+  width: 24%;
+  /*left: 76%;*/
+  &.mooringtable__midheadingsidearea--reduced3 {
+    display: none;
+  }
+}
+.mooringtable__contentrows {
+  position: relative;
+}
+.mooringtable__contentrows:last-child {
+  .mooringtable__sidebackground {
+    border-bottom-width: 1px;
+  }
+}
+.mooringtable__midheadingouter:last-child {
+  .mooringtable__midheadingsidearea {
+    border-bottom-width: 1px;
+  }
+}
+.mooringtable__contentcell--finalfirstcell {
+  border-bottom-left-radius: 5px;
+}
+.mooringtable__sidebackground {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  border: 1px solid $darkgrey;
+  box-sizing: border-box;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 78%;
+  right: 1px;
+}
+.mooringtable__sidebackground--3 {
+  width: 76%;
+  /*left: 24%;*/
+}
+.mooringtable__sidebackground--2 {
+  width: 50%;
+  /*left: 50%;*/
+}
+.mooringtable__sidebackground--1 {
+  width: 24%;
+  /*left: 76px;*/
+}
+.mooringtable__contentrows:last-child {
+  .mooringtable__sidebackground {
+    border-bottom-right-radius: 5px;
+  }
+}
+.mooringtable__midheadingrow {
+  font-weight: 400;
+}
+.mooringtable__midheadingrow--last {
+  .mooringtable__midheadingcell {
+    border-bottom-width: 1px;
+  }
+}
+.mooringtable__contentrow--last {
+  .mooringtable__contentcell {
+    border-bottom-width: 1px;
+  }
+}
+.mooringtable__contentcell--lastnotfull, .mooringtable__midheadingcell--lastnotfull {
+  border-right-width: 0px;
+}
+
+@media(max-width:1140px){
+  .mooringtable {
+    margin-bottom: 29px;
+  }
+}
+@media(max-width:760px){
+  .mooringtable__headingcell {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .mooringtable {
+    overflow: auto;
+  }
+  .mooringtable__holder {
+    width: 721px;
+  }
+}
+@media(max-width:400px){
+  .mooringtable__midheadingcell, .mooringtable__contentcell {
+    padding-top: 9px;
+    padding-bottom: 8px;
+  }
+  .mooringtable__headingcellinner {
+    font-size: 100%;
+  }
+  .mooringtable__contentcell,
+  .mooringtable__contentcell:nth-child(2),
+  .mooringtable__contentcell:nth-child(3),
+  .mooringtable__contentcell:nth-child(4),
+  .mooringtable__midheadingcell,
+  .mooringtable__midheadingcell:nth-child(2),
+  .mooringtable__midheadingcell:nth-child(3),
+  .mooringtable__midheadingcell:nth-child(4) {
+    font-size: $font12;
+  }
+  .mooringtable__holder {
+    width: 629px;
+  }
+}

@@ -1,0 +1,14 @@
+.pricetable__mainheading {
+  background: $turquoise;
+}
+.pricetable__secondaryheading {
+  color: $turquoise;
+}
+.pricetable__undertable {
+  color: $turquoise;
+}
+.pricetable__cell--right {
+  &:before {
+    border-color: transparent transparent transparent $turquoise;
+  }
+}

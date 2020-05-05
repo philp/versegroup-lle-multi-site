@@ -1,0 +1,50 @@
+{% if bar.optionBoxes|length %}
+  <div class="optionboxes {% if bar.optionBoxes|length >= 8 %}optionboxes--widerow{% endif %}" 
+    {% if ownSection == true %}
+    id="section{% if homePanelsStatus %}{{ firstPanelNum + entry.homePanels|length + 1 }}{% elseif entry.type == 'locationSimple' %}{% if entry.mapImage|length %}{{ firstPanelNum + 2 }}{% else %}{{ firstPanelNum + 1 }}{% endif %}{% else %}{{ firstPanelNum + 1 }}{% endif %}"
+    {% endif %}
+    >
+    <div class="container container--options"><!--
+      {% set numOpts = bar.optionBoxes|length %}
+      {% set perRow = 3 %}
+      {% if bar.optionBoxes|length % 2 == 0 %}
+        {% set perRow = bar.optionBoxes|length/2 %}
+      {% endif %}
+      {% for opt in bar.optionBoxes.all() %}
+        {% if opt.type == "option" %}
+          {% if loop.first %}
+            --><div class="optionboxes__row cs"><!--
+          {% endif %}
+          --><div class="optionboxes__item">
+            <div class="optionboxes__imgarea tb">
+              {% if opt.optionImage|length %}
+                <div class="tb__c">
+                  <img src="{{ opt.optionImage.one().url }}" alt="{% if opt.optionHeading|length %}{{ opt.optionHeading }}{% else %}{{ opt.optionImage.one().title }}{% endif %}" class="optionboxes__img" />
+                </div>
+              {% else %}
+                &nbsp;
+              {% endif %}
+            </div>
+            {% if opt.optionHeading|length or opt.optionSummary|length %}
+              <div class="optionboxes__content">
+                {% if opt.optionHeading|length %}
+                  <div class="optionboxes__heading">{{ opt.optionHeading }}</div>
+                {% endif %}
+                {% if opt.optionSummary|length %}
+                  <div class="optionboxes__summary">{{ opt.optionSummary }}</div>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div><!--	
+          {% if loop.index is divisible by(perRow) and not loop.last %}
+            --></div><!--
+            --><div class="optionboxes__row cs"><!--
+          {% elseif loop.last %}
+            --></div><!--	
+          {% endif %}
+              
+        {% endif %}
+      {% endfor %}
+    --></div>
+  </div>
+{% endif %}

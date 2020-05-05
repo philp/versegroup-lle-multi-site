@@ -1,0 +1,27 @@
+.properties {
+  background: $lightgrey;
+}
+.properties--sectionsbg {
+  background: #fff;
+}
+.properties__itembg--odd {
+  background: $lightgrey;
+}
+.properties__itembg--even {
+  background: #f4f4f4;
+}
+.properties__enditem--odd {
+  background: $lightgrey;
+}
+.properties__enditem--even {
+  background: #f4f4f4;
+}
+.properties__itemcontentside {
+  background: #fff;
+}
+.properties__itemtitle {
+  border-bottom-color: $lightgreen;
+}
+.properties__enditemcontent {
+  background: #fff;
+}

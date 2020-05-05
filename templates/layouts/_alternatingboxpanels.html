@@ -1,0 +1,54 @@
+<div class="boxpanels">
+  {% if entry.alternatingBoxPanels|length %}
+    {% for item in entry.alternatingBoxPanels.all() %}
+      
+      {% set panelNum = loop.index + panelsCountStart %}
+      {% if entry.section.handle == 'pages' and entry.type == 'multiTableMooring' and entry.optionBoxesBar is defined and entry.optionBoxesBar|length %}
+        {% set panelNum = panelNum + 1 %}
+      {% endif %}
+      {% if item.type == 'panel' %}
+      
+        
+        <div class="section boxpanels__section" id="section{{ panelNum }}">
+          <div class="container cs">
+            
+            
+            <div class="section__half section__half--contentside {% if loop.index is even %}section__half--alignright{% else %}section__half--alignleft{% endif %} section__half--galleryoverlaptextsize">
+              {% include "layouts/_sectioncontent" %}
+            </div>
+            {% if item.sideImage|length %}
+              <div class="section__half section__half--imgside {% if loop.index is even %}section__half--alignleft{% else %}section__half--alignright{% endif %} section__half--galleryoverlapsize">
+                
+                <div class="section_gallery">
+                  <div id="section{{ panelNum }}gallery" class="section_galleryid">
+                    {% for img in item.sideImage.all() %}
+                      <div class="galleryItem section_galleryitem" style="background-image:url({{ img.getUrl('bannerPanelGallery') }})">
+                        <div class="section_galleryitemimgholder"><img src="{{ img.getUrl('bannerPanelGallery') }}" class="section_galleryitemimg" alt="{{ img.title }}" /></div>
+                      </div>
+                    {% endfor %}
+                  </div>
+                  <script type="text/javascript">
+                  <!--
+                    $(function() {
+                      $('#section{{ panelNum }}gallery').imageGallery({ itemButtons:false, nextPrevButtons:true, autoplay:true, speed:5000, callback:function() {
+                        slideRender($('#section{{ panelNum }}gallery').find('.activeItem'));
+                      }});
+                    });
+                   //-->
+                  </script>
+                </div>
+                
+                
+                
+              </div>
+            {% endif %}
+            
+                  
+                        
+          </div>
+        </div>
+      
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+</div>

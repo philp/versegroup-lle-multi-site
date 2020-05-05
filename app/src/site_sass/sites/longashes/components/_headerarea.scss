@@ -1,0 +1,135 @@
+.headerarea--nogallery {
+  background: $lightgreen;
+}
+.headerarea__top--green {
+  background: $lightgreen;
+}
+.headerarea__enquiries {
+  color: #fff;
+  &:hover {
+    color: #fff;
+  }
+}
+.headerarea__scrolltext {
+  color: #fff;
+}
+.headerarea__scrollarrow {
+  background-image: inline-svg('arrow-mainstage-down',#fff);
+}
+.headerarea__form {
+  background: rgba(21,21,21,0.6);
+  color: #fff;
+}
+.headerarea__label {
+  color: $lightgrey;
+}
+
+.headerarea__select {
+  font-family: $fonts;
+  color: #575759;
+  background-image: inline-svg('lle-icon-down-arrow',#59595B);
+  border-color: #c2c2c2;
+}
+.headerarea__selectholder:before {
+    background: #e7e7e7;
+    border-color: #c2c2c2;
+}
+.headerarea__selectholder--price:after {
+  background-image: inline-svg('money-icon', #a0a0a0);
+}
+.headerarea__selectholder--bedrooms:after {
+  background-image:  inline-svg('bed-icon', #a0a0a0);
+}
+.headerarea__selectholder--property:after {
+  background-image:  inline-svg('house-icon', #a0a0a0);
+}
+.headerarea__finance {
+  color: #000;
+  &:hover {
+    color: #000;
+  }
+}
+.headerarea__financecontent {
+  background: #fff;
+}
+.headerarea__financearrow {
+  background: $footercolour;
+}
+.headerarea__logoimg {
+  width: 285px;
+}
+.headerarea__top--nogallery {
+  padding-bottom: 45px;
+}
+
+
+
+.headerarea--iconsgreen {
+  .menu-toggle__line {
+    background: #aebcaf;
+  }
+  .menu-toggle__text {
+    color: #aebcaf;
+  }
+  .headerarea__enquiriestxt {
+    color: #aebcaf;
+  }
+  .selected .menu-toggle__line {
+    background: #fff!important;
+  }
+}
+.headerarea--iconsdarkgrey {
+  .menu-toggle__line {
+    background: #969696;
+  }
+  .menu-toggle__text {
+    color: #969696;
+  }
+  .headerarea__enquiriestxt {
+    color: #969696;
+  }
+  .selected .menu-toggle__line {
+    background: #fff!important;
+  }
+}
+.headerarea--iconslightgrey {
+  .menu-toggle__line {
+    background: #dddbd8;
+  }
+  .menu-toggle__text {
+    color: #dddbd8;
+  }
+  .headerarea__enquiriestxt {
+    color: #dddbd8;
+  }
+  .selected .menu-toggle__line {
+    background: #fff!important;
+  }
+}
+
+@media(max-width:1090px){
+  .headerarea__logoimg {
+    width: 275px;
+  }
+}
+@media(max-width:950px){
+  .headerarea__logoimg {
+    width: 255px;
+  }
+}
+@media (max-width: 600px) {
+  .headerarea__top--nogallery {
+    padding-bottom: 40px;
+  }
+  .headerarea__top {
+    padding-top: 43px;
+  }
+}
+@media (max-width: 400px) {
+  .headerarea__finance {
+    background: #fff;
+  }
+	.headerarea__financearrow {
+    background: $lightgreen;
+  }
+}

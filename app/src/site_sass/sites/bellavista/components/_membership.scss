@@ -1,0 +1,17 @@
+.membership__optioncell {
+  color: #fff;
+  border-color: #fff;
+}
+.membership__optioncell--highlighted {
+  background: $bellavistadarkred;
+}
+.membership__optioncell--regular {
+  background: $bellavistared;
+}
+.membership__name {
+  border-color: $bellavistadarkred;
+  color: $bellavistadarkred;
+}
+.membership__enddetail {
+  border-color: $bellavistadarkred;
+}

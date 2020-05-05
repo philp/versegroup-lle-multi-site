@@ -1,0 +1,15 @@
+.blog__colheading {
+  color: $lightgreen;
+  border-color: $lightgreen;
+}
+.blog__catlink {
+  color: $longashesbodytext;
+}
+.blog__tag {
+  background: #efefef;  
+  color: $longashesbodytext;
+  &:hover {
+    background: $longashesbodytext;
+    color: #efefef;
+  }
+}

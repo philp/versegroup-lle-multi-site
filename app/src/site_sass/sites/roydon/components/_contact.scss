@@ -1,0 +1,22 @@
+.contact {
+  select {
+    background-image:inline-svg('down-arrow', $yellow);
+  }
+
+  input[type="text"],input[type="email"],input[type="tel"],select,textarea {
+    border-color: $roydondarkblue;
+    color: #575759;
+  }
+}
+
+.contact__map-form {
+  input[type="text"] {
+    border-color: $roydondarkblue;
+    color: #575759;
+  }
+}
+::-webkit-input-placeholder { color: #575759; }
+:-moz-placeholder { color: #575759; }
+::-moz-placeholder { color: #575759; }
+:-ms-input-placeholder { color: #575759; }
+

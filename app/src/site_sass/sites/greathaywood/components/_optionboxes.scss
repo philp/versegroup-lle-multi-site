@@ -1,0 +1,16 @@
+.optionboxes {
+  background: $accentbrown;
+}
+.optionboxes__item {
+  border-color: $lightaccentbrown;
+  text-transform:none;
+}
+.optionboxes__row {
+  border-color: $lightaccentbrown;
+}
+.optionboxes__summary {
+  letter-spacing: normal;
+}
+.container--options {
+  max-width: 1180px;
+}

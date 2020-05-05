@@ -1,0 +1,12 @@
+.faqs__item {
+  border-color: $bellavistared;
+  &:last-child {
+    border-bottom-color: $bellavistared;
+  }
+}
+.faqs__answer {
+  border-color: #d7d7d7;
+}
+.faqs__expandarrow {
+  background-image: inline-svg('arrow-mainstage-down',$bellavistared);
+}

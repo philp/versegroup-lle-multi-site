@@ -1,0 +1,74 @@
+{% if entry.secondaryAlternatingPanels|length %}
+  {% for item in entry.secondaryAlternatingPanels.all() %}
+    {% set numAbovePanels = 0 %}
+    {% if altPanelsStatus == true %}
+      {% set numAbovePanels = entry.alternatingPanels|length %}
+    {% endif %}
+    {% if tariffAreaStatus == true %}
+      {% set numAbovePanels = numAbovePanels + 1 %}
+    {% endif %}
+    {% set panelNum = loop.index + panelsCountStart + numAbovePanels %}
+    {% if item.type == "panel" %}
+      <div id="section{{ panelNum }}">
+        <div class="section {% if loop.index is even %}section--white section--simplesection{% else %}{% if entry.type == 'tariff' %}section--greenoverlaplesspaddingbottom {% endif %}section--greenoverlap{% endif %}">
+          <div class="container cs">
+            {% if item.sideImage|length %}
+            <div class="section__half {% if loop.index is even %}section__half--alignright section__half--simplesectionimg{% else %}section__half--alignleft section__half--greencontentleft{% endif %}">
+              {% if item.sideImage|length == 1 %}
+              <img src="{{ item.sideImage.one().getUrl('sideGallery') }}" alt="{{ item.sideImage.one().title }}" class="section__halfimg" />
+              {% else %}
+              
+              <div class="section_gallery">
+                <div id="section{{ panelNum }}gallery" class="section_galleryid">
+                  {% for img in item.sideImage.all() %}
+                  <div class="galleryItem section_galleryitem" style="background-image:url({{ img.getUrl('sideGallery') }})">
+                    <div class="section_galleryitemimgholder"><img src="{{ img.getUrl('sideGallery') }}" class="section_galleryitemimg" alt="{{ img.title }}" /></div>
+                  </div>    
+                  {% endfor %}
+                </div>
+                <script type="text/javascript">
+                  $(function() {
+                    $('#section{{ panelNum }}gallery').imageGallery({ itemButtons:false, nextPrevButtons:true, autoplay:true, speed:5000, callback:function() {
+                      slideRender($('#section{{ panelNum }}gallery').find('.activeItem'));
+                    }});
+                  });
+                </script>
+              </div>
+              
+              {% endif %}
+            </div>
+            {% endif %}
+            <div class="section__half {% if loop.index is even %}section__half--alignleft section__half--simplesectiontext{% else %}section__half--alignright section__half--greencontentright{% endif %}">
+              {% if item.headingImage|length %}
+                <div class="section__headingimg">
+                  <img src="{{ item.headingImage.one().url }}" alt="{% if item.headingImageAlternativeText|length %}{{ item.headingImageAlternativeText }}{% else %}{{  item.headingImage.one().title }}{% endif %}" class="section__headingimgimg" />
+                </div>
+              {% endif %}
+              {% if item.heading|length %}
+                {{ item.heading }}
+              {% endif %}
+              {% if item.introduction|length %}
+              <div class="section__intro {% if loop.index is even %}{% else %}section__intro--green{% endif %}">
+                {{ item.introduction }}
+              </div>
+              {% endif %}
+              {% if item.panelContent|length %}
+                {{ item.panelContent }}
+              {% endif %}
+              {% if (item.button1Entry|length or item.button1Link|length or item.button1Download|length) and item.button1Text|length %}{% set isPopup = false %}{% if item.button1Entry|length %}
+                {% if item.button1Entry.one().section.handle == 'popups' %}
+                  {% set isPopup = true %}
+                {% endif %}
+              {% endif %}<a href="{% if item.button1Entry|length %}{{ item.button1Entry.one().url }}{% elseif item.button1Download|length %}{{ item.button1Download.one().url }}{% else %}{{ item.button1Link }}{% endif %}" class="btn {% if loop.index is even %}{% else %}btn--white{% endif %} btn--margintop {% if isPopup == true %}popuplink{% endif %}" {% if isPopup == true %}data-popup="{{ item.button1Entry.one().slug }}"{% endif %} {% if item.button1OpenInNewTab %}target="_blank"{% endif %}>{{ item.button1Text }}</a>{% endif %}
+              {% if (item.button2Entry|length or item.button2Link|length or item.button2Download|length) and item.button2Text|length %}{% set isPopup = false %}{% if item.button2Entry|length %}
+                {% if item.button2Entry.one().section.handle == 'popups' %}
+                  {% set isPopup = true %}
+                {% endif %}
+              {% endif %}<a href="{% if item.button2Entry|length %}{{ item.button2Entry.one().url }}{% elseif item.button2Download|length %}{{ item.button2Download.one().url }}{% else %}{{ item.button2Link }}{% endif %}" class="btn {% if loop.index is even %}{% else %}btn--white{% endif %} btn--margintop {% if isPopup == true %}popuplink{% endif %}" {% if isPopup == true %}data-popup="{{ item.button2Entry.one().slug }}"{% endif %} {% if item.button2OpenInNewTab %}target="_blank"{% endif %}>{{ item.button2Text }}</a>{% endif %}
+            </div>
+          </div>
+        </div>
+      </div>        
+    {% endif %}
+  {% endfor %}
+{% endif %}

@@ -1,0 +1,38 @@
+.menutable__tableholder { 
+  border-color: $darkgrey; 
+}
+.menutable__table { 
+  color: $darkgrey; 
+  td, th {
+    border-color: $darkgrey; 
+  }
+  td {
+    &:nth-child(2):before { 
+      border-color: transparent transparent transparent $darkgrey; 
+    }
+  }
+  th { 
+    background: #f3f3f3; 
+  }
+  .menutable__midtitle { 
+    background: #f3f3f3; 
+  }
+  em {  
+    color: $darkgrey; 
+  }
+}
+.menutable__colour { 
+  color: #ec004e; 
+} 
+.menutable__title { 
+  color: #fff; 
+  background: $teal; 
+  border-color: $darkgrey; 
+}
+
+
+@media (max-width: 400px) {
+	.menutable__table td:nth-child(2):before { 
+    border-color: transparent transparent transparent #191919; 
+  }	  
+}   

@@ -1,0 +1,59 @@
+{% if entry.pricingTables|length %}
+  <div class="cs pricetable">
+    {% for item in entry.pricingTables.all() %}
+      {% if item.type == 'table' %}
+      
+        {% if loop.first or item.displayWithPreviousTable %}{% else %}</div>{% endif %}
+        
+        
+        {% if item.displayWithPreviousTable %}{% else %}<div class="pricetable__box">{% endif %}
+        
+          <div class="pricetable__tableholder">
+            <div class="pricetable__headings cs">
+              {% if item.tableHeading|length %}
+                <div class="pricetable__mainheading">
+                  {{ item.tableHeading|replace({'<p>':'','</p>':''})|raw }}
+                </div>
+              {% endif %}
+              {% if item.tableSecondaryColumnHeading|length %}
+                <div class="pricetable__secondaryheading">
+                  {{ item.tableSecondaryColumnHeading }}
+                </div>
+              {% endif %}
+            </div>
+            
+            {% if item.table|length %}
+              <div class="pricetable__table">
+                
+                {% for row in item.table %}
+                  <div class="pricetable__row {% if row.highlightRow %}pricetable__row--highlight{% endif %}">
+                    {% if row.column1|length %}
+                      <div class="pricetable__cell pricetable__cell--left">
+                        {{ row.column1 }}
+                      </div>
+                    {% endif %}
+                    {% if row.column2|length %}
+                      <div class="pricetable__cell pricetable__cell--right">
+                        {{ row.column2 }}
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endfor %}
+                
+              </div>
+            {% endif %}
+          
+            {% if item.underTableText|length %}
+              <div class="pricetable__undertable">
+                {{ item.underTableText }}
+              </div>
+            {% endif %}
+          </div>
+          
+          
+        {% if loop.last %}</div>{% endif %}
+      
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}

@@ -1,0 +1,15 @@
+.imagestrip {
+  overflow:hidden;
+}
+
+.imagestrip__item {
+  width:20%;
+  display:inline-block;
+  overflow:hidden;
+  float:left;
+
+  img {
+    display:block;
+    width:100%;
+  }
+}

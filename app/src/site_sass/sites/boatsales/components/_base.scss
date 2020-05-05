@@ -1,0 +1,46 @@
+body { 
+	color:#000; 
+	font-family: $fonts; 
+	background:#fff; 
+}
+h1, .h1 { 
+	color: $boatblue;
+	&:before {
+		background: $boatblue; 	
+	}
+}
+h2, .h2 { 
+	color: $boatblue; 
+}
+h3, .h3 { 
+	color: $boatblue;
+}
+h4, .h4 { 
+	color: $boatblue; 
+}
+h6 {
+	color: $boatblue;
+}
+
+a {  
+	color: $boatblue; 
+	&:hover {
+		color: $boatblue; 
+	}
+}
+em { 
+	color: $boatblue; 
+}
+
+.leftButton, .rightButton { 
+	background: $boatblue; 
+}
+.leftButton span { 
+	background-image: inline-svg('arrow-gallery-scroll-left',#fff);
+	background-size: contain;
+}
+.rightButton span { 
+	background-image: inline-svg('arrow-gallery-scroll-right',#fff);
+	background-size: contain;
+}
+

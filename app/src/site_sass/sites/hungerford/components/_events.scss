@@ -1,0 +1,16 @@
+.events__item {
+  background: $teal;
+  color: #fff;
+}
+.events__itembtn {
+  border-color: $darkteal;
+  &:hover {
+    background: $darkteal;
+  }
+}
+.events__itemtitle {
+  color: #fff;
+  &:hover {
+    color: #fff;
+  }
+}

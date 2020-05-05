@@ -1,0 +1,12 @@
+.faqs__item {
+  border-color: $saulblue;
+  &:last-child {
+    border-bottom-color: $saulblue;
+  }
+}
+.faqs__answer {
+  border-color: #ededed;
+}
+.faqs__expandarrow {
+  background-image: inline-svg('arrow-mainstage-down',$saulblue);
+}

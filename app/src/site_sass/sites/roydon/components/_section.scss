@@ -1,0 +1,132 @@
+.section__half--txtbehindgallery { 
+  background: #fff; 
+}
+.section__half--galleryoverlaptextsize { 
+  background: #fff; 
+}
+.section--greenoverlap { 
+  background: $roydondarkblue; 
+  color: #fff; 
+  a {
+    color: #fff;
+  }
+}
+.section--greenoverlap h2, .section--greenoverlap .h2 { 
+  color: #fff; 
+}
+.section__separatecontent--grey { 
+  background: #f7f7f7; 
+}
+.section__contactsideinner {
+  border-color: $roydondarkblue;
+}
+.section__contactsideitem {
+  color: $darkgrey;  
+}
+.section__contactsideitemlink {
+  color: $darkgrey;
+}
+.section__contactsideheading {
+  color:$roydondarkblue;
+}
+.section__rightheading {
+  width: 50%;
+  &:before {
+    background: $roydondarkblue;
+  }
+}
+
+.section__panelareainner {
+  background: #fff;
+}
+.section__panelarea {
+  background: $lightgrey;
+}
+.section--bgcol {
+  background: #e5e5e5;
+}
+.section__half--imgside {
+  background: #e5e5e5;
+}
+
+.section__half--txtbehindgallery {
+  padding-bottom: 25px;
+}
+.section__half--galleryoverlaptextsize {  
+  padding-bottom: 25px;
+}
+
+.section ul li:before {
+  background: $yellow;
+}
+
+.section__leftheading {
+  width: 50%;
+}
+
+.section__endgrey {
+  display: none; 
+}
+.section--boxes {
+  padding-bottom: 89px;
+}
+.section__firsthalfheading {
+  color: $roydondarkblue;
+}
+
+.section--contact {
+  background-color: #f2f2f2;
+}
+
+.section__listingstop--wbackground {
+  background: $roydondarkblue;
+}
+
+@media (max-width: 990px) {
+  .section--boxes {
+    padding-bottom: 59px;
+  }
+}
+@media (max-width: 900px) {
+  .section__half--galleryoverlaptextsize {  
+    padding-bottom: 25px;
+  }
+  .section__half--txtbehindgallery {
+    padding-bottom: 25px;
+  }
+}
+@media (max-width: 790px) {
+  .section__half--galleryoverlaptextsize {  
+    padding-bottom: 25px;
+  }
+  .section__half--txtbehindgallery {
+    padding-bottom: 25px;
+  }
+}
+@media (max-width: 700px) {
+  .section__leftheading, .section__rightheading {
+    width: 100%;
+  }
+}
+@media (max-width: 600px) {
+	.section__separatecontent--grey { 
+    background: #fff;    
+  }
+  .section__half--galleryoverlaptextsize {  
+    padding-bottom: 10px;
+  }
+  .section__half--txtbehindgallery {
+    padding-bottom: 10px;
+  }
+  .section--boxes {
+    padding-bottom: 26px;
+  }
+}
+@media(max-width:400px){
+  .section--bgcol, .section__half--imgside {
+    background: #fff;
+  }
+  .section--boxes {
+    padding-bottom: 32px;
+  }
+}

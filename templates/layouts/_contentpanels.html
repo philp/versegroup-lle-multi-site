@@ -1,0 +1,421 @@
+{% if homePanelsStatus == true %}
+  {% if entry.homePanels|length %}
+    {% for item in entry.homePanels.all() %}
+      {% set panelNum = loop.index + panelsCountStart %}
+      {% if entry.section.handle == 'marina' %}
+        {% set panelNum = panelNum - 1 %}
+      {% endif %}
+      {% if item.type == "panel" %}
+        <div id="section{{ panelNum }}">
+          <div class="section section--white section--simplehalves {% if item.panelStyling == 'greyBoxes' %}section--boxes{% endif %}">
+            <div class="container cs">
+              {% if entry.displayPropertySearch is defined and entry.displayPropertySearch and enablePropertySearch == true %}
+                <div class="mobiletopsearch mobiletopsearch--boxessection">
+                  <a class="btn mobiletopsearch__btn mobiletopsearch__btn--boxessection">Search {% if currentSite.handle == 'boatSales' %}Boats{% else %}Properties{% endif %} for Sale</a>
+                  <div class="mobiletopsearch__form">
+                    {% set topform = true %}
+                    {% include "layouts/_mobilesectionform" %}
+                  </div>
+                </div>
+              {% elseif entry.displayRoomSearch is defined and entry.displayRoomSearch %}
+              {% if enableBooking %}
+                <div class="mobiletopsearch mobiletopsearch--boxessection">
+                  <a class="btn mobiletopsearch__btn mobiletopsearch__btn--boxessection">Search for a Room</a>
+                  <div class="mobiletopsearch__form">
+                    {% set topform = true %}
+                    {% include "layouts/_mobilesectionroomsform" %}
+                  </div>
+                </div>
+              {% endif %}  
+              {% endif %}
+              {% if item.panelStyling == 'greyBoxes' %}
+                <div class="section__boxtextside">
+                  {% include "layouts/_sectioncontent" %}
+                </div>
+                {% if item.scrollingGallery|length %}
+                  <div class="section__boximgside">
+                    {% include "layouts/_sectiongallery" %}
+                  </div>
+                {% endif %}
+              {% else %}
+                <div class="section__half section__half--left">
+                  {% include "layouts/_sectioncontent" %}
+                </div>
+                {% if item.scrollingGallery|length %}
+                  <div class="section__half section__half--right">                
+                    {% include "layouts/_sectiongallery" %}
+                  </div>
+                {% endif %}
+              {% endif %}
+            </div>
+            
+                     
+            
+          </div>
+          
+          {% if item.panelStyling == 'greyBoxes' %}
+          <div class="section__endgrey">&nbsp;</div>
+          {% endif %}   
+          
+        </div>        
+      {% elseif item.type == "panelWithBanner" %}
+        <div id="section{{ panelNum }}">
+          <div class="section section--banner">
+            {% if item.topBanner|length %}
+              <img src="{{ item.topBanner.one().getUrl('sectionBanner') }}" alt="{{ item.topBanner.one().title }}" class="fullwidthimg {% if item.topBannerMobile|length %}fullwidthimg--nomobile{% endif %}" />
+            {% endif %}
+            {% if item.topBannerMobile|length %}
+              <img src="{{ item.topBannerMobile.one().getUrl('sectionBannerMobile') }}" alt="{{ item.topBannerMobile.one().title }}" class="fullwidthimg fullwidthimg--mobileonly" />
+            {% endif %}
+          </div>
+          <div class="section section--white section--banneroverlap section--bgcol">
+            <div class="container container--innercolour cs">
+              <div class="container__innerback cs">
+              
+                <div class="section__half section__half--contentside section__half--gallerytopoverlapmobile {% if item.panelLayout == 'imagesLeftTextRight' %}section__half--txtbehindgallery  section__half--alignright{% elseif item.panelLayout == 'imagesRightTextLeft' %}section__half--gallerytopoverlap  section__half--galleryoverlaptextsize section__half--alignleft{% endif %}">
+                  {% include "layouts/_sectioncontent" %}
+                </div>
+                {% if item.scrollingGallery|length %}
+                  <div class="section__half section__half--imgside section__half--gallerytopoverlap section__half--galleryoverlapsize {% if item.panelLayout == 'imagesLeftTextRight' %}section__half--alignleft{% elseif item.panelLayout == 'imagesRightTextLeft' %}section__half--alignright{% endif %}">
+                    {% include "layouts/_sectiongallery" %}
+                  </div>
+                {% endif %}
+                {% if item.includeMobilePropertyForm %}
+                  {% if enablePropertySearch == true %}
+                    {% include "layouts/_mobilesectionform" %}
+                  {% endif %}
+                {% endif %} 
+                    
+              </div>             
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% elseif altPanelsStatus == true %}
+  {% if entry.alternatingPanels|length %}
+    {% for item in entry.alternatingPanels.all() %}
+      {% set panelNum = loop.index + panelsCountStart %}
+      {% if membershipsStatus == true %}
+        {% set panelNum = panelNum + 1 %}
+      {% endif %}
+      {% if passesStatus == true %}
+        {% set panelNum = panelNum + 1 %}
+      {% endif %}
+      {% if mooringTariffStatus == true %}
+        {% set panelNum = panelNum + 1 %}
+      {% endif %}      
+      {% if mapPanelStatus == true %}
+        {% set panelNum = panelNum + 1 %}
+      {% endif %}      
+      {% set altOrder = false %}
+      {% if (entry.menus is defined and entry.menus|length and entry.type == "menus") or (entry.optionBoxesBar is defined and entry.optionBoxesBar|length and entry.type != 'mooring') %}
+        {% set altOrder = true %}
+      {% endif %}
+      {% if entry.type == "menus" %}
+        {% if entry.menusHeading|length or entry.menusSummary|length or entry.menus|length %}
+          {% set panelNum = panelNum + 1 %}
+        {% endif %}      
+      {% endif %}
+      {% if entry.optionBoxesBar is defined and entry.optionBoxesBar|length %}
+        {% set panelNum = panelNum + 1 %}
+      {% endif %}
+      {% if item.type == "panel" %}
+        <div id="section{{ panelNum }}">
+          <div class="section {% if (loop.index is even and altOrder == false) or (altOrder == true and loop.index is odd) %}section--white section--simplesection{% else %}{% if entry.type == 'tariff' %}section--greenoverlaplesspaddingbottom {% endif %}section--greenoverlap{% endif %}">
+            <div class="container cs">
+              {% if item.sideImage|length %}
+              <div class="section__half {% if (loop.index is even and altOrder == false) or (altOrder == true and loop.index is odd) %}section__half--alignright section__half--simplesectionimg{% else %}section__half--alignleft section__half--greencontentleft{% endif %}">
+                {% if item.sideImage|length == 1 %}
+                <img src="{{ item.sideImage.one().getUrl('sideGallery') }}" alt="{{ item.sideImage.one().title }}" class="section__halfimg" />
+                {% else %}
+                
+                <div class="section_gallery">
+                  <div id="section{{ panelNum }}gallery" class="section_galleryid">
+                    {% for img in item.sideImage.all() %}
+                    <div class="galleryItem section_galleryitem" style="background-image:url({{ img.getUrl('sideGallery') }})">
+                      <div class="section_galleryitemimgholder"><img src="{{ img.getUrl('sideGallery') }}" class="section_galleryitemimg" alt="{{ img.title }}" /></div>
+                    </div>    
+                    {% endfor %}
+                  </div>
+                  <script type="text/javascript">
+                  <!--
+                    $(function() {
+                      $('#section{{ panelNum }}gallery').imageGallery({ itemButtons:false, nextPrevButtons:true, autoplay:true, speed:5000, callback:function() {
+                        slideRender($('#section{{ panelNum }}gallery').find('.activeItem'));
+                      }});
+                    });
+                   //-->
+                  </script>
+                </div>
+                
+                {% endif %}
+              </div>
+              {% endif %}
+              <div class="section__half {% if (loop.index is even and altOrder == false) or (altOrder == true and loop.index is odd) %}section__half--alignleft section__half--simplesectiontext{% else %}section__half--alignright section__half--greencontentright{% endif %}">
+                {% if item.headingImage|length %}
+                  <div class="section__headingimg">
+                    <img src="{{ item.headingImage.one().url }}" alt="{% if item.headingImageAlternativeText|length %}{{ item.headingImageAlternativeText }}{% else %}{{  item.headingImage.one().title }}{% endif %}" class="section__headingimgimg" />
+                  </div>
+                {% endif %}
+                {% if item.heading|length %}
+                  {{ item.heading }}
+                {% endif %}
+                {% if item.introduction|length %}
+                <div class="section__intro {% if (loop.index is even and altOrder == false) or (altOrder == true and loop.index is odd) %}{% else %}section__intro--green{% endif %}">
+                  {{ item.introduction }}
+                </div>
+                {% endif %}
+                {% if item.panelContent|length %}
+                  {{ item.panelContent }}
+                {% endif %}
+                {% if (item.button1Entry|length or item.button1Link|length or item.button1Download|length) and item.button1Text|length %}{% set isPopup = false %}{% if item.button1Entry|length %}
+                  {% if item.button1Entry.one().section.handle == 'popups' %}
+                    {% set isPopup = true %}
+                  {% endif %}
+                {% endif %}<a href="{% if item.button1Entry|length %}{{ item.button1Entry.one().url }}{% elseif item.button1Download|length %}{{ item.button1Download.one().url }}{% else %}{{ item.button1Link }}{% endif %}" class="btn {% if (loop.index is even and altOrder == false) or (altOrder == true and loop.index is odd) %}{% else %}{% if currentSite.handle == 'gamekeepersInn' %}btn--dark{% elseif currentSite.handle == 'roydonMarinaVillage' %}{% else %}btn--white{% endif %}{% endif %} btn--margintop {% if isPopup == true %}popuplink{% endif %}" {% if isPopup == true %}data-popup="{{ item.button1Entry.one().slug }}"{% endif %} {% if item.button1OpenInNewTab %}target="_blank"{% endif %}>{{ item.button1Text }}</a>{% endif %}
+                {% if (item.button2Entry|length or item.button2Link|length or item.button2Download|length) and item.button2Text|length %}{% set isPopup = false %}{% if item.button2Entry|length %}
+                  {% if item.button2Entry.one().section.handle == 'popups' %}
+                    {% set isPopup = true %}
+                  {% endif %}
+                {% endif %}<a href="{% if item.button2Entry|length %}{{ item.button2Entry.one().url }}{% elseif item.button2Download|length %}{{ item.button2Download.one().url }}{% else %}{{ item.button2Link }}{% endif %}" class="btn {% if (loop.index is even and altOrder == false) or (altOrder == true and loop.index is odd) %}{% else %}{% if currentSite.handle == 'gamekeepersInn' %}btn--dark{% elseif currentSite.handle == 'roydonMarinaVillage' %}{% else %}btn--white{% endif %}{% endif %} btn--margintop {% if isPopup == true %}popuplink{% endif %}" {% if isPopup == true %}data-popup="{{ item.button2Entry.one().slug }}"{% endif %} {% if item.button2OpenInNewTab %}target="_blank"{% endif %}>{{ item.button2Text }}</a>{% endif %}
+              </div>
+            </div>
+          </div>
+        </div>        
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% elseif bannerPanelsPage == true %}
+  
+  
+  <div id="section2">
+    <div class="section section--white section--simplehalves {% if entry.firstSectionStyling == 'greyBoxes' %}section--boxes{% endif %}">
+      <div class="container cs">
+        
+        
+        {% if entry.displayPropertySearch is defined and entry.displayPropertySearch and enablePropertySearch == true %}
+          <div class="mobiletopsearch mobiletopsearch--boxessection">
+            <a class="btn mobiletopsearch__btn mobiletopsearch__btn--boxessection">Search {% if currentSite.handle == 'boatSales' %}Boats{% else %}Properties{% endif %} for Sale</a>
+            <div class="mobiletopsearch__form">
+              {% set topform = true %}
+              {% include "layouts/_mobilesectionform" %}
+            </div>
+          </div>
+        {% elseif entry.displayRoomSearch is defined and entry.displayRoomSearch %}    
+        {% if enableBooking %}
+          <div class="mobiletopsearch mobiletopsearch--boxessection">
+            <a class="btn mobiletopsearch__btn mobiletopsearch__btn--boxessection">Search for a Room</a>
+            <div class="mobiletopsearch__form">
+              {% set topform = true %}
+              {% include "layouts/_mobilesectionroomsform" %}
+            </div>
+          </div>
+        {% endif %}
+        {% endif %}
+        
+        {% if entry.firstSectionStyling == 'greyBoxes' %}
+        
+        
+          <div class="section__boxtextside">
+            {% if entry.topPanelHeading|length %}
+              {{ entry.topPanelHeading }}
+            {% endif %}
+            <div class="section__narrowertext">
+              {% if entry.topPanelIntroduction|length %}
+                <div class="section__intro">
+                  {{ entry.topPanelIntroduction }}
+                </div>
+              {% endif %}
+              {% if entry.topPanelContent|length %}
+                {{ entry.topPanelContent }}
+              {% endif %}  
+              {% if entry.firstSectionHalfLists|length %}
+                <div class="section__firsthalves cs">
+                  {% for item in entry.firstSectionHalfLists.all()  %}
+                    {% if item.type == 'halfList' %}
+                        <div class="section__firsthalveshalf">
+                          {% if item.listHeading|length or item.listRows|length %}
+                            <p>
+                              {% if item.listHeading|length %}
+                                <span class="section__firsthalfheading">{{ item.listHeading }}</span>
+                              {% endif %}
+                              {% if item.listRows|length %}
+                                {% for row in item.listRows %}
+                                  {{ row.listContent }}{% if loop.last %}{% else %}<br />{% endif %}
+                                {% endfor %}
+                              {% endif %}
+                            </p>
+                          {% endif %}
+                        </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+              {% if entry.firstSectionContacts|length %}
+              <p>
+                {% for item in entry.firstSectionContacts.all() %}
+                  {% if item.type == "emailAddress" %}
+                  <span class="contactmargin">{% if item.label|length %}<em>{{ item.label }}</em>{% endif %} {% if item.emailAddress|length %}<a href="mailto:{{ item.emailAddress }}">{{ item.emailAddress }}</a>{% endif %} {% if item.emailSeparator|length %}{{ item.emailSeparator }}{% endif %} {% if item.secondaryEmailAddress|length %}<a href="mailto:{{ item.secondaryEmailAddress }}">{{ item.secondaryEmailAddress }}</a>{% endif %}</span> 
+                  {% elseif item.type == "phoneNumber" %}
+                  <span class="contactmargin">{% if item.label|length %}<em>{{ item.label }}</em>{% endif %} {% if item.phoneNumber|length %}<a href="tel:{{ item.phoneNumber|replace({' ': ''}) }}">{{ item.phoneNumber }}</a>{% endif %} {% if item.numberSeparator|length %}{{ item.numberSeparator }}{% endif %} {% if item.secondaryPhoneNumber|length %}<a href="tel:{{ item.secondaryPhoneNumber|replace({' ': ''}) }}">{{ item.secondaryPhoneNumber }}</a>{% endif %}</span> 
+                  {% endif %}
+                {% endfor %}
+              </p>
+              {% endif %}
+              {% if entry.buttons|length %}
+    						{% for item in entry.buttons.all() %}
+    							{% if item.type == "button" %}
+    								{% if item.text|length and (item.entry|length or item.linkUrl|length or item.download|length) %}
+                      {% set isPopup = false %}
+                      {% if item.entry|length %}
+                        {% if item.entry.one().section.handle == 'popups' %}
+                          {% set isPopup = true %}
+                        {% endif %}
+                      {% endif %}
+    									<a href="{% if item.entry|length %}{{ item.entry.one().url }}{% elseif item.linkUrl|length %}{{ item.linkUrl }}{% elseif item.download|length %}{{ item.download.one().url }}{% endif %}" class="btn {% if isPopup == true %}popuplink{% endif %} {% if item.brochureIcon %}btn--brochure{% endif %}" {% if isPopup == true %}data-popup="{{ item.entry.one().slug }}"{% endif %} {% if item.openInNewTab %}target="_blank"{% endif %}>{{ item.text }}</a>
+    								{% endif %}
+    							{% endif %}
+    						{% endfor %}
+      				{% endif %}
+            </div>
+          </div>
+          {% if entry.topPanelScrollingGallery|length %}
+            <div class="section__boximgside">
+              <div class="section_gallery">
+                <div id="section2gallery" class="section_galleryid">
+                  {% for img in entry.topPanelScrollingGallery.all() %}
+                  <div class="galleryItem section_galleryitem" style="background-image:url({{ img.getUrl('boxesFirstPanelImage') }})">
+                    <div class="section_galleryitemimgholder"><img src="{{ img.getUrl('boxesFirstPanelImage') }}" class="section_galleryitemimg" alt="{{ img.title }}" /></div>
+                  </div>    
+                  {% endfor %}
+                </div>
+                <script type="text/javascript">
+                <!--
+                  $(function() {
+                    $('#section2gallery').imageGallery({ itemButtons:false, nextPrevButtons:true, autoplay:true, speed:5000, callback:function() {
+                      slideRender($('#section2gallery').find('.activeItem'));
+                    }});
+                  });
+                 //-->
+                </script>
+              </div>
+            </div>
+          {% endif %}
+        {% else %}
+        
+          <div class="section__half section__half--left">
+            {% if entry.topPanelHeading|length %}
+              {{ entry.topPanelHeading }}
+            {% endif %}
+            {% if entry.topPanelIntroduction|length %}
+              <div class="section__intro">
+                {{ entry.topPanelIntroduction }}
+              </div>
+            {% endif %}
+            {% if entry.topPanelContent|length %}
+              {{ entry.topPanelContent }}
+            {% endif %}  
+            {% if entry.buttons|length %}
+  						{% for item in entry.buttons.all() %}
+  							{% if item.type == "button" %}
+  								{% if item.text|length and (item.entry|length or item.linkUrl|length or item.download|length) %}
+                    {% set isPopup = false %}
+                    {% if item.entry|length %}
+                      {% if item.entry.one().section.handle == 'popups' %}
+                        {% set isPopup = true %}
+                      {% endif %}
+                    {% endif %}
+  									<a href="{% if item.entry|length %}{{ item.entry.one().url }}{% elseif item.linkUrl|length %}{{ item.linkUrl }}{% elseif item.download|length %}{{ item.download.one().url }}{% endif %}" class="btn {% if isPopup == true %}popuplink{% endif %}  {% if item.brochureIcon %}btn--brochure{% endif %}" {% if isPopup == true %}data-popup="{{ item.entry.one().slug }}"{% endif %} {% if item.openInNewTab %}target="_blank"{% endif %}>{{ item.text }}</a>
+  								{% endif %}
+  							{% endif %}
+  						{% endfor %}
+    				{% endif %}
+          </div>
+          {% if entry.topPanelScrollingGallery|length %}
+            <div class="section__half section__half--right">                
+              <div class="section_gallery">
+                <div id="section2gallery" class="section_galleryid">
+                  {% for img in entry.topPanelScrollingGallery.all() %}
+                  <div class="galleryItem section_galleryitem" style="background-image:url({{ img.getUrl('bannerPanelGallery') }})">
+                    <div class="section_galleryitemimgholder"><img src="{{ img.getUrl('bannerPanelGallery') }}" class="section_galleryitemimg" alt="{{ img.title }}" /></div>
+                  </div>    
+                  {% endfor %}
+                </div>
+                <script type="text/javascript">
+                <!--
+                  $(function() {
+                    $('#section2gallery').imageGallery({ itemButtons:false, nextPrevButtons:true, autoplay:true, speed:5000, callback:function() {
+                      slideRender($('#section2gallery').find('.activeItem'));
+                    }});
+                  });
+                 //-->
+                </script>
+              </div>
+            </div>
+          {% endif %}
+        
+        {% endif %}
+        
+      </div>
+      
+        
+      
+    </div>
+    
+    {% if entry.firstSectionStyling == 'greyBoxes' %}
+    <div class="section__endgrey">&nbsp;</div>
+    {% endif %} 
+    
+  </div>  
+  
+  {% include "layouts/_bannerpanels" %}
+  
+  {% set endGalleryNum = finalSectionNum - 1 %}
+  {% if entry.displayContactForm is defined and entry.displayContactForm %}
+    {% set endGalleryNum = endGalleryNum - 1 %}
+  {% endif %}
+  {% if entry.endGallery|length %}
+  <div id="section{{ endGalleryNum }}">
+    <div class="section section--white">
+      <div class="endgallery">
+        <div class="endgallery__lrgopts">
+          {% for opt in entry.endGallery.all() %}
+            <div class="endgallery__lrgopt" data-fullimg="{{ opt.url }}">
+              <img src="{{ opt.getUrl('endGalleryLargeImage') }}" alt="{{ opt.title }}" class="endgallery__lrgoptimg" />
+            </div>
+          {% endfor %}
+        </div>
+        <div class="endgallery__optsholderouter">
+          <div class="endgallery__optsholder">
+            <div class="endgallery__opts">
+              {% for opt in entry.endGallery.all() %}<div class="endgallery__opt" data-fullimg="{{ opt.url }}">
+                  <img src="{{ opt.getUrl('endGalleryThumbnail') }}" alt="{{ opt.title }}" class="endgallery__optimg" />
+                </div>{% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  
+  {% if entry.endFormHeading|length or entry.endForm|length %}
+    <div class="section section--contact section--endcontact section--mooringcontact section--bannerpanelscontact" id="section{{ mooringContactNum }}">
+      <div class="container">
+        {% if entry.endFormHeading|length %}
+          {{ entry.endFormHeading|replace({'<p>':'<h2 class="h1">', '</p>':'</h2>'})|raw }}
+        {% endif %}
+        {% if entry.endForm|length %}
+          <div class="freeformpanelarea">
+            {{ entry.endForm.render() }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+  
+  
+  
+{% endif %}

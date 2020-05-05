@@ -1,0 +1,108 @@
+			{% if entry.memberships|length or entrt.membershipsPanelContent|length or entry.membershipsPanelDisclaimer|length or entry.membershipsPanelButtons|length %}
+<div id="section{% if passesStatus == true %}4{% else %}3{% endif %}">
+  <div class="section section--white">
+    <div class="section__panelarea">
+      <div class="section__panelareainner">
+        <div class="container">
+          {% if entry.membershipsPanelContent|length %}
+            <div class="section__panelareatopcontent">
+              {{ entry.membershipsPanelContent }}
+            </div>
+          {% endif %}
+          
+          {% if entry.memberships|length %}
+            {% for membership in entry.memberships.all() %}
+              {% if membership.type == "membership" %}
+                <div class="membership {% if loop.last %}membership--last{% endif %} cs">
+                  <div class="membership__name tb">
+                    <div class="tb__c">
+                      {% if membership.nameText|length or membership.nameBoldText|length %}
+                        {% if membership.nameText|length %}{{ membership.nameText }}{% endif %}
+                        {% if membership.nameBoldText|length %}<div class="membership__namebold">{{ membership.nameBoldText }}</div>{% endif %}
+                      {% else %}
+                        &nbsp;
+                      {% endif %}
+                    </div>
+                  </div>
+                  {% if membership.options|length %}
+                    <div class="membership__options">
+                      {% for item in membership.options %}
+                        {% if item.darkColumnBoldText|length or item.darkColumnRegularText|length or item.column1RegularText|length or item.column1BoldText|length or item.column2RegularText|length or item.column2BoldText|length %}
+                          <div class="membership__option">
+                            
+                            <div class="membership__optioncell membership__optioncell--highlighted">
+                              {% if item.darkColumnBoldText|length or item.darkColumnRegularText|length %}
+                                {% if item.darkColumnBoldText|length %}<strong>{{ item.darkColumnBoldText }}</strong> {% endif %}
+                                {% if item.darkColumnRegularText|length %}{{ item.darkColumnRegularText }}{% endif %}
+                              {% else %}  
+                                &nbsp;
+                              {% endif %}
+                            </div>
+                            <div class="membership__optioncell membership__optioncell--regular">
+                              {% if item.column1RegularText|length or item.column1BoldText|length %}
+                                {% if item.column1RegularText|length %}{{ item.column1RegularText }} {% endif %}
+                                {% if item.column1BoldText|length %}<strong>{{ item.column1BoldText }}</strong>{% endif %}
+                              {% endif %}
+                            </div>
+                            <div class="membership__optioncell membership__optioncell--regular">
+                              {% if item.column2RegularText|length or item.column2BoldText|length %}
+                                {% if item.column2RegularText|length %}{{ item.column2RegularText }} {% endif %}
+                                {% if item.column2BoldText|length %}<strong>{{ item.column2BoldText }}</strong>{% endif %}
+                              {% endif %}
+                            </div>
+                            
+                          </div>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                  <div class="membership__enddetail tb">
+                    <div class="tb__c">
+                    {% if membership.endText|length %}
+                      {{ membership.endText }}
+                    {% else %}
+                      &nbsp;
+                    {% endif %}
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          {% if entry.membershipsPanelDisclaimer|length or entry.membershipsPanelButtons|length %}
+            <div class="section__panelareaend cs">
+              
+              {% if entry.membershipsPanelDisclaimer|length %}
+                <div class="section__panelareadisclaimer">
+                  {{ entry.membershipsPanelDisclaimer }}
+                </div>
+              {% endif %}
+              
+              {% if entry.membershipsPanelButtons|length %}
+                <div class="{% if entry.membershipsPanelDisclaimer|length %}section__panelareabtns{% endif %}">
+                  {% for item in entry.membershipsPanelButtons.all() %}
+                    {% if item.type == "button" %}
+                      {% if item.text|length and (item.entry|length or item.linkUrl|length or item.download|length) %}
+											{% set isPopup = false %}
+											{% if item.entry|length %}
+												{% if item.entry.one().section.handle == 'popups' %}
+													{% set isPopup = true %}
+												{% endif %}
+											{% endif %}
+											
+                        <a href="{% if item.entry|length %}{{ item.entry.one().url }}{% elseif item.linkUrl|length %}{{ item.linkUrl }}{% elseif item.download|length %}{{ item.download.one().url }}{% endif %}" class="btn section__panelareabtn {% if isPopup == true %}popuplink{% endif %}" {% if isPopup == true %}data-popup="{{ item.entry.one().slug }}"{% endif %} {% if item.openInNewTab %}target="_blank"{% endif %}>{{ item.text }}</a>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+            
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+

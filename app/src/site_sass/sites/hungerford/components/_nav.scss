@@ -1,0 +1,30 @@
+.nav__li:before {  
+  background: #fff; 
+}
+.nav__a { 
+  color: #cecece; 
+}
+.nav__li:hover .nav__a, .active .nav__a { 
+  color: #fff;
+  /*font-weight: 400;*/
+}
+.menu-toggle__line { 
+  background: #fff; 
+}
+.menu-toggle__text { 
+  color: #fff; 
+}
+.nav__innerspacing {
+  background: rgba(157,157,150,0.85);
+}/*
+@media(max-width:700px){
+  .nav__li {
+    margin-bottom: 16px;
+    font-size: 142%;
+  }
+}
+@media(max-width:600px){
+  .nav__li {
+    font-size: 125%;
+  }
+}*/
