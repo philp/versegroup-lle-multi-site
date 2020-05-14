@@ -8,7 +8,7 @@ var paths = {
     src: {
         longashestypesass: {
             site: [
-              'app/src/site_sass/templatetypes/longashes/**/*.scss',
+                'app/src/site_sass/templatetypes/longashes/**/*.scss',
             ]
         },
         longashessass: {
@@ -102,38 +102,36 @@ Object.keys(tasks).forEach(function (name) {
     gulp.task(name, tasks[name]);
 });
 
-gulp.task('longashes-css', ['build-longashes-sass']);
-gulp.task('gamekeepers-css', ['build-gamekeepers-sass']);
-gulp.task('longashestype-css', ['build-longashestype-sass']);
-gulp.task('tattenhall-css', ['build-tattenhall-sass']);
-gulp.task('greathaywood-css', ['build-greathaywood-sass']);
-gulp.task('bellavista-css', ['build-bellavista-sass']);
-gulp.task('deganwy-css', ['build-deganwy-sass']);
-gulp.task('sauljunction-css', ['build-sauljunction-sass']);
-gulp.task('boatsales-css', ['build-boatsales-sass']);
-gulp.task('hungerford-css', ['build-hungerford-sass']);
-gulp.task('roydon-css', ['build-roydon-sass']);
-gulp.task('js', ['build-scripts-site']);
-gulp.task('svg', ['build-svg','css-postsvg']);
-gulp.task('css-postsvg', ['build-svg'], function() {
-    gulp.start('longashes-css');
-    gulp.start('gamekeepers-css');
-    gulp.start('longashestype-css');
-    gulp.start('tattenhall-css');
-    gulp.start('greathaywood-css');
-    gulp.start('bellavista-css');
-    gulp.start('deganwy-css');
-    gulp.start('sauljunction-css');
-    gulp.start('boatsales-css');
-    gulp.start('hungerford-css');
-    gulp.start('roydon-css');
-});
+gulp.task('longashes-css', gulp.series('build-longashes-sass'));
+gulp.task('gamekeepers-css', gulp.series('build-gamekeepers-sass'));
+gulp.task('longashestype-css', gulp.series('build-longashestype-sass'));
+gulp.task('tattenhall-css', gulp.series('build-tattenhall-sass'));
+gulp.task('greathaywood-css', gulp.series('build-greathaywood-sass'));
+gulp.task('bellavista-css', gulp.series('build-bellavista-sass'));
+gulp.task('deganwy-css', gulp.series('build-deganwy-sass'));
+gulp.task('sauljunction-css', gulp.series('build-sauljunction-sass'));
+gulp.task('boatsales-css', gulp.series('build-boatsales-sass'));
+gulp.task('hungerford-css', gulp.series('build-hungerford-sass'));
+gulp.task('roydon-css', gulp.series('build-roydon-sass'));
+gulp.task('js', gulp.series('build-scripts-site'));
+gulp.task('css-postsvg', gulp.series('build-svg', gulp.parallel(
+    'longashes-css',
+    'gamekeepers-css',
+    'longashestype-css',
+    'tattenhall-css',
+    'greathaywood-css',
+    'bellavista-css',
+    'deganwy-css',
+    'sauljunction-css',
+    'boatsales-css',
+    'hungerford-css',
+    'roydon-css'
+)));
+gulp.task('svg', gulp.series('build-svg', 'css-postsvg'));
 
-gulp.task('build', function () {
-    gulp.start('svg','js');
-});
+gulp.task('build', gulp.series('svg', 'js'))
 
-gulp.task('watch', ['build'], function () {
+gulp.task('watch', gulp.series('build', function () {
     gulp.watch(paths.src.svg.site, ['svg']);
     gulp.watch(paths.src.longashessass.site, ['longashes-css']);
     gulp.watch(paths.src.gamekeeperssass.site, ['gamekeepers-css']);
@@ -147,10 +145,9 @@ gulp.task('watch', ['build'], function () {
     gulp.watch(paths.src.hungerfordsass.site, ['hungerford-css']);
     gulp.watch(paths.src.roydonsass.site, ['roydon-css']);
     gulp.watch(paths.src.js.site, ['js']);
-});
+}));
 
 
 // Set the default task when you run gulp, first clean, then normal functions
-gulp.task('default', function () {
-    gulp.start('build', 'watch');
-});
+gulp.task('default', gulp.series('build', 'watch'));
+
