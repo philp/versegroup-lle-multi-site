@@ -193,7 +193,7 @@ if($last>=time()-900){
 				}
 				$results[] = array(
 					'text' => $text,
-					'url' => $post['images']['standard_resolution']['url'],
+					'url' => $post['images']['low_resolution']['url'],
 					'type' => 'instagram',
 					'created_at' => intval($post['created_time']) * 1000,
 					'link' => 'https://www.instagram.com/' . $post['user']['username'],
