@@ -54,6 +54,8 @@ if (navigator.userAgent.indexOf("MSIE") >= 0) {
 {{ currentGlobals.analyticsCode|raw }}
 {% endif %}
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.1-rc1/lazysizes.min.js" integrity="sha256-Cx0mLlwRKRRIelOwUpAEaZvtvUDvYLDdyPh9S9GCz3k=" crossorigin="anonymous"></script>
+
 {% if currentSite.handle == 'longAshesPark' %}
 <!-- Facebook Pixel Code -->
 <script>
@@ -66,11 +68,11 @@ t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window,document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 
- fbq('init', '1681864552062348'); 
+ fbq('init', '1681864552062348');
 fbq('track', 'PageView');
 </script>
 <noscript>
- <img height="1" width="1" 
+ <img height="1" width="1"
 src="https://www.facebook.com/tr?id=1681864552062348&ev=PageView
 &noscript=1"/>
 </noscript>
