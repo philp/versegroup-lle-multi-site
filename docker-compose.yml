@@ -11,19 +11,19 @@ services:
     volumes_from:
       - craft
     volumes:
-      - ./default.conf:/etc/nginx/conf.d/default.conf # nginx configuration (see below)
-      - ./web/assets:/var/www/html/web/assets # For static assets (media, js and css).
+      - ./default.conf:/etc/nginx/conf.d/default.conf:delegated # nginx configuration (see below)
+      - ./web/assets:/var/www/html/web/assets:delegated # For static assets (media, js and css).
 
   craft:
     image: urbantrout/craftcms:mysql # Use mysql instead of postgresql
     depends_on:
       - mariadb
     volumes:
-      - ./web/assets:/var/www/html/web/assets
-      - ./backups:/var/www/html/storage/backups # Used for db restore on start.
-      - ./templates:/var/www/html/templates # Craft CMS template files
-      - ./translations:/var/www/html/translations
-      - ./redactor:/var/www/html/config/redactor
+      - ./web/assets:/var/www/html/web/assets:delegated
+      - ./backups:/var/www/html/storage/backups:delegated # Used for db restore on start.
+      - ./templates:/var/www/html/templates:delegated # Craft CMS template files
+      - ./translations:/var/www/html/translations:delegated
+      - ./redactor:/var/www/html/config/redactor:delegated
     environment:
       # DEPENDENCIES: >- # additional composer packages
         # yiisoft/yii2-redis
@@ -61,7 +61,7 @@ services:
       MYSQL_DATABASE: craft
     volumes:
       # Persistent data
-      - dbdata:/var/lib/mysql
+      - dbdata:/var/lib/mysql:delegated
 
   redis:
     image: redis:4-alpine
