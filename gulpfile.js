@@ -70,6 +70,7 @@ var paths = {
                 'app/src/site_js/jquery.imageGallery.js',
                 'app/src/site_js/slick.js',
                 'app/src/site_js/components/*.js',
+                'app/src/site_js/lazysizes.min.js',
                 'app/src/site_js/site/*.js'
             ]
         },
