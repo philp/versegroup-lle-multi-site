@@ -23,10 +23,15 @@
 </script>
 <![endif]-->
 
-<link rel="stylesheet" href="{{ siteUrl }}assets/css/slick.css">
-<link rel="stylesheet" href="{{ siteUrl }}assets/css/swipebox.min.css">
+<link rel="preload" href="{{ siteUrl }}assets/css/slick.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="{{ siteUrl }}assets/css/swipebox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="{{ siteUrl }}assets/css/slick.css">
+  <link rel="stylesheet" href="{{ siteUrl }}assets/css/swipebox.min.css">
+</noscript>
 <link rel="stylesheet" href="{{ siteUrl }}assets/css/templatetypes/longashes/global.css">
 <link rel="stylesheet" href="{{ siteUrl }}assets/css/{{ currentSite.handle }}/global.css">
+
 <script src="{{ siteUrl }}assets/js/global-min.js"></script>
 
 <link rel="apple-touch-icon" sizes="57x57" href="{{ siteUrl }}assets/favicons/{{ currentSite.handle }}/apple-touch-icon-57x57.png" />
