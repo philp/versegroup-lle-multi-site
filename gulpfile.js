@@ -62,8 +62,11 @@ var paths = {
             ]
         },
         js: {
-            site: [
+            critical: [
                 'app/src/site_js/jquery.js',
+                'app/src/site_js/lazysizes.min.js'
+            ],
+            site: [
                 'app/src/site_js/throttle-debounce.js',
                 'app/src/site_js/jquery.swipebox.js',
                 'app/src/site_js/jquery.infiniteScroll.js',
@@ -113,6 +116,7 @@ gulp.task('sauljunction-css', ['build-sauljunction-sass']);
 gulp.task('boatsales-css', ['build-boatsales-sass']);
 gulp.task('hungerford-css', ['build-hungerford-sass']);
 gulp.task('roydon-css', ['build-roydon-sass']);
+gulp.task('critical-js', ['build-scripts-critical']);
 gulp.task('js', ['build-scripts-site']);
 gulp.task('svg', ['build-svg','css-postsvg']);
 gulp.task('css-postsvg', ['build-svg'], function() {
@@ -130,7 +134,7 @@ gulp.task('css-postsvg', ['build-svg'], function() {
 });
 
 gulp.task('build', function () {
-    gulp.start('svg','js');
+    gulp.start('svg','critical-js','js');
 });
 
 gulp.task('watch', ['build'], function () {

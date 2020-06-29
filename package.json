@@ -22,5 +22,8 @@
     "babel-polyfill": "^6.26.0",
     "del": "^3.0.0",
     "natives": "^1.1.6"
+  },
+  "resolutions": {
+    "graceful-fs": "4.2.3"
   }
 }
